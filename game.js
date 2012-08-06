@@ -20,7 +20,8 @@ var heroImage = new Image();
 /*heroImage.onload = function(){
 		heroReady = true;
 };*/
-heroImage.src = "images/arrows.png";
+//heroImage.src = "images/arrows.png";
+heroImage.src = "images/char.png";
 
 //monster
 var monsterReady = false;
@@ -32,9 +33,11 @@ monsterImage.src = "images/monster.png";
 
 /*--------------- new codes from CJ --------- */
 var frameIndex = 0;
+var direction = 0;
 
 /*hero_moved: 1 ms(src image change!), 2ms, 3ms, 4ms, 5ms(src image change!)*/
 var hero_moved = 1;
+
 
 /*end of new codes from CJ(glob. variables)*/
 
@@ -69,27 +72,28 @@ var reset = function(){
 		monster.x = 32 + (Math.random()* (canvas.width - 64));
 		monster.y = 32 + (Math.random()* (canvas.height - 64));
 };
+
 //update game objects
 var update = function (modifier){
 		if (38 in keysDown){ //player holding up
 			hero.y -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation();
+			animation(2);
 		}
 		if (40 in keysDown){ //player holding down
 			hero.y += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation();
+			animation(3);
 		}
 		if (37 in keysDown){ //holding left
 			hero.x -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation();
+			animation(1);
 		}
 		if (39 in keysDown){
 			hero.x += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation();
+			animation(0);
 		}	
 		//touching something
 		if(
@@ -110,7 +114,7 @@ var render = function(){
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, frameIndex*64, 0, 64,64 ,hero.x, hero.y, 32,32);
+				ctx.drawImage(heroImage, (direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 32,32);
 		//}
 		if(monsterReady){
 				ctx.drawImage(monsterImage, monster.x, monster.y);
@@ -143,7 +147,7 @@ var youwin = function()
 		ctx.fillText("You win!!", 50,50);
 	}
 }
-var animation = function()
+var animation = function(d)
 {
 	/*
 	if(frameIndex == 1)
@@ -151,6 +155,11 @@ var animation = function()
 		frameIndex = 0;
 	}
 	*/
+	if(direction != d)
+	{
+		hero_moved = 5;
+		direction = d;
+	}
 	if(hero_moved > 5)
 	{
 		hero_moved =1;
