@@ -75,6 +75,8 @@ var reset = function(){
 
 //update game objects
 var update = function (modifier){
+		var old_hero_x = hero.x;
+		var old_hero_y = hero.y;
 		if (38 in keysDown){ //player holding up
 			hero.y -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
@@ -95,7 +97,9 @@ var update = function (modifier){
 			hero_moved += 1;// CJ's code
 			animation(0);
 		}	
-		//touching something
+		/*collision detections */
+		
+		//touching monster
 		if(
 				hero.x <= (monster.x + 32)
 				&& monster.x <= (hero.x + 32)
@@ -105,8 +109,27 @@ var update = function (modifier){
 				++monsterCaught;
 				reset();
 			}
+		//touching border
+		if (38 in keysDown){ //player holding up
+			if(hero.y < 0)
+				hero.y = old_hero_y;
+		}
+		if (40 in keysDown){ //player holding down
+			if(hero.y > 448) // 480 - 32
+				hero.y = old_hero_y;
+		}
+		if (37 in keysDown){ //holding left
+			if(hero.x < 0)
+				hero.x = old_hero_x;
+		}
+		if (39 in keysDown){
+			if(hero.x > 480)
+				hero.x = old_hero_x;
+		}
+		/* end of collision detections */
 		};
-		//draw everything
+		
+//draw everything
 var render = function(){
 
 		if(bgReady){
@@ -149,12 +172,6 @@ var youwin = function()
 }
 var animation = function(d)
 {
-	/*
-	if(frameIndex == 1)
-	{
-		frameIndex = 0;
-	}
-	*/
 	if(direction != d)
 	{
 		hero_moved = 5;
