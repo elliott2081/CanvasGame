@@ -35,6 +35,9 @@ monsterImage.src = "images/redArrow.png";
 var frameIndex = 0;
 var direction = 0;
 
+var monster_frameIndex = 0;
+var monster_moved = 1;
+
 /*hero_moved: 1 ms(src image change!), 2ms, 3ms, 4ms, 5ms(src image change!)*/
 var hero_moved = 1;
 
@@ -49,6 +52,7 @@ var hero = {
 		y: 0
 		};
 var monster = {
+		speed: 228,
 		x: 0,
 		y: 0,
 		//1 = down, 2 = left , 3 = up, 0 = right 
@@ -79,36 +83,69 @@ var reset = function(){
 var update = function (modifier){
 		var old_hero_x = hero.x;
 		var old_hero_y = hero.y;
+		/*if(37 in keysDown && 38 in keysDown){//DIAGANOLS (left & up)
+			hero.x -= hero.speed * modifier;
+			hero_moved += 1;// CJ's code
+			hero.y -= hero.speed * modifier;
+			hero_moved += 1;// CJ's code
+			animation(2);
+
+		}else */
 		if (38 in keysDown){ //player holding up
 			hero.y -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(3);
+			animation(3,1);
 		}
-		if (40 in keysDown){ //player holding down
+		else if (40 in keysDown){ //player holding down
 			hero.y += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(1);
+			animation(1,1);
 		}
-		if (37 in keysDown){ //holding left
+		else if (37 in keysDown){ //holding left
 			hero.x -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(2);
+			animation(2,1);
 		}
-		if (39 in keysDown){ //holding right
+		else if (39 in keysDown){ //holding right
 			hero.x += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(0);
+			animation(0,1);
 		}
-		//DIAGANOLS
-		/*
-		if(37 in keysDown && 38 in keysDown){
-			hero.x -= hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			hero.y -= hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			animation(2);
+	
+		//monster x, y changes here
+		if (38 in keysDown){ //player holding up
+			monster.y -= monster.speed*modifier;
+			monster_moved+=1;
+			animation(3,2);
 		}
-		*/	
+		else if (40 in keysDown){ //player holding down
+			monster.y += monster.speed*modifier;
+			monster_moved+=1;
+			animation(1,2);
+		}
+		else if (37 in keysDown){ //holding left
+			monster.x -= monster.speed*modifier;
+			monster_moved+=1;
+			animation(2,2);
+		}
+		else if (39 in keysDown){ //holding right
+			monster.x += monster.speed*modifier;
+			monster_moved+=1;
+			animation(0,2);
+		}else
+		{
+		
+			
+		}		
+		/* temporary testing for monster's movement
+		monster.direction = Math.floor(Math.random()*4);
+		monster.x = monster.x + 1;
+		monster.y = monster.y + 1;
+		*/
+		
+		
+		
+			
 		/*collision detections */
 		
 		//touching monster
@@ -121,7 +158,28 @@ var update = function (modifier){
 				++monsterCaught;
 				reset();
 			}
-		//touching border
+		//touching border for hero
+			if(hero.y < 0)
+				hero.y = old_hero_y;
+			if(hero.y > 416) // 480 - 64
+				hero.y = old_hero_y;
+			if(hero.x < 0)
+				hero.x = old_hero_x;
+			if(hero.x > 448) //512 -64
+				hero.x = old_hero_x;
+				
+		//touching border for monster
+			if(monster.y < 0)
+				monster.y = 0;
+			if(monster.y > 416) // 480 - 64
+				monster.y = 416;
+			if(monster.x < 0)
+				monster.x = 0;
+			if(monster.x > 448) //512 -64
+				monster.x = 448;
+				
+		
+		/* old border collision detection 
 		if (38 in keysDown){ //player holding up
 			if(hero.y < 0)
 				hero.y = old_hero_y;
@@ -137,13 +195,12 @@ var update = function (modifier){
 		if (39 in keysDown){
 			if(hero.x > 480)
 				hero.x = old_hero_x;
-		}
+		}*/
 		/* end of collision detections */
 		
-		monster.direction = Math.random(3);
-		monster.x = monster.x + 1;
-		monster.y = monster.y + 1;
-		};
+		
+		
+		}; 
 		
 //draw everything
 var render = function(){
@@ -157,7 +214,7 @@ var render = function(){
 		//}
 		if(monsterReady){
 			
-				ctx.drawImage(monsterImage, monster.x, monster.y);
+				ctx.drawImage(monsterImage, (monster.direction*128 + monster_frameIndex*64), 0, 64, 64, monster.x, monster.y, 64, 64);
 		}
 		//score
 		ctx.fillStyle = "rgb(250, 250, 250)";
@@ -188,10 +245,10 @@ var youwin = function()
 	}
 }
 //d is direction pressed
-var animation = function(d){
-//var animation = function(d, hero_or_monster){
+var animation = function(d, hero_or_monster){
 
-	//if(hero_or_monster == 1){
+
+	if(hero_or_monster == 1){
 		if(direction != d)
 		{
 			hero_moved = 5;
@@ -208,10 +265,25 @@ var animation = function(d){
 			else
 				frameIndex = 1;
 		}
-	//}else{
+	}else{
 		//logic for monster movement
-		
-	//}
+		if(monster.direction != d)
+		{
+			monster_moved = 5;
+			monster.direction  = d;
+		}
+		if(monster_moved > 5)
+		{
+			monster_moved =1;
+		}
+		if(monster_moved == 5)
+		{
+			if(monster_frameIndex == 1)
+				monster_frameIndex = 0;
+			else
+				monster_frameIndex = 1;
+		}
+	}
 	/*frameIndex testing*/
 		ctx.fillStyle = "#000000";
 		ctx.font = "24px _sans";
