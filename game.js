@@ -21,7 +21,7 @@ var heroImage = new Image();
 		heroReady = true;
 };*/
 //heroImage.src = "images/arrows.png";
-heroImage.src = "images/char.png";
+heroImage.src = "images/greenArrow.png";
 
 //monster
 var monsterReady = false;
@@ -29,7 +29,7 @@ var monsterImage = new Image();
 monsterImage.onload = function(){
 		monsterReady = true;
 };
-monsterImage.src = "images/monster.png";
+monsterImage.src = "images/redArrow.png";
 
 /*--------------- new codes from CJ --------- */
 var frameIndex = 0;
@@ -137,7 +137,7 @@ var render = function(){
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, (direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 32,32);
+				ctx.drawImage(heroImage, (direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 64,64);
 		//}
 		if(monsterReady){
 				ctx.drawImage(monsterImage, monster.x, monster.y);
