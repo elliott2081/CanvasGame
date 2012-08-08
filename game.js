@@ -1,11 +1,11 @@
 //create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 512;
-canvas.height = 480;
+canvas.width = 960;
+canvas.height = 1024;
 //put canvas into document(html)
 document.body.appendChild(canvas);
-
+/*
 //background image.
 var bgReady = false;
 var bgImage = new Image();
@@ -13,6 +13,19 @@ bgImage.onload = function(){
 		bgReady = true;
 };
 bgImage.src = "images/background.png";
+*/
+//new back ground related
+	var tileSheet = new Image();
+	//tileSheet.addEventListener('load', eventSheetLoaded , false);
+	var bgReady = false;
+	tileSheet.onload = function(){
+		bgReady = true;
+	};
+	tileSheet.src = "images/tilesheet.png";
+	var mapIndexOffset = -1;
+	var mapRows = 16;
+	var mapCols = 15;
+
 
 //hero
 //var heroReady = false;
@@ -32,6 +45,10 @@ monsterImage.onload = function(){
 monsterImage.src = "images/redArrow.png";
 
 /*--------------- new codes from CJ --------- */
+
+var redo_map = true;	
+	
+
 var frameIndex = 0;
 //moved to hero variable -> var direction = 0;
 
@@ -173,11 +190,11 @@ var update = function (modifier){
 			if(monster.y < 0)
 				monster.y = 0;
 			if(monster.y > (canvas.height-64)) // 480 - 64
-				monster.y = 416;
+				monster.y = canvas.height-64;
 			if(monster.x < 0)
 				monster.x = 0;
 			if(monster.x > (canvas.width-64)) //512 -64
-				monster.x = 448;
+				monster.x = canvas.width-64;
 				
 		
 		/* old border collision detection 
@@ -202,12 +219,47 @@ var update = function (modifier){
 		
 		
 		}; 
-		
-//draw everything
+var drawmap = function(){
+	if(redo_map && bgReady){	
+				//ctx.drawImage(bgImage, 0,0); 
+				/*drawing map should be seperated from render and placed before render on main function
+				  make gloable variable that give condition(for now call it redo_map) for drawing map so that we can check to see if 
+				  map needs to be redrawn. 
+				  redo_map needs to be changed when hero reaches certain location on the map.
+				*/
+		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
+			for (var colCtr=0;colCtr<mapCols;colCtr++){
+				var tileId = tileMap[rowCtr][colCtr]+mapIndexOffset;
+				var sourceX = (tileId *32);
+				console.log(tileId*32);
+				//var sourceY = Math.floor(tileId / 8) *32;
+				ctx.drawImage(tileSheet, sourceX,
+				0,32,32,colCtr*64,rowCtr*64,64,64);
+			}
+		} 
+		redo_map = false;
+	}
+}
+//draw everything(but map)
 var render = function(){
 
 		if(bgReady){
-				ctx.drawImage(bgImage, 0,0); 
+				//ctx.drawImage(bgImage, 0,0); 
+				/*drawing map should be seperated from render and placed before render on main function
+				  make gloable variable that give condition(for now call it redo_map) for drawing map so that we can check to see if 
+				  map needs to be redrawn. 
+				  redo_map needs to be changed when hero reaches certain location on the map.
+				*/
+			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
+				for (var colCtr=0;colCtr<mapCols;colCtr++){
+					var tileId = tileMap[rowCtr][colCtr]+mapIndexOffset;
+					var sourceX = (tileId *32);
+					console.log(tileId*32);
+					//var sourceY = Math.floor(tileId / 8) *32;
+					ctx.drawImage(tileSheet, sourceX,
+					0,32,32,colCtr*64,rowCtr*64,64,64);
+				}
+			} 
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
@@ -217,6 +269,7 @@ var render = function(){
 			
 				ctx.drawImage(monsterImage, (monster.direction*128 + monster_frameIndex*64), 0, 64, 64, monster.x, monster.y, 64, 64);
 		}
+		
 		//score
 		ctx.fillStyle = "rgb(250, 250, 250)";
 		ctx.font = "24px Helvetica";
@@ -237,7 +290,7 @@ var youwin = function()
 {
 	if(monsterCaught >= 5)
 	{
-	clearInterval (simulator);
+		clearInterval (simulator);
 		ctx.fillStyle = "rgb(250, 250, 250)";
 		ctx.font = "24px Helvetica";
 		ctx.textAlign = "left";
@@ -301,6 +354,7 @@ var main = function() {
 		var delta = now - then;
 		
 		update(delta / 1000);
+		drawmap();
 		render();
 		youwin();
 		then = now;
