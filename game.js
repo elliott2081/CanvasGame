@@ -33,7 +33,7 @@ monsterImage.src = "images/redArrow.png";
 
 /*--------------- new codes from CJ --------- */
 var frameIndex = 0;
-var direction = 0;
+//moved to hero variable -> var direction = 0;
 
 var monster_frameIndex = 0;
 var monster_moved = 1;
@@ -49,7 +49,8 @@ var hero_moved = 1;
 var hero = {
 		speed: 256, //movementin pixels per second
 		x: 0,
-		y: 0
+		y: 0,
+		direction: 0
 		};
 var monster = {
 		speed: 228,
@@ -161,21 +162,21 @@ var update = function (modifier){
 		//touching border for hero
 			if(hero.y < 0)
 				hero.y = old_hero_y;
-			if(hero.y > 416) // 480 - 64
+			if(hero.y > (canvas.height-64)) // 480 - 64
 				hero.y = old_hero_y;
 			if(hero.x < 0)
 				hero.x = old_hero_x;
-			if(hero.x > 448) //512 -64
+			if(hero.x > (canvas.width-64)) //512 -64
 				hero.x = old_hero_x;
 				
 		//touching border for monster
 			if(monster.y < 0)
 				monster.y = 0;
-			if(monster.y > 416) // 480 - 64
+			if(monster.y > (canvas.height-64)) // 480 - 64
 				monster.y = 416;
 			if(monster.x < 0)
 				monster.x = 0;
-			if(monster.x > 448) //512 -64
+			if(monster.x > (canvas.width-64)) //512 -64
 				monster.x = 448;
 				
 		
@@ -210,7 +211,7 @@ var render = function(){
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, (direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 64,64);
+				ctx.drawImage(heroImage, (hero.direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 64,64);
 		//}
 		if(monsterReady){
 			
@@ -249,10 +250,10 @@ var animation = function(d, hero_or_monster){
 
 
 	if(hero_or_monster == 1){
-		if(direction != d)
+		if(hero.direction != d)
 		{
 			hero_moved = 5;
-			direction = d;
+			hero.direction = d;
 		}
 		if(hero_moved > 5)
 		{

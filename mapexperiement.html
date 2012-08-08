@@ -30,7 +30,7 @@ function canvasApp(){
 	
 	var tileSheet = new Image();
 	tileSheet.addEventListener('load', eventSheetLoaded , false);
-	tileSheet.src = "images/map2.png";
+	tileSheet.src = "images/tilesheet.png";
 	var mapIndexOffset = -1;
 	var mapRows = 16;
 	var mapCols = 15;
@@ -79,7 +79,7 @@ function canvasApp(){
 				console.log(tileId*32);
 				//var sourceY = Math.floor(tileId / 8) *32;
 				context.drawImage(tileSheet, sourceX,
-				32,32,32,colCtr*32,rowCtr*32,32,32);
+				32,32,32,colCtr*64,rowCtr*64,64,64);
 			}
 		}
 	}
@@ -92,7 +92,7 @@ function canvasApp(){
 </head>
 <body>
 <div style="position: absolute; top: 50px; left: 50px;">
-<canvas id="canvas" width="500" height="500">
+<canvas id="canvas" width="960" height="1024">
  Your browser does not support the HTML 5 Canvas. 
 </canvas>
 </div>
