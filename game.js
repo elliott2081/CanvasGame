@@ -66,8 +66,8 @@ addEventListener("keyup",function(e){
 		
 //Reset the game when the player catches a monster		
 var reset = function(){
-		hero.x = canvas.width / 2;
-		hero.y = canvas.height / 2;
+		//hero.x = canvas.width / 2;
+		//hero.y = canvas.height / 2;
 		
 		monster.x = 32 + (Math.random()* (canvas.width - 64));
 		monster.y = 32 + (Math.random()* (canvas.height - 64));
@@ -80,23 +80,33 @@ var update = function (modifier){
 		if (38 in keysDown){ //player holding up
 			hero.y -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(2);
+			animation(3);
 		}
 		if (40 in keysDown){ //player holding down
 			hero.y += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(3);
+			animation(1);
 		}
 		if (37 in keysDown){ //holding left
 			hero.x -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(1);
+			animation(2);
 		}
-		if (39 in keysDown){
+		if (39 in keysDown){ //holding right
 			hero.x += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
 			animation(0);
-		}	
+		}
+		//DIAGANOLS
+		/*
+		if(37 in keysDown && 38 in keysDown){
+			hero.x -= hero.speed * modifier;
+			hero_moved += 1;// CJ's code
+			hero.y -= hero.speed * modifier;
+			hero_moved += 1;// CJ's code
+			animation(2);
+		}
+		*/	
 		/*collision detections */
 		
 		//touching monster
@@ -170,6 +180,7 @@ var youwin = function()
 		ctx.fillText("You win!!", 50,50);
 	}
 }
+//d is direction pressed
 var animation = function(d)
 {
 	if(direction != d)
