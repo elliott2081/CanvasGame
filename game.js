@@ -50,7 +50,9 @@ var hero = {
 		};
 var monster = {
 		x: 0,
-		y: 0
+		y: 0,
+		//1 = down, 2 = left , 3 = up, 0 = right 
+		direction: 0
 		};
 var monsterCaught =0;
 
@@ -137,6 +139,10 @@ var update = function (modifier){
 				hero.x = old_hero_x;
 		}
 		/* end of collision detections */
+		
+		monster.direction = Math.random(3);
+		monster.x = monster.x + 1;
+		monster.y = monster.y + 1;
 		};
 		
 //draw everything
@@ -150,6 +156,7 @@ var render = function(){
 				ctx.drawImage(heroImage, (direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 64,64);
 		//}
 		if(monsterReady){
+			
 				ctx.drawImage(monsterImage, monster.x, monster.y);
 		}
 		//score
@@ -181,25 +188,30 @@ var youwin = function()
 	}
 }
 //d is direction pressed
-var animation = function(d)
-{
-	if(direction != d)
-	{
-		hero_moved = 5;
-		direction = d;
-	}
-	if(hero_moved > 5)
-	{
-		hero_moved =1;
-	}
-	if(hero_moved == 5)
-	{
-		if(frameIndex == 1)
-			frameIndex = 0;
-		else
-			frameIndex = 1;
-	}
+var animation = function(d){
+//var animation = function(d, hero_or_monster){
 
+	//if(hero_or_monster == 1){
+		if(direction != d)
+		{
+			hero_moved = 5;
+			direction = d;
+		}
+		if(hero_moved > 5)
+		{
+			hero_moved =1;
+		}
+		if(hero_moved == 5)
+		{
+			if(frameIndex == 1)
+				frameIndex = 0;
+			else
+				frameIndex = 1;
+		}
+	//}else{
+		//logic for monster movement
+		
+	//}
 	/*frameIndex testing*/
 		ctx.fillStyle = "#000000";
 		ctx.font = "24px _sans";
