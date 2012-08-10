@@ -45,17 +45,14 @@ monsterImage.onload = function(){
 monsterImage.src = "images/redArrow.png";
 
 /*--------------- new codes from CJ --------- */
-
-var redo_map = true;	
-	
-
+//hero's frameIndex
 var frameIndex = 0;
-//moved to hero variable -> var direction = 0;
+
 
 var monster_frameIndex = 0;
 var monster_moved = 1;
-
-/*hero_moved: 1 ms(src image change!), 2ms, 3ms, 4ms, 5ms(src image change!)*/
+var monster_randomly_moved = 1;
+/*hero_moved: 1 ms(src image change!), 2ms, 3ms, 4ms, 5ms(=src image change!)*/
 var hero_moved = 1;
 
 
@@ -99,6 +96,9 @@ var reset = function(){
 
 //update game objects
 var update = function (modifier){
+
+	
+	
 		var old_hero_x = hero.x;
 		var old_hero_y = hero.y;
 		/*if(37 in keysDown && 38 in keysDown){//DIAGANOLS (left & up)
@@ -152,8 +152,7 @@ var update = function (modifier){
 			animation(0,2);
 		}else
 		{
-		
-			
+			monster_movement_helper(modifier);
 		}		
 		/* temporary testing for monster's movement
 		monster.direction = Math.floor(Math.random()*4);
@@ -216,31 +215,46 @@ var update = function (modifier){
 		}*/
 		/* end of collision detections */
 		
-		
+		//monster randomly moved is incremented here
 		
 		}; 
-var drawmap = function(){
-	if(redo_map && bgReady){	
-				//ctx.drawImage(bgImage, 0,0); 
-				/*drawing map should be seperated from render and placed before render on main function
-				  make gloable variable that give condition(for now call it redo_map) for drawing map so that we can check to see if 
-				  map needs to be redrawn. 
-				  redo_map needs to be changed when hero reaches certain location on the map.
-				*/
-		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
-			for (var colCtr=0;colCtr<mapCols;colCtr++){
-				var tileId = tileMap[rowCtr][colCtr]+mapIndexOffset;
-				var sourceX = (tileId *32);
-				console.log(tileId*32);
-				//var sourceY = Math.floor(tileId / 8) *32;
-				ctx.drawImage(tileSheet, sourceX,
-				0,32,32,colCtr*64,rowCtr*64,64,64);
-			}
-		} 
-		redo_map = false;
-	}
-}
-//draw everything(but map)
+		
+var monster_movement_helper = function(modifier){
+	//for monster's random movement
+	//for every 1 sec when hero does not move, monster will move
+	if(monster_randomly_moved == 100){
+	monster_randomly_moved = 1;
+
+		//between 3~4 : up
+		//between 2~3 : down
+		//between 1~2 : left
+		//between 0~1 : right
+		var monster_random_direction = Math.random() * 4;
+		if(monster_random_direction >= 3){
+			monster.y -=monster.speed*modifier;
+			monster_moved+=1;
+			animation(3, 2);
+		}else if(monster_random_direction >= 2){
+			monster.y += monster.speed * modifier;
+			monster_moved += 1;
+			animation(1, 2);
+		}else if(monster_random_direction >= 1){
+			monster.x -= monster.speed * modifier;
+			monster_moved += 1;
+			animation(2, 2);
+		}else{
+			monster.x += monster.speed * modifier;
+			monster_moved += 1;
+			animation(0, 2);
+		
+		}
+	}		
+
+		monster_randomly_moved ++;
+
+};
+		
+//draw everything
 var render = function(){
 
 		if(bgReady){
@@ -297,7 +311,7 @@ var youwin = function()
 		ctx.textBaseline = "top";
 		ctx.fillText("You win!!", 50,50);
 	}
-}
+};
 //d is direction pressed
 var animation = function(d, hero_or_monster){
 
@@ -340,11 +354,11 @@ var animation = function(d, hero_or_monster){
 	}
 	/*frameIndex testing*/
 		ctx.fillStyle = "#000000";
-		ctx.font = "24px _sans";
+		ctx.font = "24px _sans";  
 		ctx.textBaseline = "top";
 		ctx.fillText("frame: ", 32,64);
 		
-}
+};
 /*end of new codes from CJ*/
 
 
@@ -354,7 +368,6 @@ var main = function() {
 		var delta = now - then;
 		
 		update(delta / 1000);
-		drawmap();
 		render();
 		youwin();
 		then = now;
