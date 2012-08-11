@@ -1,8 +1,8 @@
 //create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 960;
-canvas.height = 1024;
+canvas.width = 480;
+canvas.height = 512;
 //put canvas into document(html)
 document.body.appendChild(canvas);
 /*
@@ -46,6 +46,10 @@ monsterImage.src = "images/redArrow.png";
 
 /*--------------- new codes from CJ --------- */
 //hero's frameIndex
+var tile_size = 32;
+var tile_src_size = 32;
+var char_size = 32;
+var char_src_size = 64;
 var frameIndex = 0;
 
 
@@ -90,8 +94,8 @@ var reset = function(){
 		//hero.x = canvas.width / 2;
 		//hero.y = canvas.height / 2;
 		
-		monster.x = 32 + (Math.random()* (canvas.width - 64));
-		monster.y = 32 + (Math.random()* (canvas.height - 64));
+		monster.x = tile_size + (Math.random()* (canvas.width - tile_size));
+		monster.y = tile_size + (Math.random()* (canvas.height - tile_size));
 };
 
 //update game objects
@@ -167,10 +171,10 @@ var update = function (modifier){
 		
 		//touching monster
 		if(
-				hero.x <= (monster.x + 32)
-				&& monster.x <= (hero.x + 32)
-				&& hero.y <= (monster.y + 32)
-				&& monster.y <= (hero.y + 32)
+				hero.x <= (monster.x + tile_size)
+				&& monster.x <= (hero.x + tile_size)
+				&& hero.y <= (monster.y + tile_size)
+				&& monster.y <= (hero.y + tile_size)
 			){
 				++monsterCaught;
 				reset();
@@ -178,22 +182,22 @@ var update = function (modifier){
 		//touching border for hero
 			if(hero.y < 0)
 				hero.y = old_hero_y;
-			if(hero.y > (canvas.height-64)) // 480 - 64
+			if(hero.y > (canvas.height-tile_size)) // 480 - 64
 				hero.y = old_hero_y;
 			if(hero.x < 0)
 				hero.x = old_hero_x;
-			if(hero.x > (canvas.width-64)) //512 -64
+			if(hero.x > (canvas.width-tile_size)) //512 -64
 				hero.x = old_hero_x;
 				
 		//touching border for monster
 			if(monster.y < 0)
 				monster.y = 0;
-			if(monster.y > (canvas.height-64)) // 480 - 64
-				monster.y = canvas.height-64;
+			if(monster.y > (canvas.height-tile_size)) // 480 - 64
+				monster.y = canvas.height-tile_size;
 			if(monster.x < 0)
 				monster.x = 0;
-			if(monster.x > (canvas.width-64)) //512 -64
-				monster.x = canvas.width-64;
+			if(monster.x > (canvas.width-tile_size)) //512 -64
+				monster.x = canvas.width-tile_size;
 				
 		
 		/* old border collision detection 
@@ -267,21 +271,21 @@ var render = function(){
 			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 				for (var colCtr=0;colCtr<mapCols;colCtr++){
 					var tileId = tileMap[rowCtr][colCtr]+mapIndexOffset;
-					var sourceX = (tileId *32);
-					console.log(tileId*32);
+					var sourceX = (tileId *tile_src_size);
+					console.log(tileId*tile_src_size);
 					//var sourceY = Math.floor(tileId / 8) *32;
 					ctx.drawImage(tileSheet, sourceX,
-					0,32,32,colCtr*64,rowCtr*64,64,64);
+					0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
 				}
 			} 
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, (hero.direction*128 + frameIndex*64), 0, 64,64 ,hero.x, hero.y, 64,64);
+				ctx.drawImage(heroImage, (hero.direction*(char_src_size*2) + frameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
 		if(monsterReady){
 			
-				ctx.drawImage(monsterImage, (monster.direction*128 + monster_frameIndex*64), 0, 64, 64, monster.x, monster.y, 64, 64);
+				ctx.drawImage(monsterImage, (monster.direction*(char_src_size*2) + monster_frameIndex*char_src_size), 0, char_src_size, char_src_size, monster.x, monster.y, char_size, char_size);
 		}
 		
 		//score
