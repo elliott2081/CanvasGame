@@ -71,8 +71,8 @@ var hero_moved = 1;
 //game objects
 var hero = {
 		speed: 256, //movementin pixels per second
-		x: 0,
-		y: 0,
+		x: 90,
+		y: 90,
 		direction: 0
 		};
 var monster = {
