@@ -1,10 +1,15 @@
-//create the canvas
+//create the canva
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 480;
 canvas.height = 512;
 //put canvas into document(html)
 document.body.appendChild(canvas);
+
+// World Map
+var currentTileMap = 0;
+var tileMapArrayDimension = 2; // height and width of theorhetical 2 dimensional tileMapArray
+var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3]; // represented as a 1 dimensional array but thought of as 2
 /*
 //background image.
 var bgReady = false;
@@ -180,15 +185,36 @@ var update = function (modifier){
 				reset();
 			}
 		//touching border for hero
-			if(hero.y < 0)
-				hero.y = old_hero_y;
-			if(hero.y > (canvas.height-tile_size)) // 480 - 64
-				hero.y = old_hero_y;
-			if(hero.x < 0)
-				hero.x = old_hero_x;
-			if(hero.x > (canvas.width-tile_size)) //512 -64
-				hero.x = old_hero_x;
-				
+			if(hero.y < 0){ //top of the screen
+				if(((currentTileMap)%tileMapArrayDimension) == 0){
+					hero.y = old_hero_y;
+				}
+				hero.y = canvas.height-char_size;
+				currentTileMap -= tileMapArrayDimension;
+			}
+			if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
+				if(currentTileMap%tileMapArrayDimension == 0){
+					hero.y = old_hero_y;
+				}
+				hero.y = 0;
+				currentTileMap += tileMapArrayDimension;
+			}
+			if(hero.x < 0){ //left side of screen
+				if(currentTileMap % tileMapArrayDimension == 0){
+					hero.x = old_hero_x;
+				}
+				hero.x = canvas.width-char_size;
+				currentTileMap--;
+			}
+			if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
+				if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
+					hero.x = old_hero_x;
+				}
+				else{
+				hero.x = 0;
+				currentTileMap++;
+				}
+			}
 		//touching border for monster
 			if(monster.y < 0)
 				monster.y = 0;
@@ -262,15 +288,9 @@ var monster_movement_helper = function(modifier){
 var render = function(){
 
 		if(bgReady){
-				//ctx.drawImage(bgImage, 0,0); 
-				/*drawing map should be seperated from render and placed before render on main function
-				  make gloable variable that give condition(for now call it redo_map) for drawing map so that we can check to see if 
-				  map needs to be redrawn. 
-				  redo_map needs to be changed when hero reaches certain location on the map.
-				*/
 			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 				for (var colCtr=0;colCtr<mapCols;colCtr++){
-					var tileId = tileMap[rowCtr][colCtr]+mapIndexOffset;
+					var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
 					var sourceX = (tileId *tile_src_size);
 					console.log(tileId*tile_src_size);
 					//var sourceY = Math.floor(tileId / 8) *32;
