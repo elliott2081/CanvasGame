@@ -47,13 +47,13 @@ var monsterImage = new Image();
 monsterImage.onload = function(){
 		monsterReady = true;
 };
-monsterImage.src = "images/redArrow.png";
+monsterImage.src = "images/robots.png";
 
 /*--------------- new codes from CJ --------- */
 //hero's frameIndex
 var tile_size = 32;
 var tile_src_size = 32;
-var char_size = 32;
+var char_size = 64;
 var char_src_size = 64;
 var frameIndex = 0;
 
