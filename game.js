@@ -1,15 +1,15 @@
 //create the canva
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
-canvas.width = 480;
-canvas.height = 512;
+canvas.width = 1024;
+canvas.height = 576;
 //put canvas into document(html)
 document.body.appendChild(canvas);
 
 // World Map
 var currentTileMap = 0;
-var tileMapArrayDimension = 2; // height and width of theorhetical 2 dimensional tileMapArray
-var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3]; // represented as a 1 dimensional array but thought of as 2
+var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
+var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15]; // represented as a 1 dimensional array but thought of as 2
 /*
 //background image.
 var bgReady = false;
@@ -26,10 +26,10 @@ bgImage.src = "images/background.png";
 	tileSheet.onload = function(){
 		bgReady = true;
 	};
-	tileSheet.src = "images/tilesheet.png";
+	tileSheet.src = "images/mapFiles/tileSheet2.png";
 	var mapIndexOffset = -1;
-	var mapRows = 16;
-	var mapCols = 15;
+	var mapRows = 18;
+	var mapCols = 32;
 
 
 //hero
@@ -292,7 +292,7 @@ var render = function(){
 				for (var colCtr=0;colCtr<mapCols;colCtr++){
 					var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
 					var sourceX = (tileId *tile_src_size);
-					console.log(tileId*tile_src_size);
+					//console.log(tileId*tile_src_size);
 					//var sourceY = Math.floor(tileId / 8) *32;
 					ctx.drawImage(tileSheet, sourceX,
 					0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
