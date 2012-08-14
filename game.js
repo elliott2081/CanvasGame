@@ -53,7 +53,7 @@ monsterImage.src = "images/robots.png";
 //hero's frameIndex
 var tile_size = 32;
 var tile_src_size = 32;
-var char_size = 64;
+var char_size = 32;
 var char_src_size = 64;
 var frameIndex = 0;
 
@@ -173,13 +173,13 @@ var update = function (modifier){
 		
 			
 		/*collision detections */
-		
+				
 		//touching monster
 		if(
-				hero.x <= (monster.x + tile_size)
-				&& monster.x <= (hero.x + tile_size)
-				&& hero.y <= (monster.y + tile_size)
-				&& monster.y <= (hero.y + tile_size)
+				hero.x <= (monster.x + char_size)
+				&& monster.x <= (hero.x + char_size)
+				&& hero.y <= (monster.y + char_size)
+				&& monster.y <= (hero.y + char_size)
 			){
 				++monsterCaught;
 				reset();
@@ -192,6 +192,7 @@ var update = function (modifier){
 				hero.y = canvas.height-char_size;
 				currentTileMap -= tileMapArrayDimension;
 			}
+			
 			if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
 				if(currentTileMap%tileMapArrayDimension == 0){
 					hero.y = old_hero_y;
@@ -215,6 +216,32 @@ var update = function (modifier){
 				currentTileMap++;
 				}
 			}
+			
+		// touching a non walkable tile
+		//if(hero.atTile[row][col] is touching not a walkable tile)
+		//for moving right
+		for(var i = 0; i < non_walkable_tile.length; i++){
+			var tempColandRow = onTile(hero.x+char_size, hero.y+char_size);
+					
+			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
+				hero.x = old_hero_x;
+			}
+			//moving down
+			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
+				hero.y = old_hero_y;
+			}
+			
+			//for moving left (need if statement to check which way hero moved)
+			tempColandRow = onTile(hero.x, hero.y);
+			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
+				hero.x = old_hero_x;
+			}
+			//moving up
+			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
+				hero.y = old_hero_y;
+			}
+		}
+		
 		//touching border for monster
 			if(monster.y < 0)
 				monster.y = 0;
@@ -248,7 +275,16 @@ var update = function (modifier){
 		//monster randomly moved is incremented here
 		
 		}; 
-		
+
+
+var onTile = function(charX, charY){
+			var currentColumn = Math.floor(charX / tile_size);
+			var currentRow = Math.floor(charY /tile_size);
+			//cCol_cRow is current column and current row of char
+			var cCol_cRow = { col: currentColumn, 
+							 row: currentRow };
+			return cCol_cRow;
+			}
 var monster_movement_helper = function(modifier){
 	//for monster's random movement
 	//for every 1 sec when hero does not move, monster will move
