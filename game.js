@@ -247,31 +247,6 @@ var update = function (modifier){
 				}
 			}
 			
-		/* touching a non walkable tile
-		//if(hero.atTile[row][col] is touching not a walkable tile)
-		//for moving right
-		for(var i = 0; i < non_walkable_tile.length; i++){
-			var tempColandRow = onTile(hero.x+char_size, hero.y+char_size);
-					
-			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
-				hero.x = old_hero_x;
-			}
-			//moving down
-			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
-				hero.y = old_hero_y;
-			}
-			
-			//for moving left (need if statement to check which way hero moved)
-			tempColandRow = onTile(hero.x, hero.y);
-			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
-				hero.x = old_hero_x;
-			}
-			//moving up
-			if(tileMapArray[currentTileMap][tempColandRow.row][tempColandRow.col] == non_walkable_tile[i]){
-				hero.y = old_hero_y;
-			}
-		}
-		*/
 		//touching border for monster
 			if(monster.y < 0)
 				monster.y = 0;
@@ -281,29 +256,7 @@ var update = function (modifier){
 				monster.x = 0;
 			if(monster.x > (canvas.width-tile_size)) //512 -64
 				monster.x = canvas.width-tile_size;
-				
-		
-		/* old border collision detection 
-		if (38 in keysDown){ //player holding up
-			if(hero.y < 0)
-				hero.y = old_hero_y;
-		}
-		if (40 in keysDown){ //player holding down
-			if(hero.y > 448) // 480 - 32
-				hero.y = old_hero_y;
-		}
-		if (37 in keysDown){ //holding left
-			if(hero.x < 0)
-				hero.x = old_hero_x;
-		}
-		if (39 in keysDown){
-			if(hero.x > 480)
-				hero.x = old_hero_x;
-		}*/
-		/* end of collision detections */
-		
-		//monster randomly moved is incremented here
-		
+			
 		}; 
 		
 /*getTileNum: take object with row and col like the one on "onTile" function
