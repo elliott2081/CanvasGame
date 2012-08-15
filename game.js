@@ -57,6 +57,7 @@ var char_size = 64;
 var char_src_size = 64;
 var frameIndex = 0;
 
+var EndWalkableNum = 6;
 
 var monster_frameIndex = 0;
 var monster_moved = 1;
@@ -71,8 +72,8 @@ var hero_moved = 1;
 //game objects
 var hero = {
 		speed: 256, //movementin pixels per second
-		x: 90,
-		y: 90,
+		x: 500,
+		y: 500,
 		direction: 0
 		};
 var monster = {
@@ -110,6 +111,8 @@ var update = function (modifier){
 	
 		var old_hero_x = hero.x;
 		var old_hero_y = hero.y;
+		var heroMovement = hero.speed*modifier;
+		var ease = 10;
 		/*if(37 in keysDown && 38 in keysDown){//DIAGANOLS (left & up)
 			hero.x -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
@@ -119,24 +122,51 @@ var update = function (modifier){
 
 		}else */
 		if (38 in keysDown){ //player holding up
-			hero.y -= hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			animation(3,1);
+			
+			//map tile collision detection
+			var ColandRow1 = onTile(hero.x+ease, hero.y-(heroMovement)+ease);
+			var ColandRow2 = onTile((hero.x+char_size)-ease, hero.y-(heroMovement)+ease);
+			if((getTileNum(ColandRow1) <= EndWalkableNum) && (getTileNum(ColandRow2) <= EndWalkableNum))
+			{
+				hero.y -= hero.speed * modifier;
+				hero_moved += 1;// CJ's code
+				animation(3,1);
+			}
+			
+			
 		}
 		else if (40 in keysDown){ //player holding down
-			hero.y += hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			animation(1,1);
+			var ColandRow3 = onTile(hero.x+ease, ((hero.y+char_size)+heroMovement)-ease);
+			var ColandRow4 = onTile((hero.x+char_size)-ease, ((hero.y+char_size)+heroMovement)-ease);
+			if((getTileNum(ColandRow3) <= EndWalkableNum) && (getTileNum(ColandRow4) <= EndWalkableNum))
+			{
+				hero.y += hero.speed * modifier;
+				hero_moved += 1;// CJ's code
+				animation(1,1);
+			}
+			
 		}
 		else if (37 in keysDown){ //holding left
-			hero.x -= hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			animation(2,1);
+			var ColandRow1 = onTile((hero.x-heroMovement)+ease, hero.y+ease);
+			var ColandRow3 = onTile((hero.x-heroMovement)+ease, (hero.y+char_size)-ease);
+			if((getTileNum(ColandRow1) <= EndWalkableNum) && (getTileNum(ColandRow3) <= EndWalkableNum))
+			{
+				hero.x -= hero.speed * modifier;
+				hero_moved += 1;// CJ's code
+				animation(2,1);
+			}
+			
 		}
 		else if (39 in keysDown){ //holding right
-			hero.x += hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			animation(0,1);
+			var ColandRow2 = onTile(((hero.x+char_size)+heroMovement)-ease, hero.y+ease);
+			var ColandRow4 = onTile(((hero.x+char_size)+heroMovement)-ease, (hero.y+char_size)-ease);
+			if((getTileNum(ColandRow2) <= EndWalkableNum) && (getTileNum(ColandRow4) <= EndWalkableNum))
+			{
+				hero.x += hero.speed * modifier;
+				hero_moved += 1;// CJ's code
+				animation(0,1);
+			}
+			
 		}
 	
 		//monster x, y changes here
@@ -217,7 +247,7 @@ var update = function (modifier){
 				}
 			}
 			
-		// touching a non walkable tile
+		/* touching a non walkable tile
 		//if(hero.atTile[row][col] is touching not a walkable tile)
 		//for moving right
 		for(var i = 0; i < non_walkable_tile.length; i++){
@@ -241,7 +271,7 @@ var update = function (modifier){
 				hero.y = old_hero_y;
 			}
 		}
-		
+		*/
 		//touching border for monster
 			if(monster.y < 0)
 				monster.y = 0;
@@ -275,16 +305,22 @@ var update = function (modifier){
 		//monster randomly moved is incremented here
 		
 		}; 
-
+		
+/*getTileNum: take object with row and col like the one on "onTile" function
+ and returns tile number that represent type of tile. 
+*/
+var getTileNum = function(RowandCol){
+	return tileMapArray[currentTileMap][RowandCol.row][RowandCol.col];
+	};
 
 var onTile = function(charX, charY){
-			var currentColumn = Math.floor(charX / tile_size);
-			var currentRow = Math.floor(charY /tile_size);
-			//cCol_cRow is current column and current row of char
-			var cCol_cRow = { col: currentColumn, 
-							 row: currentRow };
-			return cCol_cRow;
-			}
+	var currentColumn = Math.floor(charX / tile_size);
+	var currentRow = Math.floor(charY /tile_size);
+	//cCol_cRow is current column and current row of char
+	var cCol_cRow = { col: currentColumn, 
+					 row: currentRow };
+	return cCol_cRow;
+	};
 var monster_movement_helper = function(modifier){
 	//for monster's random movement
 	//for every 1 sec when hero does not move, monster will move
