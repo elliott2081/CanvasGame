@@ -1,0 +1,5 @@
+tile info
+
+walkable will be 0-19
+robot/walk will be 20-39
+non walkable will be 40-59

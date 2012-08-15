@@ -10,6 +10,7 @@ document.body.appendChild(canvas);
 var currentTileMap = 0;
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
 var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15]; // represented as a 1 dimensional array but thought of as 2
+
 /*
 //background image.
 var bgReady = false;
@@ -41,13 +42,7 @@ var heroImage = new Image();
 //heroImage.src = "images/arrows.png";
 heroImage.src = "images/greenArrow.png";
 
-//monster
-var monsterReady = false;
-var monsterImage = new Image();
-monsterImage.onload = function(){
-		monsterReady = true;
-};
-monsterImage.src = "images/robots.png";
+
 
 /*--------------- new codes from CJ --------- */
 //hero's frameIndex
@@ -59,9 +54,7 @@ var frameIndex = 0;
 
 var EndWalkableNum = 6;
 
-var monster_frameIndex = 0;
-var monster_moved = 1;
-var monster_randomly_moved = 1;
+
 /*hero_moved: 1 ms(src image change!), 2ms, 3ms, 4ms, 5ms(=src image change!)*/
 var hero_moved = 1;
 
@@ -72,18 +65,12 @@ var hero_moved = 1;
 //game objects
 var hero = {
 		speed: 256, //movementin pixels per second
-		x: 500,
-		y: 500,
+		x: 90,
+		y: 90,
 		direction: 0
 		};
-var monster = {
-		speed: 228,
-		x: 0,
-		y: 0,
-		//1 = down, 2 = left , 3 = up, 0 = right 
-		direction: 0
-		};
-var monsterCaught =0;
+
+
 
 //Handle keyboard controls
 var keysDown = {};
@@ -95,15 +82,16 @@ addEventListener("keyup",function(e){
 		delete keysDown[e.keyCode];
 		}, false);
 		
-//Reset the game when the player catches a monster		
+//Reset the game when the player catches a robot		
+/*
 var reset = function(){
 		//hero.x = canvas.width / 2;
 		//hero.y = canvas.height / 2;
 		
-		monster.x = tile_size + (Math.random()* (canvas.width - tile_size));
-		monster.y = tile_size + (Math.random()* (canvas.height - tile_size));
+		robot.x = tile_size + (Math.random()* (canvas.width - tile_size));
+		robot.y = tile_size + (Math.random()* (canvas.height - tile_size));
 };
-
+*/
 //update game objects
 var update = function (modifier){
 
@@ -113,14 +101,7 @@ var update = function (modifier){
 		var old_hero_y = hero.y;
 		var heroMovement = hero.speed*modifier;
 		var ease = 10;
-		/*if(37 in keysDown && 38 in keysDown){//DIAGANOLS (left & up)
-			hero.x -= hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			hero.y -= hero.speed * modifier;
-			hero_moved += 1;// CJ's code
-			animation(2);
-
-		}else */
+		
 		if (38 in keysDown){ //player holding up
 			
 			//map tile collision detection
@@ -169,99 +150,106 @@ var update = function (modifier){
 			
 		}
 	
-		//monster x, y changes here
+		//robot x, y changes here
+		/*
 		if (38 in keysDown){ //player holding up
-			monster.y -= monster.speed*modifier;
-			monster_moved+=1;
+			robot.y -= robot.speed*modifier;
+			robot_moved+=1;
 			animation(3,2);
 		}
 		else if (40 in keysDown){ //player holding down
-			monster.y += monster.speed*modifier;
-			monster_moved+=1;
+			robot.y += robot.speed*modifier;
+			robot_moved+=1;
 			animation(1,2);
 		}
 		else if (37 in keysDown){ //holding left
-			monster.x -= monster.speed*modifier;
-			monster_moved+=1;
+			robot.x -= robot.speed*modifier;
+			robot_moved+=1;
 			animation(2,2);
 		}
 		else if (39 in keysDown){ //holding right
-			monster.x += monster.speed*modifier;
-			monster_moved+=1;
+			robot.x += robot.speed*modifier;
+			robot_moved+=1;
 			animation(0,2);
 		}else
 		{
-			monster_movement_helper(modifier);
 		}		
-		/* temporary testing for monster's movement
-		monster.direction = Math.floor(Math.random()*4);
-		monster.x = monster.x + 1;
-		monster.y = monster.y + 1;
 		*/
 		
-		
-		
+		robot_movement_helper(modifier);
+
 			
 		/*collision detections */
 				
-		//touching monster
+		//touching robot
 		if(
-				hero.x <= (monster.x + char_size)
-				&& monster.x <= (hero.x + char_size)
-				&& hero.y <= (monster.y + char_size)
-				&& monster.y <= (hero.y + char_size)
+				hero.x <= (robot.x + char_size)
+				&& robot.x <= (hero.x + char_size)
+				&& hero.y <= (robot.y + char_size)
+				&& robot.y <= (hero.y + char_size)
 			){
-				++monsterCaught;
-				reset();
+			
+				gameOver();
 			}
 		//touching border for hero
 			if(hero.y < 0){ //top of the screen
-				if(((currentTileMap)%tileMapArrayDimension) == 0){
+				if(currentTileMap-tileMapArrayDimension < 0){
 					hero.y = old_hero_y;
 				}
-				hero.y = canvas.height-char_size;
-				currentTileMap -= tileMapArrayDimension;
+				else{
+					hero.y = canvas.height-char_size;
+					currentTileMap -= tileMapArrayDimension;
+					robotReload();
+				}
 			}
 			
 			if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
-				if(currentTileMap%tileMapArrayDimension == 0){
+				if(currentTileMap+tileMapArrayDimension >= tileMapArray.length ){
 					hero.y = old_hero_y;
 				}
-				hero.y = 0;
-				currentTileMap += tileMapArrayDimension;
+				else{
+					hero.y = 0;
+					currentTileMap += tileMapArrayDimension;
+					robotReload();
+				}
 			}
 			if(hero.x < 0){ //left side of screen
 				if(currentTileMap % tileMapArrayDimension == 0){
 					hero.x = old_hero_x;
 				}
-				hero.x = canvas.width-char_size;
-				currentTileMap--;
+				else{
+					hero.x = canvas.width-char_size;
+					currentTileMap--;
+					robotReload();
+				}
 			}
 			if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
 				if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
 					hero.x = old_hero_x;
 				}
 				else{
-				hero.x = 0;
-				currentTileMap++;
+					hero.x = 0;
+					currentTileMap++;
+					robotReload();
 				}
 			}
 			
-		//touching border for monster
-			if(monster.y < 0)
-				monster.y = 0;
-			if(monster.y > (canvas.height-tile_size)) // 480 - 64
-				monster.y = canvas.height-tile_size;
-			if(monster.x < 0)
-				monster.x = 0;
-			if(monster.x > (canvas.width-tile_size)) //512 -64
-				monster.x = canvas.width-tile_size;
+		//touching border for robot
+			if(robot.y < 0)
+				robot.y = 0;
+			if(robot.y > (canvas.height-char_size)) // 480 - 64
+				robot.y = canvas.height-char_size;
+			if(robot.x < 0)
+				robot.x = 0;
+			if(robot.x > (canvas.width-char_size)) //512 -64
+				robot.x = canvas.width-char_size;
 			
 		}; 
 		
 /*getTileNum: take object with row and col like the one on "onTile" function
  and returns tile number that represent type of tile. 
 */
+
 var getTileNum = function(RowandCol){
 	return tileMapArray[currentTileMap][RowandCol.row][RowandCol.col];
 	};
@@ -274,40 +262,7 @@ var onTile = function(charX, charY){
 					 row: currentRow };
 	return cCol_cRow;
 	};
-var monster_movement_helper = function(modifier){
-	//for monster's random movement
-	//for every 1 sec when hero does not move, monster will move
-	if(monster_randomly_moved == 100){
-	monster_randomly_moved = 1;
 
-		//between 3~4 : up
-		//between 2~3 : down
-		//between 1~2 : left
-		//between 0~1 : right
-		var monster_random_direction = Math.random() * 4;
-		if(monster_random_direction >= 3){
-			monster.y -=monster.speed*modifier;
-			monster_moved+=1;
-			animation(3, 2);
-		}else if(monster_random_direction >= 2){
-			monster.y += monster.speed * modifier;
-			monster_moved += 1;
-			animation(1, 2);
-		}else if(monster_random_direction >= 1){
-			monster.x -= monster.speed * modifier;
-			monster_moved += 1;
-			animation(2, 2);
-		}else{
-			monster.x += monster.speed * modifier;
-			monster_moved += 1;
-			animation(0, 2);
-		
-		}
-	}		
-
-		monster_randomly_moved ++;
-
-};
 		
 //draw everything
 var render = function(){
@@ -328,9 +283,9 @@ var render = function(){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
 				ctx.drawImage(heroImage, (hero.direction*(char_src_size*2) + frameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
-		if(monsterReady){
+		if(robotReady){
 			
-				ctx.drawImage(monsterImage, (monster.direction*(char_src_size*2) + monster_frameIndex*char_src_size), 0, char_src_size, char_src_size, monster.x, monster.y, char_size, char_size);
+				ctx.drawImage(robotImage, (robot.direction*(char_src_size*2) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		}
 		
 		//score
@@ -349,23 +304,25 @@ var render = function(){
 
 /* new codes from CJ*/
 
-var youwin = function()
+var gameOver = function()
 {
-	if(monsterCaught >= 5)
-	{
-		clearInterval (simulator);
+
+
 		ctx.fillStyle = "rgb(250, 250, 250)";
 		ctx.font = "24px Helvetica";
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";
-		ctx.fillText("You win!!", 50,50);
-	}
+		ctx.fillText("You Died!!", 50,50);
+		
+		
+		clearInterval (simulator);
+	
 };
 //d is direction pressed
-var animation = function(d, hero_or_monster){
+var animation = function(d, hero_or_robot){
 
 
-	if(hero_or_monster == 1){
+	if(hero_or_robot == 1){
 		if(hero.direction != d)
 		{
 			hero_moved = 5;
@@ -383,22 +340,22 @@ var animation = function(d, hero_or_monster){
 				frameIndex = 1;
 		}
 	}else{
-		//logic for monster movement
-		if(monster.direction != d)
+		//logic for robot movement
+		if(robot.direction != d)
 		{
-			monster_moved = 5;
-			monster.direction  = d;
+			robot_moved = 5;
+			robot.direction  = d;
 		}
-		if(monster_moved > 5)
+		if(robot_moved > 5)
 		{
-			monster_moved =1;
+			robot_moved =1;
 		}
-		if(monster_moved == 5)
+		if(robot_moved == 5)
 		{
-			if(monster_frameIndex == 1)
-				monster_frameIndex = 0;
+			if(robot_frameIndex == 1)
+				robot_frameIndex = 0;
 			else
-				monster_frameIndex = 1;
+				robot_frameIndex = 1;
 		}
 	}
 	/*frameIndex testing*/
@@ -418,10 +375,10 @@ var main = function() {
 		
 		update(delta / 1000);
 		render();
-		youwin();
+		
 		then = now;
 		
 };
-reset();
+//reset();
 var then = Date.now();
 var simulator = setInterval(main,1);
