@@ -28,8 +28,8 @@ bgImage.src = "images/background.png";
 	};
 	tileSheet.src = "images/mapFiles/tileSheet2.png";
 	var mapIndexOffset = -1;
-	var mapRows = 18;
-	var mapCols = 32;
+	var mapRows = 9;
+	var mapCols = 16;
 
 
 //hero
@@ -51,9 +51,9 @@ monsterImage.src = "images/robots.png";
 
 /*--------------- new codes from CJ --------- */
 //hero's frameIndex
-var tile_size = 32;
+var tile_size = 64;
 var tile_src_size = 32;
-var char_size = 32;
+var char_size = 64;
 var char_src_size = 64;
 var frameIndex = 0;
 
