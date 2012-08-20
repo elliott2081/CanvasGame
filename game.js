@@ -251,6 +251,7 @@ var check_above_is_legal = function(character, modifier, ease){
 	var lower_bound = 0;
 	var upper_bound = 0;
 	if(ease == 0){//for robot
+	ease = 1;
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -279,6 +280,7 @@ var check_below_is_legal = function(character, modifier, ease){
 	var lower_bound = 0 ;
 	var upper_bound = 0;
 	if(ease == 0){//for robot
+	ease = 1;
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -309,6 +311,7 @@ var check_left_is_legal = function(character, modifier, ease){
 	var lower_bound = 0;
 	var upper_bound = 0;
 	if(ease == 0){//for robot
+	ease = 1;
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -339,6 +342,7 @@ var check_right_is_legal = function(character, modifier, ease){
 	var lower_bound =0;
 	var upper_bound =0;
 	if(ease == 0){//for robot
+	ease = 1;
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
