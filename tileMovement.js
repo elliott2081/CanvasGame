@@ -172,7 +172,7 @@ var onTile = function(charX, charY){
 	};
 
 var collisionDetection = function(){
-if(
+		if(
 			hero.x <= (robot.x + char_size)
 			&& robot.x <= (hero.x + char_size)
 			&& hero.y <= (robot.y + char_size)
