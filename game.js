@@ -90,14 +90,14 @@ var animation = function(d, character){
 		//logic for robot movement
 		if(robot.direction != d)
 		{
-			robot_moved = 10;
+			robot_moved = 15;
 			robot.direction  = d;
 		}
-		if(robot_moved > 10)
+		if(robot_moved > 15)
 		{
 			robot_moved =1;
 		}
-		if(robot_moved == 10)
+		if(robot_moved == 15)
 		{
 			if(robot_frameIndex == 2)
 				robot_frameIndex = 0;
