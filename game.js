@@ -1,77 +1,15 @@
-//create the canva
+//create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
+
 //put canvas into document(html)
 document.body.appendChild(canvas);
 
-// World Map
-var currentTileMap = 0;
-var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
-var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15]; // represented as a 1 dimensional array but thought of as 2
 
-/*
-//background image.
-var bgReady = false;
-var bgImage = new Image();
-bgImage.onload = function(){
-		bgReady = true;
-};
-bgImage.src = "images/background.png";
-*/
-//new back ground related
-	var tileSheet = new Image();
-	//tileSheet.addEventListener('load', eventSheetLoaded , false);
-	var bgReady = false;
-	tileSheet.onload = function(){
-		bgReady = true;
-	};
-	tileSheet.src = "images/mapFiles/tileSheet2.png";
-	var mapIndexOffset = -1;
-	var mapRows = 9;
-	var mapCols = 16;
-
-
-//hero
-//var heroReady = false;
-var heroImage = new Image();
-/*heroImage.onload = function(){
-		heroReady = true;
-};*/
-//heroImage.src = "images/arrows.png";
-heroImage.src = "images/greenArrow.png";
-
-
-
-/*--------------- new codes from CJ --------- */
-//hero's frameIndex
-var tile_size = 64;
-var tile_src_size = 32;
 var char_size = 64;
 var char_src_size = 64;
-var frameIndex = 0;
-
-//var EndWalkableNum = 6;
-var end_walkable = 3;
-var end_robot_walkable = 6;
-var end_non_walkable = 13;
-
-/*hero_moved: 1 ms(src image change!), 2ms, 3ms, 4ms, 5ms(=src image change!)*/
-var hero_moved = 1;
-
-
-/*end of new codes from CJ(glob. variables)*/
-
-
-//game objects
-var hero = {
-		speed: 256, //movementin pixels per second
-		x: 900,
-		y: 450,
-		direction: 0
-		};
-
 
 
 //Handle keyboard controls
@@ -83,307 +21,84 @@ addEventListener("keydown",function(e){
 addEventListener("keyup",function(e){
 		delete keysDown[e.keyCode];
 		}, false);
-		
-//Reset the game when the player catches a robot		
-/*
-var reset = function(){
-		//hero.x = canvas.width / 2;
-		//hero.y = canvas.height / 2;
-		
-		robot.x = tile_size + (Math.random()* (canvas.width - tile_size));
-		robot.y = tile_size + (Math.random()* (canvas.height - tile_size));
-};
-*/
-//update game objects
-var update = function (modifier){
 
-	
-	
-		var old_hero_x = hero.x;
-		var old_hero_y = hero.y;
-		var heroMovement = hero.speed*modifier;
-		var ease = 10;
+//update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
+// should probably be broken up into smaller functions
+var update = function (modifier){	
+	keyboard_movement(modifier);
+	robot_movement_helper(modifier);	
+	/*collision detections */
 		
-		if (38 in keysDown){ //player holding up
-			
-			//map tile collision detection
-			if(check_above_is_legal(hero,modifier,ease))
-			{
-				hero.y -= hero.speed * modifier;
-				hero_moved += 1;// CJ's code
-				animation(3,1);
-			}
-			
-			
-		}
-		else if (40 in keysDown){ //player holding down
-			if(check_below_is_legal(hero, modifier, ease))
-			{
-				hero.y += hero.speed * modifier;
-				hero_moved += 1;// CJ's code
-				animation(1,1);
-			}
-			
-		}
-		else if (37 in keysDown){ //holding left
-			if(check_left_is_legal(hero, modifier, ease))
-			{
-				hero.x -= hero.speed * modifier;
-				hero_moved += 1;// CJ's code
-				animation(2,1);
-			}
-			
-		}
-		else if (39 in keysDown){ //holding right
-			if(check_right_is_legal(hero,modifier, ease))
-			{
-				hero.x += hero.speed * modifier;
-				hero_moved += 1;// CJ's code
-				animation(0,1);
-			}
-			
-		}
-	
-		//robot x, y changes here
-		/*
-		if (38 in keysDown){ //player holding up
-			robot.y -= robot.speed*modifier;
-			robot_moved+=1;
-			animation(3,2);
-		}
-		else if (40 in keysDown){ //player holding down
-			robot.y += robot.speed*modifier;
-			robot_moved+=1;
-			animation(1,2);
-		}
-		else if (37 in keysDown){ //holding left
-			robot.x -= robot.speed*modifier;
-			robot_moved+=1;
-			animation(2,2);
-		}
-		else if (39 in keysDown){ //holding right
-			robot.x += robot.speed*modifier;
-			robot_moved+=1;
-			animation(0,2);
-		}else
-		{
-		}		
-		*/
+//touching robot
+	if(
+			hero.x <= (robot.x + char_size)
+			&& robot.x <= (hero.x + char_size)
+			&& hero.y <= (robot.y + char_size)
+			&& robot.y <= (hero.y + char_size)
+		){
 		
-		robot_movement_helper(modifier);
-
-			
-		/*collision detections */
-				
-		//touching robot
-		if(
-				hero.x <= (robot.x + char_size)
-				&& robot.x <= (hero.x + char_size)
-				&& hero.y <= (robot.y + char_size)
-				&& robot.y <= (hero.y + char_size)
-			){
-			
-				gameOver();
+			gameOver();
+		}
+	//touching border for hero
+		if(hero.y < 0){ //top of the screen
+			if(currentTileMap-tileMapArrayDimension < 0){
+				hero.y = old_hero_y;
 			}
-		//touching border for hero
-			if(hero.y < 0){ //top of the screen
-				if(currentTileMap-tileMapArrayDimension < 0){
-					hero.y = old_hero_y;
-				}
-				else{
-					hero.y = canvas.height-char_size;
-					currentTileMap -= tileMapArrayDimension;
-					robotReload();
-				}
+			else{
+				hero.y = canvas.height-char_size;
+				currentTileMap -= tileMapArrayDimension;
+				robotReload();
 			}
-			
-			if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
-				if(currentTileMap+tileMapArrayDimension >= tileMapArray.length ){
-					hero.y = old_hero_y;
-				}
-				else{
-					hero.y = 0;
-					currentTileMap += tileMapArrayDimension;
-					robotReload();
-				}
+		}
+		
+		if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
+			if(currentTileMap+tileMapArrayDimension >= tileMapArray.length ){
+				hero.y = old_hero_y;
 			}
-			if(hero.x < 0){ //left side of screen
-				if(currentTileMap % tileMapArrayDimension == 0){
-					hero.x = old_hero_x;
-				}
-				else{
-					hero.x = canvas.width-char_size;
-					currentTileMap--;
-					robotReload();
-				}
+			else{
+				hero.y = 0;
+				currentTileMap += tileMapArrayDimension;
+				robotReload();
 			}
-			if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
-				if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
-					hero.x = old_hero_x;
-				}
-				else{
-					hero.x = 0;
-					currentTileMap++;
-					robotReload();
-				}
+		}
+		if(hero.x < 0){ //left side of screen
+			if(currentTileMap % tileMapArrayDimension == 0){
+				hero.x = old_hero_x;
 			}
-			
-		//touching border for robot
-			if(robot.y < 0)
-				robot.y = 0;
-			if(robot.y > (canvas.height-char_size)) // 480 - 64
-				robot.y = canvas.height-char_size;
-			if(robot.x < 0)
-				robot.x = 0;
-			if(robot.x > (canvas.width-char_size)) //512 -64
-				robot.x = canvas.width-char_size;
-			
-		}; 
+			else{
+				hero.x = canvas.width-char_size;
+				currentTileMap--;
+				robotReload();
+			}
+		}
+		if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
+			if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
+				hero.x = old_hero_x;
+			}
+			else{
+				hero.x = 0;
+				currentTileMap++;
+				robotReload();
+			}
+	}
+	
+//touching border for robot
+	if(robot.y < 0)
+		robot.y = 0;
+	if(robot.y > (canvas.height-char_size)) // 480 - 64
+		robot.y = canvas.height-char_size;
+	if(robot.x < 0)
+		robot.x = 0;
+	if(robot.x > (canvas.width-char_size)) //512 -64
+		robot.x = canvas.width-char_size;
+	
+}; 
 		
 /*getTileNum: take object with row and col like the one on "onTile" function
  and returns tile number that represent type of tile. 
 */
 
-//if ease == 0 then it is robot
-//else if ease == other than 0 then it is hero.
-var check_above_is_legal = function(character, modifier, ease){
-	var character_movement = character.speed * modifier;
-	var lower_bound = 0;
-	var upper_bound = 0;
-	if(ease == 0){//for robot
-	ease = 1;
-		if(character.chase == true){//if robot is in chase mode
-			lower_bound = 0;
-			upper_bound = end_robot_walkable;
-		}else{//if robot is in patrol mode
-			lower_bound = end_walkable + 1;
-			upper_bound = end_robot_walkable;
-		}
-	}else{ // for hero
-		lower_bound = 0;
-		upper_bound = end_robot_walkable;
-	}
-		
-	
-	var ColandRow1 = onTile((character.x+ease), (character.y-character_movement+ease));
-	var ColandRow2 = onTile((character.x+char_size-ease), (character.y-character_movement+ease));
-	if((getTileNum(ColandRow1) >= lower_bound) 
-		&& (getTileNum(ColandRow1) <= upper_bound)
-		&& (getTileNum(ColandRow2) >= lower_bound)
-		&& (getTileNum(ColandRow2) <= upper_bound)
-		)
-		return true;
-	else 
-		return false;
-};
-var check_below_is_legal = function(character, modifier, ease){
-	var lower_bound = 0 ;
-	var upper_bound = 0;
-	if(ease == 0){//for robot
-	ease = 1;
-		if(character.chase == true){//if robot is in chase mode
-			lower_bound = 0;
-			upper_bound = end_robot_walkable;
-		}else{//if robot is in patrol mode
-			lower_bound = end_walkable +1;
-			upper_bound = end_robot_walkable;
-		}
-	}else{ // for hero
-		lower_bound = 0;
-		upper_bound = end_robot_walkable;
-	}
-		
-	var character_movement = character.speed * modifier;
-	
-	var ColandRow3 = onTile((character.x + ease), (character.y + char_size + character_movement - ease));
-	var ColandRow4 = onTile((character.x + char_size - ease), (character.y + char_size + character_movement - ease));
-	if((getTileNum(ColandRow3) >= lower_bound)
-		&& (getTileNum(ColandRow3) <= upper_bound)
-		&& (getTileNum(ColandRow4) >= lower_bound)
-		&& (getTileNum(ColandRow4) <= upper_bound))
-		return true;
-	else 
-		return false;
-};
-var check_left_is_legal = function(character, modifier, ease){
-	var character_movement = character.speed * modifier;
 
-	var lower_bound = 0;
-	var upper_bound = 0;
-	if(ease == 0){//for robot
-	ease = 1;
-		if(character.chase == true){//if robot is in chase mode
-			lower_bound = 0;
-			upper_bound = end_robot_walkable;
-		}else{//if robot is in patrol mode
-			lower_bound = end_walkable +1;
-			upper_bound = end_robot_walkable;
-		}
-	}else{ // for hero
-		lower_bound = 0;
-		upper_bound = end_robot_walkable;
-	}
-	
-	var ColandRow1 = onTile((character.x - character_movement + ease), (character.y + ease));
-	var ColandRow3 = onTile((character.x - character_movement + ease), (character.y + char_size - ease));
-	if((getTileNum(ColandRow1) >= lower_bound)
-		&& (getTileNum(ColandRow1) <= upper_bound)
-		&& (getTileNum(ColandRow3) >= lower_bound)
-		&& (getTileNum(ColandRow3) <= upper_bound))
-		return true;
-	else
-		return false;
-
-};
-
-var check_right_is_legal = function(character, modifier, ease){
-	var character_movement = character.speed * modifier;
-
-	var lower_bound =0;
-	var upper_bound =0;
-	if(ease == 0){//for robot
-	ease = 1;
-		if(character.chase == true){//if robot is in chase mode
-			lower_bound = 0;
-			upper_bound = end_robot_walkable;
-		}else{//if robot is in patrol mode
-			lower_bound = end_walkable +1;
-			upper_bound = end_robot_walkable;
-		}
-	}else{ // for hero
-		lower_bound = 0;
-		upper_bound = end_robot_walkable;
-	}
-		
-	var ColandRow2 = onTile((character.x + char_size + character_movement - ease), (character.y + ease));
-	var ColandRow4 = onTile((character.x + char_size + character_movement - ease), (character.y + char_size - ease));
-	//console.log(ColandRow4.row);
-	//console.log(ColandRow4.col);
-	//console.log(ColandRow4);
-	if((getTileNum(ColandRow2) >= lower_bound)
-		&& (getTileNum(ColandRow2) <= upper_bound)
-		&& (getTileNum(ColandRow4) >= lower_bound)
-		&& (getTileNum(ColandRow4) <= upper_bound))
-		return true;
-	else
-		return false;
-};
-
-
-var getTileNum = function(RowandCol){
-	//console.log(tileMapArray[currentTileMap][RowandCol.row][RowandCol.col]);
-	return tileMapArray[currentTileMap][RowandCol.row][RowandCol.col];
-	
-	};
-
-var onTile = function(charX, charY){
-	var currentColumn = Math.floor(charX / tile_size);
-	var currentRow = Math.floor(charY /tile_size);
-	//cCol_cRow is current column and current row of char
-	var cCol_cRow = { col: currentColumn, 
-					 row: currentRow };
-	return cCol_cRow;
-	};
 
 		
 //draw everything
@@ -403,7 +118,7 @@ var render = function(){
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, (hero.direction*(char_src_size*2) + frameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+				ctx.drawImage(heroImage, (hero.direction*(char_src_size*2) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
 		if(robotReady){
 			
@@ -415,7 +130,7 @@ var render = function(){
 		ctx.font = "24px Helvetica";
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";
-		ctx.fillText("frameIndex " + frameIndex, 32, 32);
+		ctx.fillText("heroFrameIndex " + heroFrameIndex, 32, 32);
 		/*
 		ctx.fillStyle = "rgb(250, 250, 250)";
 		ctx.font = "24px Helvetica";
@@ -456,10 +171,10 @@ var animation = function(d, hero_or_robot){
 		}
 		if(hero_moved == 5)
 		{
-			if(frameIndex == 1)
-				frameIndex = 0;
+			if(heroFrameIndex == 1)
+				heroFrameIndex = 0;
 			else
-				frameIndex = 1;
+				heroFrameIndex = 1;
 		}
 	}else{
 		//logic for robot movement
@@ -480,7 +195,7 @@ var animation = function(d, hero_or_robot){
 				robot_frameIndex = 1;
 		}
 	}
-	/*frameIndex testing*/
+	/*heroFrameIndex testing*/
 		ctx.fillStyle = "#000000";
 		ctx.font = "24px _sans";  
 		ctx.textBaseline = "top";
