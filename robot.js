@@ -25,6 +25,8 @@ var robot = {
 		y: 512,
 		//1 = down, 2 = left , 3 = up, 0 = right 
 		direction: 3,
+		name: "robot",
+		robot_number: 0,
 		//if hero get in range chase change to true, false otherwise
 		chase: false
 		};
@@ -50,59 +52,59 @@ var robot_movement_helper = function(modifier){
 			if(check_above_is_legal(robot, modifier, 0)){
 				robot.y -= robot.speed * modifier;
 				robot_moved += 1;
-				animation(3,0);
+				animation(3,robot);
 			}else if(check_left_is_legal(robot, modifier, 0)){
 				
 				robot.x -= robot.speed * modifier;
 				robot_moved += 1;
-				animation(2,0);
+				animation(2,robot);
 			}else if(check_right_is_legal(robot,modifier, 0)){
 				robot.x += robot.speed * modifier;
 				robot_moved += 1;
-				animation(0,0);
+				animation(0,robot);
 			}
 		}
 		else if(robot.direction == 1){//robot facing down
 			if(check_below_is_legal(robot, modifier, 0)){
 				robot.y += robot.speed * modifier;
 				hero_moved += 1;// CJ's code
-				animation(1,0);
+				animation(1,robot);
 			}else if(check_left_is_legal(robot, modifier, 0)){
 				robot.x -= robot.speed * modifier;
 				robot_moved += 1;// CJ's code
-				animation(2,0);
+				animation(2,robot);
 			}else if(check_right_is_legal(robot,modifier, 0)){
 				robot.x += robot.speed * modifier;
 				robot_moved += 1;// CJ's code
-				animation(0,0);
+				animation(0,robot);
 			}
 		}else if(robot.direction == 2){//robot facing left
 			if(check_left_is_legal(robot, modifier, 0)){
 				robot.x -= robot.speed * modifier;
 				robot_moved += 1;// CJ's code
-				animation(2,0);
+				animation(2,robot);
 			}else if(check_above_is_legal(robot, modifier, 0)){
 				robot.y -= robot.speed * modifier;
 				robot_moved += 1;// CJ's code
-				animation(3,0);
+				animation(3,robot);
 			}else if(check_below_is_legal(robot, modifier, 0)){
 				robot.y += robot.speed * modifier;
 				hero_moved += 1;// CJ's code
-				animation(1,0);
+				animation(1,robot);
 			}
 		}else if(robot.direction == 0){//robot facing left
 			if(check_right_is_legal(robot,modifier, 0)){
 				robot.x += robot.speed * modifier;
 				robot_moved += 1;// CJ's code
-				animation(0,0);
+				animation(0,robot);
 			}else if(check_above_is_legal(robot, modifier, 0)){
 				robot.y -= robot.speed * modifier;
 				robot_moved += 1;// CJ's code
-				animation(3,0);
+				animation(3,robot);
 			}else if(check_below_is_legal(robot, modifier, 0)){
 				robot.y += robot.speed * modifier;
 				hero_moved += 1;// CJ's code
-				animation(1,0);
+				animation(1,robot);
 			}
 		}
 	}

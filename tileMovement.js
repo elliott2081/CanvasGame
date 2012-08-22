@@ -30,8 +30,7 @@ var end_non_walkable = 13;
 ///////////////////////////////////////////////
 
 
-//if ease == 0 then it is robot
-//else if ease == other than 0 then it is hero.
+
 var check_above_is_legal = function(character, modifier, ease){
 	var character_movement = character.speed * modifier;
 	var lower_bound = 0;
