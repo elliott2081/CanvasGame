@@ -17,7 +17,8 @@ var hero = {
 		speed: 256, //movementin pixels per second
 		x: 900,
 		y: 450,
-		direction: 0
+		direction: 0,
+		name: "hero"
 		};
 
 		
@@ -35,7 +36,7 @@ var keyboard_movement = function(modifier){
 		{
 			hero.y -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(3,1);
+			animation(3,hero);
 		}
 		
 		
@@ -45,7 +46,7 @@ var keyboard_movement = function(modifier){
 		{
 			hero.y += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(1,1);
+			animation(1,hero);
 		}
 		
 	}
@@ -54,7 +55,7 @@ var keyboard_movement = function(modifier){
 		{
 			hero.x -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(2,1);
+			animation(2,hero);
 		}
 		
 	}
@@ -63,7 +64,7 @@ var keyboard_movement = function(modifier){
 		{
 			hero.x += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
-			animation(0,1);
+			animation(0,hero);
 		}
 		
 	}

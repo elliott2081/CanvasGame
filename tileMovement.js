@@ -170,3 +170,66 @@ var onTile = function(charX, charY){
 					 row: currentRow };
 	return cCol_cRow;
 	};
+
+var collisionDetection = function(){
+if(
+			hero.x <= (robot.x + char_size)
+			&& robot.x <= (hero.x + char_size)
+			&& hero.y <= (robot.y + char_size)
+			&& robot.y <= (hero.y + char_size)
+		){
+		
+			gameOver();
+		}
+	//touching border for hero
+		if(hero.y < 0){ //top of the screen
+			if(currentTileMap-tileMapArrayDimension < 0){
+				hero.y = old_hero_y;
+			}
+			else{
+				hero.y = canvas.height-char_size;
+				currentTileMap -= tileMapArrayDimension;
+				robotReload();
+			}
+		}
+		
+		if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
+			if(currentTileMap+tileMapArrayDimension >= tileMapArray.length ){
+				hero.y = old_hero_y;
+			}
+			else{
+				hero.y = 0;
+				currentTileMap += tileMapArrayDimension;
+				robotReload();
+			}
+		}
+		if(hero.x < 0){ //left side of screen
+			if(currentTileMap % tileMapArrayDimension == 0){
+				hero.x = old_hero_x;
+			}
+			else{
+				hero.x = canvas.width-char_size;
+				currentTileMap--;
+				robotReload();
+			}
+		}
+		if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
+			if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
+				hero.x = old_hero_x;
+			}
+			else{
+				hero.x = 0;
+				currentTileMap++;
+				robotReload();
+			}
+	}
+	
+	if(robot.y < 0)
+		robot.y = 0;
+	if(robot.y > (canvas.height-char_size)) // 480 - 64
+		robot.y = canvas.height-char_size;
+	if(robot.x < 0)
+		robot.x = 0;
+	if(robot.x > (canvas.width-char_size)) //512 -64
+		robot.x = canvas.width-char_size;
+};
