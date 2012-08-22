@@ -31,12 +31,11 @@ var end_non_walkable = 13;
 
 
 
-var check_above_is_legal = function(character, modifier, ease){
+var check_above_is_legal = function(character, modifier){
 	var character_movement = character.speed * modifier;
 	var lower_bound = 0;
 	var upper_bound = 0;
-	if(ease == 0){//for robot
-	ease = 1;
+	if(character.name == "robot"){//for robot
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -50,8 +49,8 @@ var check_above_is_legal = function(character, modifier, ease){
 	}
 		
 	
-	var ColandRow1 = onTile((character.x+ease), (character.y-character_movement+ease));
-	var ColandRow2 = onTile((character.x+char_size-ease), (character.y-character_movement+ease));
+	var ColandRow1 = onTile((character.x+character.ease), (character.y-character_movement+character.ease));
+	var ColandRow2 = onTile((character.x+char_size-character.ease), (character.y-character_movement+character.ease));
 	if((getTileNum(ColandRow1) >= lower_bound) 
 		&& (getTileNum(ColandRow1) <= upper_bound)
 		&& (getTileNum(ColandRow2) >= lower_bound)
@@ -61,11 +60,10 @@ var check_above_is_legal = function(character, modifier, ease){
 	else 
 		return false;
 };
-var check_below_is_legal = function(character, modifier, ease){
+var check_below_is_legal = function(character, modifier){
 	var lower_bound = 0 ;
 	var upper_bound = 0;
-	if(ease == 0){//for robot
-	ease = 1;
+	if(character.name == "robot"){//for robot
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -80,8 +78,8 @@ var check_below_is_legal = function(character, modifier, ease){
 		
 	var character_movement = character.speed * modifier;
 	
-	var ColandRow3 = onTile((character.x + ease), (character.y + char_size + character_movement - ease));
-	var ColandRow4 = onTile((character.x + char_size - ease), (character.y + char_size + character_movement - ease));
+	var ColandRow3 = onTile((character.x + character.ease), (character.y + char_size + character_movement - character.ease));
+	var ColandRow4 = onTile((character.x + char_size - character.ease), (character.y + char_size + character_movement - character.ease));
 	if((getTileNum(ColandRow3) >= lower_bound)
 		&& (getTileNum(ColandRow3) <= upper_bound)
 		&& (getTileNum(ColandRow4) >= lower_bound)
@@ -90,13 +88,12 @@ var check_below_is_legal = function(character, modifier, ease){
 	else 
 		return false;
 };
-var check_left_is_legal = function(character, modifier, ease){
+var check_left_is_legal = function(character, modifier){
 	var character_movement = character.speed * modifier;
 
 	var lower_bound = 0;
 	var upper_bound = 0;
-	if(ease == 0){//for robot
-	ease = 1;
+	if(character.name == "robot"){//for robot
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -109,8 +106,8 @@ var check_left_is_legal = function(character, modifier, ease){
 		upper_bound = end_robot_walkable;
 	}
 	
-	var ColandRow1 = onTile((character.x - character_movement + ease), (character.y + ease));
-	var ColandRow3 = onTile((character.x - character_movement + ease), (character.y + char_size - ease));
+	var ColandRow1 = onTile((character.x - character_movement + character.ease), (character.y + character.ease));
+	var ColandRow3 = onTile((character.x - character_movement + character.ease), (character.y + char_size - character.ease));
 	if((getTileNum(ColandRow1) >= lower_bound)
 		&& (getTileNum(ColandRow1) <= upper_bound)
 		&& (getTileNum(ColandRow3) >= lower_bound)
@@ -121,13 +118,12 @@ var check_left_is_legal = function(character, modifier, ease){
 
 };
 
-var check_right_is_legal = function(character, modifier, ease){
+var check_right_is_legal = function(character, modifier){
 	var character_movement = character.speed * modifier;
 
 	var lower_bound =0;
 	var upper_bound =0;
-	if(ease == 0){//for robot
-	ease = 1;
+	if(character.name == "robot"){//for robot
 		if(character.chase == true){//if robot is in chase mode
 			lower_bound = 0;
 			upper_bound = end_robot_walkable;
@@ -139,27 +135,34 @@ var check_right_is_legal = function(character, modifier, ease){
 		lower_bound = 0;
 		upper_bound = end_robot_walkable;
 	}
+	
+		var ColandRow2 = onTile((character.x + char_size + character_movement - character.ease), (character.y + character.ease));
+		var ColandRow4 = onTile((character.x + char_size + character_movement - character.ease), (character.y + char_size - character.ease));
 		
-	var ColandRow2 = onTile((character.x + char_size + character_movement - ease), (character.y + ease));
-	var ColandRow4 = onTile((character.x + char_size + character_movement - ease), (character.y + char_size - ease));
-	//console.log(ColandRow4.row);
-	//console.log(ColandRow4.col);
-	//console.log(ColandRow4);
-	if((getTileNum(ColandRow2) >= lower_bound)
-		&& (getTileNum(ColandRow2) <= upper_bound)
-		&& (getTileNum(ColandRow4) >= lower_bound)
-		&& (getTileNum(ColandRow4) <= upper_bound))
-		return true;
-	else
-		return false;
+		//console.log(ColandRow4.row);
+		//console.log(ColandRow4.col);
+		//console.log(ColandRow4);
+		if((getTileNum(ColandRow2) >= lower_bound)
+			&& (getTileNum(ColandRow2) <= upper_bound)
+			&& (getTileNum(ColandRow4) >= lower_bound)
+			&& (getTileNum(ColandRow4) <= upper_bound))
+			return true;
+		else
+			return false;
 };
 
 
 var getTileNum = function(RowandCol){
-	//console.log(tileMapArray[currentTileMap][RowandCol.row][RowandCol.col]);
-	return tileMapArray[currentTileMap][RowandCol.row][RowandCol.col];
-	
-	};
+
+	if((RowandCol.row < 0)
+		|| (RowandCol.row >= 9)
+		|| (RowandCol.col < 0)
+		|| (RowandCol.col >= 16)){
+		return -1; //simple border detection to avoid index out of bound problem
+	}else{
+		return tileMapArray[currentTileMap][RowandCol.row][RowandCol.col];
+	}
+};
 
 var onTile = function(charX, charY){
 	var currentColumn = Math.floor(charX / tile_size);

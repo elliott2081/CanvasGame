@@ -25,10 +25,11 @@ addEventListener("keyup",function(e){
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
 // should probably be broken up into smaller functions
 var update = function (modifier){	
+	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper(modifier);	//from robot.js
 	/**need to make some change. robot border detection need to be integrated before onTile call on robot_movement_helper()**/
-	collisionDetection();	//from tileMovement.js 
+
 }; 
 
 //draw everything - gets called every game cycle

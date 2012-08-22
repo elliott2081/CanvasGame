@@ -18,6 +18,7 @@ var hero = {
 		x: 900,
 		y: 450,
 		direction: 0,
+		ease: 10,
 		name: "hero"
 		};
 
@@ -29,10 +30,9 @@ var keyboard_movement = function(modifier){
 	var old_hero_x = hero.x;
 	var old_hero_y = hero.y;
 	var heroMovement = hero.speed*modifier;
-	var ease = 10;
 	if (38 in keysDown){ //player holding up
 		//map tile collision detection
-		if(check_above_is_legal(hero,modifier,ease))
+		if(check_above_is_legal(hero,modifier))
 		{
 			hero.y -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
@@ -42,7 +42,7 @@ var keyboard_movement = function(modifier){
 		
 	}
 	else if (40 in keysDown){ //player holding down
-		if(check_below_is_legal(hero, modifier, ease))
+		if(check_below_is_legal(hero, modifier))
 		{
 			hero.y += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
@@ -51,7 +51,7 @@ var keyboard_movement = function(modifier){
 		
 	}
 	else if (37 in keysDown){ //holding left
-		if(check_left_is_legal(hero, modifier, ease))
+		if(check_left_is_legal(hero, modifier))
 		{
 			hero.x -= hero.speed * modifier;
 			hero_moved += 1;// CJ's code
@@ -60,7 +60,7 @@ var keyboard_movement = function(modifier){
 		
 	}
 	else if (39 in keysDown){ //holding right
-		if(check_right_is_legal(hero,modifier, ease))
+		if(check_right_is_legal(hero,modifier))
 		{
 			hero.x += hero.speed * modifier;
 			hero_moved += 1;// CJ's code
