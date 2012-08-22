@@ -1,0 +1,84 @@
+
+############ game.js #################
+
+1. objects / variables
+
+	1) var then = Date.now();
+
+2. functions
+
+	1) addEventListener("keydown",function(e){
+			keysDown[e.keyCode] = true;
+			}, false);
+			
+	2) addEventListener("keyup",function(e){
+			delete keysDown[e.keyCode];
+			}, false);
+
+	3) var update = function (modifier)
+
+	4) var check_above_is_legal = function(character, modifier, ease)
+
+	5) var check_below_is_legal = function(character, modifier, ease)
+
+	6) var check_left_is_legal = function(character, modifier, ease)
+		
+
+	7) var check_right_is_legal = function(character, modifier, ease)
+
+
+	8) var getTileNum = function(RowandCol)
+
+	9) var onTile = function(charX, charY)
+
+	10) var render = function(){
+
+	11) var gameOver = function()
+
+	12) var animation = function(d, hero_or_robot){
+
+	13) var main = function()
+		
+	14) var simulator = setInterval(main,1);
+	
+######### map.js #######
+
+1. objects / variables
+
+	1) var tileMap0
+		var tileMap1
+		var tileMap2
+		var tileMap3
+		var tileMap4
+		var tileMap5
+		var tileMap6
+		var tileMap7
+		var tileMap8
+		var tileMap9
+		var tileMap10
+		var tileMap11
+		var tileMap12
+		var tileMap13
+		var tileMap14
+		var tileMap15
+		var tileMap16
+
+2. functions
+
+######### robot.js #######
+
+1. object / variable
+1 var robotReady = false;
+2 var robotImage = new Image();
+3 var robot_frameIndex = 0;
+4 var robot_moved = 1;
+5 var robot_randomly_moved = 1;
+6 var robot
+
+2. function 
+ 
+ 1) robotImage.onload = function(){
+
+ 2) var robot_movement_helper = function(modifier)
+
+ 3) var robotReload = function()
