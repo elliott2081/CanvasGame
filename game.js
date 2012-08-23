@@ -71,16 +71,16 @@ var gameOver = function()
 //d is direction pressed
 var animation = function(d, character){
 	if(character.name == "hero"){//for hero
-		if(hero.direction != d)
+		if(character.direction != d)
 		{
-			hero_moved = 5;
-			hero.direction = d;
+			character.char_moved = 5;
+			character.direction = d;
 		}
-		if(hero_moved > 5)
+		if(character.char_moved > 5)
 		{
-			hero_moved =1;
+			character.char_moved =1;
 		}
-		if(hero_moved == 5)
+		if(character.char_moved == 5)
 		{
 			if(heroFrameIndex == 1)
 				heroFrameIndex = 0;
@@ -89,16 +89,16 @@ var animation = function(d, character){
 		}
 	}else{	
 		//logic for robot movement
-		if(robot.direction != d)
+		if(character.direction != d)
 		{
-			robot_moved = 15;
-			robot.direction  = d;
+			character.char_moved = 15;
+			character.direction  = d;
 		}
-		if(robot_moved > 15)
+		if(character.char_moved > 15)
 		{
-			robot_moved =1;
+			character.char_moved =1;
 		}
-		if(robot_moved == 15)
+		if(character.char_moved == 15)
 		{
 			if(robot_frameIndex == 2)
 				robot_frameIndex = 0;

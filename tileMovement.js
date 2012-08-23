@@ -237,3 +237,23 @@ var collisionDetection = function(){
 	if(robot.x > (canvas.width-char_size)) //512 -64
 		robot.x = canvas.width-char_size;
 };
+
+var move = function(character, modifier, direction){
+	if(direction == "up"){ //move up
+		character.y -= character.speed * modifier;
+		character.char_moved += 1;
+		animation(3,character);
+	}else if(direction == "down"){//move down
+		character.y += character.speed * modifier;
+		character.char_moved += 1;
+		animation(1, character);
+	}else if(direction == "left"){//move left
+		character.x -= character.speed * modifier;
+		character.char_moved += 1;
+		animation(2, character);
+	}else if(direction == "right"){//move right
+		character.x += character.speed * modifier;
+		character.char_moved += 1;
+		animation(0, character);
+	}
+};
