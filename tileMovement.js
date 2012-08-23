@@ -183,6 +183,8 @@ var collisionDetection = function(){
 		
 			gameOver();
 		}
+	var old_hero_y = hero.y;
+	var old_hero_x = hero.x;
 	//touching border for hero
 		if(hero.y < 0){ //top of the screen
 			if(currentTileMap-tileMapArrayDimension < 0){
