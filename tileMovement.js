@@ -3,6 +3,8 @@
 //////////////////////////////////
 
 //World Map
+//collision ease is the amount of pixels inward of the characthers box when captured
+var collisionEase = 30;
 var currentTileMap = 0;
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
 var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15]; // represented as a 1 dimensional array but thought of as 2
@@ -175,10 +177,10 @@ var onTile = function(charX, charY){
 
 var collisionDetection = function(){
 		if(
-			hero.x <= (robot.x + char_size)
-			&& robot.x <= (hero.x + char_size)
-			&& hero.y <= (robot.y + char_size)
-			&& robot.y <= (hero.y + char_size)
+			hero.x <= (robot.x + char_size - collisionEase)
+			&& robot.x <= (hero.x + char_size - collisionEase)
+			&& hero.y <= (robot.y + char_size - collisionEase)
+			&& robot.y <= (hero.y + char_size - collisionEase)
 		){
 		
 			gameOver();

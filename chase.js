@@ -1,4 +1,4 @@
-var chaseMode = function(){
+var chaseMode = function(modifier){
 	var hr_hor = hero.x - robot.x;
 	var hr_ver = hero.y - robot.y;
 
@@ -37,12 +37,12 @@ var chaseMode = function(){
 				move(robot, modifier, "right");
 			}
 			else if(upOrDown == "up"){
-				if(check_up_is_legal(robot, modifier)){
+				if(check_above_is_legal(robot, modifier)){
 					move(robot, modifier, "up");
 				}
 			}
 			else if(upOrDown == "down"){
-				if(check_down_is_legal(robot, modifier)){
+				if(check_below_is_legal(robot, modifier)){
 					move(robot, modifier, "down");
 				}
 			}
@@ -58,16 +58,17 @@ var chaseMode = function(){
 				move(robot, modifier, "left");
 			}
 			else if(upOrDown == "up"){
-				if(check_up_is_legal(robot, modifier)){
+				if(check_above_is_legal(robot, modifier)){
 					move(robot, modifier, "up");
 				}
 			}
 			else if(upOrDown == "down"){
-				if(check_down_is_legal(robot, modifier)){
+				if(check_below_is_legal(robot, modifier)){
 					move(robot, modifier, "down");
 				}
 			}
 			else{
+
 				move(robot, modifier, "right");
 			}
 		}	
@@ -75,7 +76,7 @@ var chaseMode = function(){
 	else{
 		// DOWN
 		if(upOrDown == "down"){
-			if(check_down_is_legal(robot, modifier)){
+			if(check_below_is_legal(robot, modifier)){
 				move(robot, modifier, "down");
 			}
 			else if(rightOrLeft == "right"){
@@ -91,9 +92,10 @@ var chaseMode = function(){
 			else{
 				move(robot, modifier, "right");
 			}
+		}
 		// UP
 		else{
-			if(check_up_is_legal(robot, modifier)){
+			if(check_above_is_legal(robot, modifier)){
 				move(robot, modifier, "up");
 			}
 			else if(rightOrLeft == "right"){

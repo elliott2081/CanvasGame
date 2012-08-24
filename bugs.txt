@@ -1,0 +1,3 @@
+BUGS - 
+hero can walk into wall from previous screen
+possible fix - just create a wall opposite that wall on the other tile map

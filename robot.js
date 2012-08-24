@@ -40,11 +40,13 @@ var robot_movement_helper = function(modifier){
 	var distance = Math.sqrt(x_diff_sq + y_diff_sq);
 	if(distance < patrol_distance)
 		robot.chase = true;
+	else 
+		robot.chase = false;
 		
 	
 	//if case 1 chase hero
 	if(robot.chase == true){
-		//we are starting with chasing hero without wall blocking robot
+		chaseMode(modifier);
 		
 	}
 	else{
