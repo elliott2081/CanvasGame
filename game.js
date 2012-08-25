@@ -3,7 +3,8 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
-
+var isGameOver = false;
+var intro_var = true;
 //put canvas into document(html)
 document.body.appendChild(canvas);
 
@@ -28,12 +29,24 @@ var update = function (modifier){
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper(modifier);	//from robot.js
-	/**need to make some change. robot border detection need to be integrated before onTile call on robot_movement_helper()**/
-
+	intro();
 }; 
+
 
 //draw everything - gets called every game cycle
 var render = function(){
+	if (isGameOver){
+		gameOver();
+	}
+	else if(intro_var)
+	{
+		ctx.fillStyle = "black";
+		ctx.font = "24px Helvetica";
+		ctx.textAlign = "left";
+		ctx.textBaseline = "top";
+		ctx.fillText("press space bar goddamn it", 50,50);
+	}else
+	{
 		if(bgReady){
 			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 				for (var colCtr=0;colCtr<mapCols;colCtr++){
@@ -51,23 +64,39 @@ var render = function(){
 				ctx.drawImage(heroImage, (hero.direction*(char_src_size*2) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
 		if(robotReady){
-			
-				ctx.drawImage(robotImage, (robot.direction*(char_src_size*3) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+			ctx.drawImage(robotImage, (robot.direction*(char_src_size*3) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		}
+	}
 };		
 
 /* new codes from CJ*/
 
-var gameOver = function()
-{
-		ctx.fillStyle = "rgb(250, 250, 250)";
-		ctx.font = "24px Helvetica";
-		ctx.textAlign = "left";
-		ctx.textBaseline = "top";
-		ctx.fillText("You Died!!", 50,50);
-		clearInterval (simulator);
+var gameOver = function(){
+	clearInterval(simulator);
+	ctx.fillStyle = "white";
+	ctx.fillRect(0,0, canvas.width, canvas.height);
+	
+	gameOver_text_style();
+	ctx.fillText("You Died!!", 512,288);	
+	gameOver_text_style();
+	ctx.fillText("Game Developers: David Elliott, Jungyul Cho", 512, (288+25));
+	gameOver_text_style();
+	ctx.fillText("Graphics: Eric chandler", 512,(288+50));
+	gameOver_text_style();
+	ctx.fillText("Music: Stuart Moore", 512,(288+75));
+	gameOver_text_style();
+	ctx.fillText("special thanks to", 512,(288+105));
+	gameOver_text_style();
+	ctx.fillText("Elijah Hamovitz", 512,(288+130));
 	
 };
+var gameOver_text_style = function(){
+	ctx.fillStyle = "black";
+	ctx.font = "24px Helvetica";
+	ctx.textAlign = "center";
+	ctx.textBaseline = "top";
+	
+}
 //d is direction pressed
 var animation = function(d, character){
 	if(character.name == "hero"){//for hero
@@ -112,12 +141,14 @@ var animation = function(d, character){
 var main = function() {
 		var now = Date.now();
 		var delta = now - then;
-		
 		update(delta / 1000);
 		render();
-		
 		then = now;
 		
+};
+var intro = function(){
+	if(32 in keysDown)
+		intro_var = false;
 };
 var then = Date.now();
 var simulator = setInterval(main,1);

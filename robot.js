@@ -27,7 +27,7 @@ var robot = {
 		direction: 3,
 		name: "robot",
 		robot_number: 0,
-		ease: 1,
+		ease: 5,
 		//if hero get in range chase change to true, false otherwise
 		chase: false,
 		char_moved: 1
@@ -43,12 +43,12 @@ var robot_movement_helper = function(modifier){
 		robot.chase = true;
 	}else{ 
 		robot.chase = false;
-		chase_consistency = 30;
+		chase_consistency = 10;
 	}
 	
 	//if case 1 chase hero
 	if(robot.chase == true){
-		if(chase_consistency >= 30){
+		if(chase_consistency >= 10){
 			chaseMode(modifier);
 			chase_consistency = 0;
 		}else{

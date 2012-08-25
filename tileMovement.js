@@ -183,7 +183,7 @@ var collisionDetection = function(){
 			&& robot.y <= (hero.y + char_size - collisionEase)
 		){
 		
-			gameOver();
+			isGameOver = true;
 		}
 	var old_hero_y = hero.y;
 	var old_hero_x = hero.x;
