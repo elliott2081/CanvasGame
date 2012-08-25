@@ -11,8 +11,8 @@ var heroFrameIndex = 0;
 
 var hero = {
 		speed: 256, //movementin pixels per second
-		x: 900,
-		y: 450,
+		x: 70,
+		y: 70,
 		direction: 0,
 		ease: 10,
 		name: "hero",

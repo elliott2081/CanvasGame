@@ -17,11 +17,12 @@ robotImage.src = "images/robots.png";
 var robot_frameIndex = 0;
 var robot_randomly_moved = 1;
 var patrol_distance = 572;
+var chase_consistency = 0;
 
 var robot = {
 		speed: 228,
-		x: 128,
-		y: 512,
+		x: 900,
+		y: 430,
 		//1 = down, 2 = left , 3 = up, 0 = right 
 		direction: 3,
 		name: "robot",
@@ -38,16 +39,38 @@ var robot_movement_helper = function(modifier){
 	var x_diff_sq = Math.pow((robot.x - hero.x),2);
 	var y_diff_sq = Math.pow((robot.y - hero.y),2);
 	var distance = Math.sqrt(x_diff_sq + y_diff_sq);
-	if(distance < patrol_distance)
+	if(distance < patrol_distance){
 		robot.chase = true;
-	else 
+	}else{ 
 		robot.chase = false;
-		
+		chase_consistency = 30;
+	}
 	
 	//if case 1 chase hero
 	if(robot.chase == true){
-		chaseMode(modifier);
-		
+		if(chase_consistency >= 30){
+			chaseMode(modifier);
+			chase_consistency = 0;
+		}else{
+			if(robot.direction == 1 && check_below_is_legal(robot, modifier))
+				move(robot, modifier, "down");
+			else if(robot.direction == 2 && check_left_is_legal(robot, modifier))
+				move(robot, modifier, "left");
+			else if(robot.direction == 3 && check_above_is_legal(robot, modifier))
+				move(robot, modifier, "up");
+			else if(robot.direction == 0 && check_right_is_legal(robot, modifier))
+				move(robot, modifier, "right");
+			else{
+				chase_consistency =0;
+				chaseMode(modifier);
+
+			
+			
+				
+			}
+			chase_consistency += 1;
+			
+		}
 	}
 	else{
 		//var robotMovement = robot.speed*modifier;
@@ -124,7 +147,11 @@ var robot_movement_helper = function(modifier){
 
 
 var robotReload = function(){
-	if(currentTileMap == 1){
+	if(currentTileMap == 0){
+		robot.x = 900;
+		robot.y = 400;
+	}
+	else if(currentTileMap == 1){
 		robot.x = 900;
 		robot.y = 400;
 	}else if(currentTileMap == 2){
