@@ -7,8 +7,15 @@ var isGameOver = false;
 var intro_var = true;
 //put canvas into document(html)
 document.body.appendChild(canvas);
+var backgroundImage = new Image();
+backgroundImage.src = "images/IntroScreen.png";
 
+var gameOverScreen = new Image();
+gameOverScreen.src = "images/gameOver.png";
 
+//load sounds
+//var backgroundMusic = document.createElement('audio');
+//backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
 var char_size = 64;
 var char_src_size = 64;
 
@@ -40,11 +47,14 @@ var render = function(){
 	}
 	else if(intro_var)
 	{
-		ctx.fillStyle = "black";
-		ctx.font = "24px Helvetica";
-		ctx.textAlign = "left";
-		ctx.textBaseline = "top";
-		ctx.fillText("press space bar goddamn it", 50,50);
+		ctx.drawImage(backgroundImage,0,0);
+		//backgroundMusic.play();
+		
+		//ctx.fillStyle = "black";
+		//ctx.font = "24px Helvetica";
+		//ctx.textAlign = "left";
+		//ctx.textBaseline = "top";
+		//ctx.fillText("press space bar goddamn it", 50,50);
 	}else
 	{
 		if(bgReady){
@@ -61,10 +71,10 @@ var render = function(){
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, (hero.direction*(char_src_size*2) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+				ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
 		if(robotReady){
-			ctx.drawImage(robotImage, (robot.direction*(char_src_size*3) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		}
 	}
 };		
@@ -73,6 +83,8 @@ var render = function(){
 
 var gameOver = function(){
 	clearInterval(simulator);
+	ctx.drawImage(gameOverScreen,0,0);
+	/*
 	ctx.fillStyle = "white";
 	ctx.fillRect(0,0, canvas.width, canvas.height);
 	
@@ -88,7 +100,7 @@ var gameOver = function(){
 	ctx.fillText("special thanks to", 512,(288+105));
 	gameOver_text_style();
 	ctx.fillText("Elijah Hamovitz", 512,(288+130));
-	
+	*/
 };
 var gameOver_text_style = function(){
 	ctx.fillStyle = "black";
@@ -102,19 +114,19 @@ var animation = function(d, character){
 	if(character.name == "hero"){//for hero
 		if(character.direction != d)
 		{
-			character.char_moved = 5;
+			character.char_moved = 15;
 			character.direction = d;
 		}
-		if(character.char_moved > 5)
+		if(character.char_moved > 15)
 		{
 			character.char_moved =1;
 		}
-		if(character.char_moved == 5)
+		if(character.char_moved == 15)
 		{
-			if(heroFrameIndex == 1)
+			if(heroFrameIndex == 3)
 				heroFrameIndex = 0;
 			else
-				heroFrameIndex = 1;
+				heroFrameIndex += 1;
 		}
 	}else{	
 		//logic for robot movement
@@ -129,7 +141,7 @@ var animation = function(d, character){
 		}
 		if(character.char_moved == 15)
 		{
-			if(robot_frameIndex == 2)
+			if(robot_frameIndex == 3)
 				robot_frameIndex = 0;
 			else
 				robot_frameIndex += 1;

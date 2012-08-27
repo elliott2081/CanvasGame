@@ -15,17 +15,17 @@ var bgReady = false;
 tileSheet.onload = function(){
 	bgReady = true;
 };
-tileSheet.src = "images/mapFiles/tileSheet2.png";
+tileSheet.src = "images/backgroundTiles.png";
 var mapIndexOffset = -1;
 var mapRows = 9;
 var mapCols = 16;
 var tile_size = 64;
-var tile_src_size = 32;
+var tile_src_size = 64;
 
 //ranges for what tiles the hero and robot can move on
-var end_walkable = 3;
-var end_robot_walkable = 6;
-var end_non_walkable = 13;
+var end_walkable = 50;
+var end_robot_walkable = 100;
+var end_non_walkable = 150;
 
 ////////////////////////////////////////////////
 //FUNCTIONS FOR CALCULATING TILE POSITION AND MOVEMENT

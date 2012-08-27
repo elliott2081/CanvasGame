@@ -5,7 +5,7 @@ var heroImage = new Image();
 		heroReady = true;
 };*/
 //heroImage.src = "images/arrows.png";
-heroImage.src = "images/greenArrow.png";
+heroImage.src = "images/hero_sheet.png";
 
 var heroFrameIndex = 0;
 

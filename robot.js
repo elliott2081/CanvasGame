@@ -16,7 +16,7 @@ robotImage.src = "images/robots.png";
 
 var robot_frameIndex = 0;
 var robot_randomly_moved = 1;
-var patrol_distance = 572;
+var patrol_distance = 576;
 var chase_consistency = 0;
 
 var robot = {
