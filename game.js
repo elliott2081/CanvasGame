@@ -44,8 +44,14 @@ var update = function (modifier){
 
 //draw everything - gets called every game cycle
 var render = function(){
+	var winningTile = onTile(hero.x, hero.y);
+
 	if (isGameOver){
 		gameOver();
+	}
+	else if(getTileNum(winningTile) == 26)
+	{
+		youWin();
 	}
 	else if(intro_var)
 	{
@@ -74,10 +80,11 @@ var render = function(){
 					0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
 				}
 			} 
+			/*
 		var winningTile = onTile(hero.x, hero.y);
 			if(getTileNum(winningTile) == 26){
 			youWin();
-			}
+			}*/
 
 		}
 		//if(heroReady){
