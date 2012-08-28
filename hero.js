@@ -1,9 +1,9 @@
 //hero
-//var heroReady = false;
+var heroReady = false;
 var heroImage = new Image();
-/*heroImage.onload = function(){
+heroImage.onload = function(){
 		heroReady = true;
-};*/
+};
 //heroImage.src = "images/arrows.png";
 heroImage.src = "images/hero_sheet.png";
 
@@ -19,6 +19,9 @@ var hero = {
 		char_moved: 1
 		};
 
+var hero_ready_fun = function(){
+	return heroReady;
+}
 		
 ////////////////////////////////////
 // FUNCTIONS FOR MOVING THE HERO CHARACHTER AROUND

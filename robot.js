@@ -32,7 +32,9 @@ var robot = {
 		chase: false,
 		char_moved: 1
 		};
-
+var robot_ready_fun = function(){
+	return robotReady;
+}
 var robot_movement_helper = function(modifier){
 	
 	////// hero in bound //////

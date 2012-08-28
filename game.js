@@ -20,6 +20,10 @@ var backgroundMusic = document.createElement('audio');
 backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
 var char_size = 64;
 var char_src_size = 64;
+var bgmReady = false;
+backgroundMusic.onload = function(){
+	bgmReady = true;
+}
 
 
 //Handle keyboard controls
@@ -31,7 +35,9 @@ addEventListener("keydown",function(e){
 addEventListener("keyup",function(e){
 		delete keysDown[e.keyCode];
 		}, false);
-
+var bgm_ready_fun = function(){
+	return bgmReady;
+}
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
 // should probably be broken up into smaller functions
 var update = function (modifier){	
@@ -68,7 +74,7 @@ var render = function(){
 	
 
 		
-		if(bgReady){
+		//if(bgReady){
 		backgroundMusic.play();
 			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 				for (var colCtr=0;colCtr<mapCols;colCtr++){
@@ -86,14 +92,14 @@ var render = function(){
 			youWin();
 			}*/
 
-		}
+		//}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
 				ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
-		if(robotReady){
+		//if(robotReady){
 			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
-		}
+		//}
 	}
 };		
 
@@ -185,8 +191,12 @@ var main = function() {
 		
 };
 var intro = function(){
-	if(32 in keysDown)
-		intro_var = false;
+	if(32 in keysDown){
+		if(bgm_ready_fun && robot_ready_fun() && hero_ready_fun()){
+			
+			intro_var = false;
+		}
+	}
 };
 var then = Date.now();
 var simulator = setInterval(main,1);
