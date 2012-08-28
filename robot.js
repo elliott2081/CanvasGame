@@ -152,7 +152,7 @@ var robotReload = function(){
 		robot.y = 400;
 	}
 	else if(currentTileMap == 1){
-		robot.x = 900;
+		robot.x = 800;
 		robot.y = 400;
 	}else if(currentTileMap == 2){
 		robot.x = 600;
@@ -161,25 +161,25 @@ var robotReload = function(){
 		robot.x = 300;
 		robot.y = 200;
 	}else if(currentTileMap == 4){
-		robot.x = 1000;
-		robot.y = 500;
-	}else if(currentTileMap == 5){
 		robot.x = 900;
-		robot.y = 400;
+		robot.y = 446;
+	}else if(currentTileMap == 5){
+		robot.x = 64;
+		robot.y = 64;
 	}else if(currentTileMap == 6){
 		robot.x = 900;
-		robot.y = 400;
+		robot.y = 128;
 	}else if(currentTileMap == 7){
 		robot.x = 900;
 		robot.y = 400;
 	}else if(currentTileMap == 8){
-		robot.x = 900;
-		robot.y = 400;
+		robot.x = 128;
+		robot.y = 512;
 	}else if(currentTileMap == 9){
 		robot.x = 900;
-		robot.y = 400;
+		robot.y = 64;
 	}else if(currentTileMap == 10){
-		robot.x = 900;
+		robot.x = 128;
 		robot.y = 400;
 	}else if(currentTileMap == 11){
 		robot.x = 900;
@@ -189,7 +189,7 @@ var robotReload = function(){
 		robot.y = 400;
 	}else if(currentTileMap == 13){
 		robot.x = 900;
-		robot.y = 400;
+		robot.y = 128;
 	}else if(currentTileMap == 14){
 		robot.x = 900;
 		robot.y = 400;

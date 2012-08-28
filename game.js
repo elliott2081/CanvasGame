@@ -13,9 +13,11 @@ backgroundImage.src = "images/IntroScreen.png";
 var gameOverScreen = new Image();
 gameOverScreen.src = "images/gameOver.png";
 
+var youWinScreen = new Image();
+youWinScreen.src = "images/youWin.png";
 //load sounds
-//var backgroundMusic = document.createElement('audio');
-//backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
+var backgroundMusic = document.createElement('audio');
+backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
 var char_size = 64;
 var char_src_size = 64;
 
@@ -48,7 +50,7 @@ var render = function(){
 	else if(intro_var)
 	{
 		ctx.drawImage(backgroundImage,0,0);
-		//backgroundMusic.play();
+		
 		
 		//ctx.fillStyle = "black";
 		//ctx.font = "24px Helvetica";
@@ -57,7 +59,11 @@ var render = function(){
 		//ctx.fillText("press space bar goddamn it", 50,50);
 	}else
 	{
+	
+
+		
 		if(bgReady){
+		backgroundMusic.play();
 			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 				for (var colCtr=0;colCtr<mapCols;colCtr++){
 					var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
@@ -68,6 +74,11 @@ var render = function(){
 					0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
 				}
 			} 
+		var winningTile = onTile(hero.x, hero.y);
+			if(getTileNum(winningTile) == 26){
+			youWin();
+			}
+
 		}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
@@ -101,6 +112,14 @@ var gameOver = function(){
 	gameOver_text_style();
 	ctx.fillText("Elijah Hamovitz", 512,(288+130));
 	*/
+};
+
+var youWin = function(){
+	backgroundMusic.pause();
+
+	clearInterval(simulator);
+	
+	ctx.drawImage(youWinScreen,0,0);
 };
 var gameOver_text_style = function(){
 	ctx.fillStyle = "black";
