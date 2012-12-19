@@ -103,15 +103,22 @@ var render = function(){
 	}
 };		
 
-/* new codes from CJ*/
 
 var gameOver = function(){
 	end_screen = true;
 	ctx.drawImage(gameOverScreen,0,0);
+	//give option to restart the game. 
+	//later on I need to link this to database to update with previous play information for specific people. 
+   	if(end_screen && 32 in keysDown){
+		console.log("down man");
+		location.reload(true);
+
+	}
 };
 var end_screen =false;
 var simulator2;
 var restart_game = function(){
+    console.log("restart_game called");
 	if(end_screen && 32 in keysDown){
 		console.log("down man");
 			
