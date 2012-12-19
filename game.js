@@ -69,8 +69,8 @@ var render = function(){
 		//ctx.textAlign = "left";
 		//ctx.textBaseline = "top";
 		//ctx.fillText("press space bar goddamn it", 50,50);
-	}else
-	{
+	}
+	else{
 	
 
 		
@@ -106,25 +106,24 @@ var render = function(){
 /* new codes from CJ*/
 
 var gameOver = function(){
-	clearInterval(simulator);
+	end_screen = true;
 	ctx.drawImage(gameOverScreen,0,0);
-	/*
-	ctx.fillStyle = "white";
-	ctx.fillRect(0,0, canvas.width, canvas.height);
-	
-	gameOver_text_style();
-	ctx.fillText("You Died!!", 512,288);	
-	gameOver_text_style();
-	ctx.fillText("Game Developers: David Elliott, Jungyul Cho", 512, (288+25));
-	gameOver_text_style();
-	ctx.fillText("Graphics: Eric chandler", 512,(288+50));
-	gameOver_text_style();
-	ctx.fillText("Music: Stuart Moore", 512,(288+75));
-	gameOver_text_style();
-	ctx.fillText("special thanks to", 512,(288+105));
-	gameOver_text_style();
-	ctx.fillText("Elijah Hamovitz", 512,(288+130));
-	*/
+};
+var end_screen =false;
+var simulator2;
+var restart_game = function(){
+	if(end_screen && 32 in keysDown){
+		console.log("down man");
+			
+			clearInterval(simulator);
+			end_screen = false;
+			intro_var = true;
+			then = Date.now();
+			simulator = setInterval(main, 1);
+			return 1;
+
+	}
+
 };
 
 var youWin = function(){
@@ -133,6 +132,9 @@ var youWin = function(){
 	clearInterval(simulator);
 	
 	ctx.drawImage(youWinScreen,0,0);
+	
+	end_screen = true;
+	
 };
 var gameOver_text_style = function(){
 	ctx.fillStyle = "black";
@@ -188,7 +190,7 @@ var main = function() {
 		update(delta / 1000);
 		render();
 		then = now;
-		
+		restart_game();
 };
 var intro = function(){
 	if(32 in keysDown){
