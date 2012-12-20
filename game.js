@@ -23,7 +23,7 @@ var char_src_size = 64;
 var bgmReady = false;
 backgroundMusic.onload = function(){
 	bgmReady = true;
-}
+};
 
 
 //Handle keyboard controls
@@ -37,9 +37,9 @@ addEventListener("keyup",function(e){
 		}, false);
 var bgm_ready_fun = function(){
 	return bgmReady;
-}
+};
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
-// should probably be broken up into smaller functions
+// prepare for what render function will print out. 
 var update = function (modifier){	
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
@@ -76,16 +76,16 @@ var render = function(){
 		
 		//if(bgReady){
 		backgroundMusic.play();
-			for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
-				for (var colCtr=0;colCtr<mapCols;colCtr++){
-					var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
-					var sourceX = (tileId *tile_src_size);
-					//console.log(tileId*tile_src_size);
-					//var sourceY = Math.floor(tileId / 8) *32;
-					ctx.drawImage(tileSheet, sourceX,
-					0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
-				}
-			} 
+		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
+			for (var colCtr=0;colCtr<mapCols;colCtr++){
+				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
+				var sourceX = (tileId *tile_src_size);
+				//console.log(tileId*tile_src_size);
+				//var sourceY = Math.floor(tileId / 8) *32;
+				ctx.drawImage(tileSheet, sourceX,
+				0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
+			}
+		} 
 			/*
 		var winningTile = onTile(hero.x, hero.y);
 			if(getTileNum(winningTile) == 26){
@@ -95,10 +95,10 @@ var render = function(){
 		//}
 		//if(heroReady){
 		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-				ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		//}
 		//if(robotReady){
-			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		//}
 	}
 };		
@@ -109,39 +109,21 @@ var gameOver = function(){
 	ctx.drawImage(gameOverScreen,0,0);
 	//give option to restart the game. 
 	//later on I need to link this to database to update with previous play information for specific people. 
+	
    	if(end_screen && 32 in keysDown){
-		console.log("down man");
-		location.reload(true);
-
+		restart_game();
 	}
 };
-var end_screen =false;
-var simulator2;
+
 var restart_game = function(){
-    console.log("restart_game called");
-	if(end_screen && 32 in keysDown){
-		console.log("down man");
-			
-			clearInterval(simulator);
-			end_screen = false;
-			intro_var = true;
-			then = Date.now();
-			simulator = setInterval(main, 1);
-			return 1;
-
-	}
-
+    location.reload(true);
 };
 
 var youWin = function(){
 	backgroundMusic.pause();
-
-	clearInterval(simulator);
-	
+	clearInterval(simulator);	
 	ctx.drawImage(youWinScreen,0,0);
-	
 	end_screen = true;
-	
 };
 var gameOver_text_style = function(){
 	ctx.fillStyle = "black";
@@ -197,13 +179,16 @@ var main = function() {
 		update(delta / 1000);
 		render();
 		then = now;
-		restart_game();
 };
+
 var intro = function(){
 	if(32 in keysDown){
 		if(bgm_ready_fun && robot_ready_fun() && hero_ready_fun()){
-			
 			intro_var = false;
+		}else
+		{
+			//there some problem loading bgm, robot, hero. throw error catch phrase. something like "certain files are not loaded check your internet service 
+			//or reload the page."
 		}
 	}
 };
