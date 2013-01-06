@@ -175,16 +175,39 @@ var onTile = function(charX, charY){
 	return cCol_cRow;
 	};
 
+//var temp_count = 0
 var collisionDetection = function(){
+		//collision detection between item and hero
+		console.log(hero.own_item);
+		console.log(hero.x);
+		console.log(hero.y);
+		if(
+			hero.x <= (item.x + char_size - collisionEase)
+			&& item.x <= (hero.x + char_size - collisionEase)
+			&& hero.y <= (item.y + char_size - collisionEase)
+			&& item.y <= (hero.y + char_size - collisionEase)
+		){
+			hero.own_item = true;
+		}
+		//collision detection between robot and hero
 		if(
 			hero.x <= (robot.x + char_size - collisionEase)
 			&& robot.x <= (hero.x + char_size - collisionEase)
 			&& hero.y <= (robot.y + char_size - collisionEase)
 			&& robot.y <= (hero.y + char_size - collisionEase)
 		){
-		
-			isGameOver = true;
+
+			
+			if (hero.own_item == true){
+			
+				robot.electricuted = true;
+				
+			}else{
+			
+				isGameOver = true;
+			}
 		}
+		
 	var old_hero_y = hero.y;
 	var old_hero_x = hero.x;
 	//touching border for hero
@@ -239,7 +262,7 @@ var collisionDetection = function(){
 	if(robot.x > (canvas.width-char_size)) //512 -64
 		robot.x = canvas.width-char_size;
 };
-
+//called by hero and robot.js
 var move = function(character, modifier, direction){
 	if(direction == "up"){ //move up
 		character.y -= character.speed * modifier;

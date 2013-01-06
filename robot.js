@@ -30,11 +30,13 @@ var robot = {
 		ease: 5,
 		//if hero get in range chase change to true, false otherwise
 		chase: false,
-		char_moved: 1
+		char_moved: 1,
+		electricuted: false
 		};
 var robot_ready_fun = function(){
 	return robotReady;
 }
+var electricution_delay = 0;
 var robot_movement_helper = function(modifier){
 	
 	////// hero in bound //////
@@ -49,8 +51,20 @@ var robot_movement_helper = function(modifier){
 	}
 	
 	//if case 1 chase hero
-	if(robot.chase == true){
+	
+	if(robot.electricuted == true){
+		if(electricution_delay >= 70){
+			hero.own_item = false;
+			robot.electricuted = false;
+		}else{
+			electricution_delay ++;
+		}
+		//do nothing. Maybe adjust variable so it can have electric sparks around it.
+	}
+	else if(robot.chase == true){
+		//reflex agent to chase hero
 		if(chase_consistency >= 10){
+			//this part is to make sure robot move to certain direction for sometime before it change its mind
 			chaseMode(modifier);
 			chase_consistency = 0;
 		}else{
@@ -147,57 +161,73 @@ var robot_movement_helper = function(modifier){
 */
 };
 
-
+//called in tileMovement and it will renew robot location if it is moved to another tile.
 var robotReload = function(){
 	if(currentTileMap == 0){
 		robot.x = 900;
 		robot.y = 400;
+		robot.electricuted = false;
 	}
 	else if(currentTileMap == 1){
 		robot.x = 800;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 2){
 		robot.x = 600;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 3){
 		robot.x = 300;
 		robot.y = 200;
+		robot.electricuted = false;
 	}else if(currentTileMap == 4){
 		robot.x = 900;
 		robot.y = 446;
+		robot.electricuted = false;
 	}else if(currentTileMap == 5){
 		robot.x = 64;
 		robot.y = 64;
+		robot.electricuted = false;
 	}else if(currentTileMap == 6){
 		robot.x = 900;
 		robot.y = 128;
+		robot.electricuted = false;
 	}else if(currentTileMap == 7){
 		robot.x = 900;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 8){
 		robot.x = 128;
 		robot.y = 512;
+		robot.electricuted = false;
 	}else if(currentTileMap == 9){
 		robot.x = 900;
 		robot.y = 64;
+		robot.electricuted = false;
 	}else if(currentTileMap == 10){
 		robot.x = 128;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 11){
 		robot.x = 900;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 12){
 		robot.x = 900;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 13){
 		robot.x = 900;
 		robot.y = 128;
+		robot.electricuted = false;
 	}else if(currentTileMap == 14){
 		robot.x = 900;
 		robot.y = 400;
+		robot.electricuted = false;
 	}else if(currentTileMap == 15){
 		robot.x = 900;
 		robot.y = 400;
+		robot.electricuted = false;
 	}
 };
 	

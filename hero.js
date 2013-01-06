@@ -16,7 +16,9 @@ var hero = {
 		direction: 0,
 		ease: 10,
 		name: "hero",
-		char_moved: 1
+		char_moved: 1,
+		own_item : false
+		//own_item is temporarly in true. need to start with false
 		};
 
 var hero_ready_fun = function(){

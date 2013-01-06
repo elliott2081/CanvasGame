@@ -75,6 +75,7 @@ var render = function(){
 
 		
 		//if(bgReady){
+		//draw tiles
 		backgroundMusic.play();
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 			for (var colCtr=0;colCtr<mapCols;colCtr++){
@@ -108,8 +109,7 @@ var gameOver = function(){
 	end_screen = true;
 	ctx.drawImage(gameOverScreen,0,0);
 	//give option to restart the game. 
-	//later on I need to link this to database to update with previous play information for specific people. 
-	
+	//later on I need to link this to database to update with previous play information for specific people. 	
    	if(end_screen && 32 in keysDown){
 		restart_game();
 	}
