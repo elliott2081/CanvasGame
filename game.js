@@ -132,7 +132,7 @@ var gameOver_text_style = function(){
 	ctx.textBaseline = "top";
 	
 }
-//d is direction pressed
+//d is direction pressed or direction robot is moving
 var animation = function(d, character){
 	if(character.name == "hero"){//for hero
 		if(character.direction != d)

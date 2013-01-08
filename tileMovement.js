@@ -201,6 +201,7 @@ var collisionDetection = function(){
 			if (hero.own_item == true){
 			
 				robot.electricuted = true;
+				robotImage.src = "images/robots_electricuted.png";
 				
 			}else{
 			

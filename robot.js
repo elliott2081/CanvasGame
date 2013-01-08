@@ -12,8 +12,9 @@ var robotImage = new Image();
 robotImage.onload = function(){
 		robotReady = true;
 };
-robotImage.src = "images/robots.png";
+robotImage.src = "images/robots.png"; // original robot
 
+//robotImage.src = "images/robots_electricuted.png"; //electrictued robot pictures
 var robot_frameIndex = 0;
 var robot_randomly_moved = 1;
 var patrol_distance = 576;
@@ -37,6 +38,7 @@ var robot_ready_fun = function(){
 	return robotReady;
 }
 var electricution_delay = 0;
+var electricuted_robot_direction = 0;
 var robot_movement_helper = function(modifier){
 	
 	////// hero in bound //////
@@ -50,13 +52,31 @@ var robot_movement_helper = function(modifier){
 		chase_consistency = 10;
 	}
 	
-	//if case 1 chase hero
+	
 	
 	if(robot.electricuted == true){
 		if(electricution_delay >= 70){
 			hero.own_item = false;
 			robot.electricuted = false;
+			robotImage.src = "images/robots.png";
 		}else{
+			//call move with modifier = 0 thus robot will not move as long as it is electricuted
+			if (electricuted_robot_direction >= 3){
+				electricuted_robot_direction = 0;
+			}else{
+				if(electricuted_robot_direction == 0){
+					move(robot, 0, "right");
+				}else if (electricuted_robot_direction == 1){
+					move(robot, 0, "down");
+				}else if (electricuted_robot_direction == 2){
+					move(robot, 0, "left");
+				}else{
+					move(robot, 0, "up");
+				}
+				electricuted_robot_direction ++;
+				
+				
+			}
 			electricution_delay ++;
 		}
 		//do nothing. Maybe adjust variable so it can have electric sparks around it.
@@ -167,67 +187,83 @@ var robotReload = function(){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}
 	else if(currentTileMap == 1){
 		robot.x = 800;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 2){
 		robot.x = 600;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 3){
 		robot.x = 300;
 		robot.y = 200;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 4){
 		robot.x = 900;
 		robot.y = 446;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 5){
 		robot.x = 64;
 		robot.y = 64;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 6){
 		robot.x = 900;
 		robot.y = 128;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 7){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 8){
 		robot.x = 128;
 		robot.y = 512;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 9){
 		robot.x = 900;
 		robot.y = 64;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 10){
 		robot.x = 128;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 11){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 12){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 13){
 		robot.x = 900;
 		robot.y = 128;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 14){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}else if(currentTileMap == 15){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
 	}
 };
 	
