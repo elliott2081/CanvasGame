@@ -177,10 +177,8 @@ var onTile = function(charX, charY){
 
 //var temp_count = 0
 var collisionDetection = function(){
-		//collision detection between item and hero
-		console.log(hero.own_item);
-		console.log(hero.x);
-		console.log(hero.y);
+		// collision detection between item and hero
+		// 
 		if(
 			hero.x <= (item.x + char_size - collisionEase)
 			&& item.x <= (hero.x + char_size - collisionEase)
@@ -188,6 +186,17 @@ var collisionDetection = function(){
 			&& item.y <= (hero.y + char_size - collisionEase)
 		){
 			hero.own_item = true;
+		}
+		
+		if(
+			hero.x <= (speedyItem.x + char_size - collisionEase)
+			&& speedyItem.x <= (hero.x + char_size - collisionEase)
+			&& hero.y <= (speedyItem.y + char_size - collisionEase)
+			&& speedyItem.y <= (hero.y + char_size - collisionEase)
+		){
+			hero.own_speedyItem = true;
+			hero.speed = 380;
+			frame_change_rate = 13;
 		}
 		//collision detection between robot and hero
 		if(

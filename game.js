@@ -25,6 +25,8 @@ backgroundMusic.onload = function(){
 	bgmReady = true;
 };
 
+var frame_change_rate = 15;
+
 
 //Handle keyboard controls
 var keysDown = {};
@@ -81,8 +83,7 @@ var render = function(){
 			for (var colCtr=0;colCtr<mapCols;colCtr++){
 				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
 				var sourceX = (tileId *tile_src_size);
-				//console.log(tileId*tile_src_size);
-				//var sourceY = Math.floor(tileId / 8) *32;
+				
 				ctx.drawImage(tileSheet, sourceX,
 				0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
 			}
@@ -101,6 +102,11 @@ var render = function(){
 		//if(robotReady){
 		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		//}
+		/*the way that we will draw item.
+		if (speedyItem.exist == true){
+			ctx.drawImage(####, ....)
+		}
+		*/
 	}
 };		
 
@@ -137,14 +143,14 @@ var animation = function(d, character){
 	if(character.name == "hero"){//for hero
 		if(character.direction != d)
 		{
-			character.char_moved = 15;
+			character.char_moved = frame_change_rate;
 			character.direction = d;
 		}
-		if(character.char_moved > 15)
+		if(character.char_moved > frame_change_rate)
 		{
 			character.char_moved =1;
 		}
-		if(character.char_moved == 15)
+		if(character.char_moved == frame_change_rate)
 		{
 			if(heroFrameIndex == 3)
 				heroFrameIndex = 0;
@@ -174,11 +180,32 @@ var animation = function(d, character){
 
 //main game loop
 var main = function() {
-		var now = Date.now();
-		var delta = now - then;
-		update(delta / 1000);
-		render();
-		then = now;
+	var now = Date.now();
+	var delta = now - then;
+	speedy_item_removal(delta);
+	update(delta / 1000);
+	render();
+	then = now;	
+};
+
+var speedy_item_removal = function(delta_var){
+	if(hero.own_speedyItem == true){
+		if(speedyItem.timer <= 0){
+			hero.own_speedyItem = false;
+			speedyItem.timer = 30000;
+			hero.speed = 256;
+			frame_change_rate = 15;
+		}else{
+			speedyItem.timer = speedyItem.timer - delta_var;
+		}
+		
+	
+	}
+	
+	console.log(speedyItem.timer);
+	console.log(hero.speed);
+	
+
 };
 
 var intro = function(){

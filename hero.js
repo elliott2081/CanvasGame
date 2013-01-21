@@ -17,7 +17,8 @@ var hero = {
 		ease: 10,
 		name: "hero",
 		char_moved: 1,
-		own_item : false
+		own_item : false,
+		own_speedyItem : false
 		//own_item is temporarly in true. need to start with false
 		};
 
@@ -31,7 +32,10 @@ var hero_ready_fun = function(){
 var keyboard_movement = function(modifier){
 	var old_hero_x = hero.x;
 	var old_hero_y = hero.y;
+	
+	
 	var heroMovement = hero.speed*modifier;
+	
 	if (38 in keysDown){ //player holding up
 		//map tile collision detection
 		if(check_above_is_legal(hero,modifier))

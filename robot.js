@@ -254,16 +254,19 @@ var robotReload = function(){
 		robot.y = 128;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 	}else if(currentTileMap == 14){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 	}else if(currentTileMap == 15){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 	}
 };
 	
