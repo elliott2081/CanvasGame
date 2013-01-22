@@ -55,6 +55,24 @@ var robot_movement_helper = function(modifier){
 	
 	
 	if(robot.electricuted == true){
+		//call move with modifier = 0 thus robot will not move as long as it is electricuted
+		if (electricuted_robot_direction >= 3){
+			electricuted_robot_direction = 0;
+		}else{
+			if(electricuted_robot_direction == 0){
+				move(robot, 0, "right");
+			}else if (electricuted_robot_direction == 1){
+				move(robot, 0, "down");
+			}else if (electricuted_robot_direction == 2){
+				move(robot, 0, "left");
+			}else{
+				move(robot, 0, "up");
+			}
+			electricuted_robot_direction ++;
+			
+			
+		}
+		/*
 		if(electricution_delay >= 70){
 			hero.own_item = false;
 			robot.electricuted = false;
@@ -80,6 +98,7 @@ var robot_movement_helper = function(modifier){
 			electricution_delay ++;
 		}
 		//do nothing. Maybe adjust variable so it can have electric sparks around it.
+		*/
 	}
 	else if(robot.chase == true){
 		//reflex agent to chase hero

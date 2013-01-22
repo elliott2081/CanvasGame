@@ -182,13 +182,13 @@ var animation = function(d, character){
 var main = function() {
 	var now = Date.now();
 	var delta = now - then;
-	speedy_item_removal(delta);
+	item_removal(delta);
 	update(delta / 1000);
 	render();
 	then = now;	
 };
 
-var speedy_item_removal = function(delta_var){
+var item_removal = function(delta_var){
 	if(hero.own_speedyItem == true){
 		if(speedyItem.timer <= 0){
 			hero.own_speedyItem = false;
@@ -201,9 +201,20 @@ var speedy_item_removal = function(delta_var){
 		
 	
 	}
+	if(robot.electricuted == true){
+		if(item.timer <=0){
+			hero.own_item = false;
+			item.timer = 3000;
+			robot.electricuted = false;
+			robotImage.src = "images/robots.png";
+		}else{
+			item.timer = item.timer - delta_var;
+		
+		}
+	}
 	
-	console.log(speedyItem.timer);
-	console.log(hero.speed);
+	console.log(item.timer);
+	
 	
 
 };
