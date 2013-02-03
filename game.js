@@ -36,6 +36,7 @@ addEventListener("keydown",function(e){
 		
 addEventListener("keyup",function(e){
 		delete keysDown[e.keyCode];
+		heroFrameIndex = 3;
 		}, false);
 var bgm_ready_fun = function(){
 	return bgmReady;
@@ -202,8 +203,9 @@ var item_removal = function(delta_var){
 	
 	}
 	if(robot.electricuted == true){
+		
 		if(item.timer <=0){
-			hero.own_item = false;
+			//hero.own_item = false;
 			item.timer = 3000;
 			robot.electricuted = false;
 			robotImage.src = "images/robots.png";

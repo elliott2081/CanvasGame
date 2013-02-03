@@ -184,8 +184,10 @@ var collisionDetection = function(){
 			&& item.x <= (hero.x + char_size - collisionEase)
 			&& hero.y <= (item.y + char_size - collisionEase)
 			&& item.y <= (hero.y + char_size - collisionEase)
+			&& item.availability == true
 		){
 			hero.own_item = true;
+			item.availability = false;
 		}
 		
 		if(
@@ -193,6 +195,7 @@ var collisionDetection = function(){
 			&& speedyItem.x <= (hero.x + char_size - collisionEase)
 			&& hero.y <= (speedyItem.y + char_size - collisionEase)
 			&& speedyItem.y <= (hero.y + char_size - collisionEase)
+			&& speedyItem.availability == true
 		){
 			hero.own_speedyItem = true;
 			hero.speed = 380;
@@ -211,8 +214,9 @@ var collisionDetection = function(){
 			
 				robot.electricuted = true;
 				robotImage.src = "images/robots_electricuted.png";
+				hero.own_item = false;
 				
-			}else{
+			}else if(robot.electricuted==false){
 			
 				isGameOver = true;
 			}
@@ -273,6 +277,7 @@ var collisionDetection = function(){
 		robot.x = canvas.width-char_size;
 };
 //called by hero and robot.js
+//up -> 3 down ->1 left -> 2 right ->0
 var move = function(character, modifier, direction){
 	if(direction == "up"){ //move up
 		character.y -= character.speed * modifier;

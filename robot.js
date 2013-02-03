@@ -207,85 +207,120 @@ var robotReload = function(){
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}
 	else if(currentTileMap == 1){
 		robot.x = 800;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 2){
 		robot.x = 600;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 3){
 		robot.x = 300;
 		robot.y = 200;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 4){
+		if(hero.direction == 1){
+			hero.x = 320;
+			hero.y = 320;
+		}
 		robot.x = 900;
 		robot.y = 446;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = true;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 5){
 		robot.x = 64;
 		robot.y = 64;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 6){
 		robot.x = 900;
 		robot.y = 128;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 7){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 8){
 		robot.x = 128;
-		robot.y = 512;
+		robot.y = 512-64;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = true;
 	}else if(currentTileMap == 9){
 		robot.x = 900;
 		robot.y = 64;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 10){
 		robot.x = 128;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 11){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 12){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 13){
 		robot.x = 900;
 		robot.y = 128;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
-		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 14){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
-		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		item.availability = false;
+		speedyItem.availability = false;
 	}else if(currentTileMap == 15){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
-		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		item.availability = false;
+		speedyItem.availability = false;
 	}
 };
 	
