@@ -1,0 +1,39 @@
+{ "height":9,
+ "layers":[
+        {
+         "data":[113, 4, 4, 4, 4, 4, 4, 108, 109, 4, 4, 4, 4, 4, 4, 105, 113, 4, 4, 4, 4, 4, 4, 110, 111, 4, 4, 4, 4, 4, 4, 105, 113, 4, 4, 4, 4, 4, 4, 4, 54, 54, 54, 4, 4, 4, 4, 105, 113, 4, 4, 4, 4, 106, 4, 4, 54, 4, 54, 4, 4, 4, 4, 106, 113, 4, 4, 4, 4, 4, 4, 4, 54, 54, 54, 4, 4, 106, 106, 106, 113, 4, 106, 4, 4, 4, 4, 4, 4, 4, 4, 108, 109, 4, 4, 106, 113, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 110, 111, 4, 4, 106, 113, 4, 4, 4, 108, 109, 4, 4, 4, 4, 4, 4, 4, 4, 106, 106, 113, 4, 4, 4, 110, 111, 4, 4, 4, 4, 4, 4, 4, 4, 4, 105],
+         "height":9,
+         "name":"Tile Layer 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":16,
+         "x":0,
+         "y":0
+        }],
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "tileheight":64,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/backgroundTiles.png",
+         "imageheight":64,
+         "imagewidth":9600,
+         "margin":0,
+         "name":"backgroundTiles",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":64,
+         "tilewidth":64
+        }],
+ "tilewidth":64,
+ "version":1,
+ "width":16
+}

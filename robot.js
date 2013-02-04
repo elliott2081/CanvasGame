@@ -271,8 +271,8 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = true;
 	}else if(currentTileMap == 9){
-		robot.x = 900;
-		robot.y = 64;
+		robot.x = 10*64;
+		robot.y = 3*64;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
@@ -293,7 +293,7 @@ var robotReload = function(){
 		speedyItem.availability = false;
 	}else if(currentTileMap == 12){
 		robot.x = 900;
-		robot.y = 400;
+		robot.y = 375;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
@@ -306,8 +306,8 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 14){
-		robot.x = 900;
-		robot.y = 400;
+		robot.x = 675;
+		robot.y = 300;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
