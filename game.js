@@ -26,7 +26,7 @@ backgroundMusic.onload = function(){
 	bgmReady = true;
 };
 
-var frame_change_rate = 15;
+var frame_change_rate = 10;
 
 
 //Handle keyboard controls
