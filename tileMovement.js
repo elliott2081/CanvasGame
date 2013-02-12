@@ -9,7 +9,8 @@ var collisionEase = 30;
 // TESTING - CHANGE THIS VARIABLE TO TEST LATER SCREENS
 var currentTileMap = 0;
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
-var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15]; // represented as a 1 dimensional array but thought of as 2
+var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16]; // represented as a 1 dimensional array but thought of as 2
+
 
 //Load tile sheet
 var tileSheet = new Image();
@@ -202,6 +203,7 @@ var collisionDetection = function(){
 			hero.own_speedyItem = true;
 			hero.speed = 380;
 			frame_change_rate = 13;
+			speedyItem.availability = false;
 		}
 		//collision detection between robot and hero
 		if(
@@ -218,7 +220,7 @@ var collisionDetection = function(){
 				robotImage.src = "images/robots_electricuted.png";
 				hero.own_item = false;
 				
-			}else if(robot.electricuted==false){
+			}else if(robot.electricuted==false  && insideIntroScreen == false){
 				//TESTING TURN BACK ON
 				isGameOver = true;
 			}

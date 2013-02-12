@@ -4,11 +4,25 @@ var ctx = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
 var isGameOver = false;
+var insideIntroScreen = true;
+var introScreens = [true, false, false, false, false, false]; //0: first intro, 1: level 1, 2: level 2, 3: level 3 intro 4: game over
+var currentLevel = [false, false, false];
 var intro_var = true;
 //put canvas into document(html)
 document.body.appendChild(canvas);
-var backgroundImage = new Image();
-backgroundImage.src = "images/IntroScreen.png";
+var StartScreen = new Image();
+StartScreen.src = "images/IntroScreen.png";
+var IntroLevel1 = new Image();
+IntroLevel1.src = "images/level1IntroScreen.png";
+var IntroLevel2 = new Image();
+IntroLevel2.src = "images/level2IntroScreen.png";
+var IntroLevel3 = new Image();
+IntroLevel3.src = "images/level3IntroScreen.png";
+
+var itemImage = new Image();
+itemImage.src = "images/tazer.png";
+var speedyItemImage = new Image();
+speedyItemImage.src = "images/energy_drink.png";
 
 var gameOverScreen = new Image();
 gameOverScreen.src = "images/gameOver.png";
@@ -17,8 +31,13 @@ var youWinScreen = new Image();
 youWinScreen.src = "images/youWin.png";
 //load sounds
 var backgroundMusic = document.createElement('audio');
+var backgroundMusic2 = document.createElement('audio');
+var backgroundMusic3 = document.createElement('audio');
 
-backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
+backgroundMusic2.setAttribute('src', 'sounds/wings.mp3');
+backgroundMusic3.setAttribute('src', 'sounds/wings.mp3');
+
 var char_size = 64;
 var char_src_size = 64;
 var bgmReady = false;
@@ -48,38 +67,35 @@ var update = function (modifier){
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper(modifier);	//from robot.js
-	intro();
+	intro(modifier);
 }; 
 
 
 //draw everything - gets called every game cycle
 var render = function(){
-	var winningTile = onTile(hero.x, hero.y);
 
 	if (isGameOver){
 		gameOver();
 	}
-	else if(getTileNum(winningTile) == 26)
+	else if(introScreens[4] == true)
 	{
 		youWin();
 	}
-	else if(intro_var)
+	else if(introScreens[0] == true)
 	{
-		ctx.drawImage(backgroundImage,0,0);
-		
-		
-		//ctx.fillStyle = "black";
-		//ctx.font = "24px Helvetica";
-		//ctx.textAlign = "left";
-		//ctx.textBaseline = "top";
-		//ctx.fillText("press space bar goddamn it", 50,50);
-	}
-	else{
-	
-
-		
-		//if(bgReady){
-		//draw tiles
+		ctx.drawImage(StartScreen,0,0);
+	}else if(introScreens[1] == true)
+	{
+		ctx.drawImage(IntroLevel1, 0,0);
+	}else if(introScreens[2] == true)
+	{
+		ctx.drawImage(IntroLevel2, 0,0);
+	}else if(introScreens[3] == true)
+	{
+		ctx.drawImage(IntroLevel3, 0,0);
+	}else if(currentLevel[0] == true)
+	{
+		//draw level1 tiles
 		backgroundMusic.play();
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 			for (var colCtr=0;colCtr<mapCols;colCtr++){
@@ -89,36 +105,71 @@ var render = function(){
 				ctx.drawImage(tileSheet, sourceX,
 				0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
 			}
-		} 
-			/*
-		var winningTile = onTile(hero.x, hero.y);
-			if(getTileNum(winningTile) == 26){
-			youWin();
-			}*/
-
-		//}
-		//if(heroReady){
-		//changed from " ctx.drawImage(heroImage, hero.x, hero.y); "
-		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		//}
-		//if(robotReady){
-		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
-		//}
-		/*the way that we will draw item.
-		if (speedyItem.exist == true){
-			ctx.drawImage(####, ....)
 		}
-		*/
+		if(item.availability == true){
+			ctx.drawImage(itemImage, item.x, item.y);
+		}
+		if(speedyItem.availability == true){
+			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
+		}
+		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+	}
+	else if(currentLevel[1] == true){
+		//draw level2 tiles
+		console.log("IN LEVEL 2 ELSE IF");
+		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		backgroundMusic2.play();
+
+		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
+			for (var colCtr=0;colCtr<mapCols;colCtr++){
+				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
+				var sourceX = (tileId *tile_src_size);
+				
+				ctx.drawImage(tileSheet, sourceX,
+				0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
+			}
+		} 
+		if(item.availability == true){
+			ctx.drawImage(itemImage, item.x, item.y);
+		}
+		if(speedyItem.availability == true){
+			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
+		}
+		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+	}
+	else if(currentLevel[2] == true){
+		//draw level3 tiles
+		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		backgroundMusic2.pause();
+		backgroundMusic3.play();
+		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
+			for (var colCtr=0;colCtr<mapCols;colCtr++){
+				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
+				var sourceX = (tileId *tile_src_size);
+				
+				ctx.drawImage(tileSheet, sourceX,
+				0,tile_src_size,tile_src_size,colCtr*tile_size,rowCtr*tile_size,tile_size,tile_size);
+			}
+		}
+		if(item.availability == true){
+			ctx.drawImage(itemImage, item.x, item.y);
+		}
+		if(speedyItem.availability == true){
+			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
+		}
+		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 	}
 };		
-
+ 
 
 var gameOver = function(){
-	end_screen = true;
 	ctx.drawImage(gameOverScreen,0,0);
 	//give option to restart the game. 
 	//later on I need to link this to database to update with previous play information for specific people. 	
-   	if(end_screen && 32 in keysDown){
+   	if(32 in keysDown){
 		restart_game();
 	}
 };
@@ -128,10 +179,13 @@ var restart_game = function(){
 };
 
 var youWin = function(){
-	backgroundMusic.pause();
-	clearInterval(simulator);	
+	//backgroundMusic.pause();
+	//backgroundMusic2.pause();
+	backgroundMusic3.pause();
 	ctx.drawImage(youWinScreen,0,0);
-	end_screen = true;
+   	if(32 in keysDown){
+		restart_game();
+	}
 };
 var gameOver_text_style = function(){
 	ctx.fillStyle = "black";
@@ -222,15 +276,96 @@ var item_removal = function(delta_var){
 
 };
 
-var intro = function(){
+var introTimeOut = 250;
+var intro = function(timeModifier){
+	timeModifier = timeModifier * 1000;
+	if(!(introTimeOut < 0)){
+		introTimeOut = introTimeOut - timeModifier;
+	}
+	/*
+	var inScreensString = '[';
+	for(var j = 0; j < introScreens.length; j++){
+		inScreensString += " " + introScreens[j] + " , " ;
+	}
+	console.log("INSIDE INTRO introScreens = " + inScreensString );
+	*/
+	
+	var heroCurrentTile = onTile(hero.x, hero.y);
+
 	if(32 in keysDown){
+		/*
+		var inScreensString = '[';
+		for(var j = 0; j < introScreens.length; j++){
+			inScreensString += " " + introScreens[j] + " , " ;
+		}
+		var keysDownString = '[';
+		for(var k = 0; k < keysDown.length; k++){
+			keysDownString += " " + keysDown[k] + " , " ;
+		}
+		*/
+		//console.log("INSIDE INTRO introScreens = " + inScreensString );
+		//console.log(" KEYS DOWN = " + keysDownString);
+		
 		if(bgm_ready_fun && robot_ready_fun() && hero_ready_fun()){
-			intro_var = false;
+			if(introScreens[0] == true && introTimeOut < 0){
+				introScreens[0] = false;
+				introScreens[1] = true;
+				introTimeOut = 250;
+				console.log("start screen");
+				
+			}else if(introScreens[1] == true && introTimeOut < 0){
+				// level 1 intro screen data update
+				introScreens[1] = false; 
+				currentLevel[0] = true;
+				insideIntroScreen = false;
+				console.log("level 1 intro screen");
+			}else if(introScreens[2] == true){
+				currentLevel[0] = false;
+				// level 2 intro screen data update
+				console.log("level 2 intro screen");
+				introScreens[2] = false;
+				currentLevel[1] = true;
+				insideIntroScreen = false;
+				currentTileMap = 16;
+				robotReload();
+			}else if(introScreens[3] == true){
+				currentLevel[1] = false;
+				//level 3 intro screen data update
+				introScreens[3] = false;
+				currentLevel[2] = true;
+				insideIntroScreen = false;
+			}
 		}else
 		{
 			//there some problem loading bgm, robot, hero. throw error catch phrase. something like "certain files are not loaded check your internet service 
 			//or reload the page."
 		}
+	}
+	// hero reached end of level 1
+	else if(getTileNum(heroCurrentTile) == 26)
+	{
+		for(var i = 0; i < introScreens.length; i++){
+			introScreens[i] = false;
+		}
+		introScreens[2] = true;
+		insideIntroScreen = true;
+		backgroundMusic.pause();
+
+	}
+	// hero reached end of level 2
+	else if(getTileNum(heroCurrentTile) == 46){
+		for(var i = 0; i < introScreens.length; i++){
+			introScreens[i] = false;
+		}
+		introScreens[3] = true;
+		insideIntroScreen = true;
+	}
+	else if(getTileNum(heroCurrentTile) == 66){
+		for(var i = 0; i < introScreens.length; i++){
+			introScreens[i] = false;
+		}
+		introScreens[4] = true;
+		insideIntroScreen = true;
 	}
 };
 var then = Date.now();

@@ -202,6 +202,7 @@ var robot_movement_helper = function(modifier){
 
 //called in tileMovement and it will renew robot location if it is moved to another tile.
 var robotReload = function(){
+	item.timer = 3000;
 	if(currentTileMap == 0){
 		robot.x = 900;
 		robot.y = 400;
@@ -241,6 +242,8 @@ var robotReload = function(){
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = true;
+		item.x = 896;
+		item.y = 64;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 5){
 		robot.x = 64;
@@ -268,7 +271,9 @@ var robotReload = function(){
 		robot.y = 512-64;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
-		item.availability = false;
+		item.availability = true;
+		item.x = 600;
+		item.y = 300;
 		speedyItem.availability = true;
 	}else if(currentTileMap == 9){
 		robot.x = 10*64;
@@ -314,6 +319,14 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 15){
+		robot.x = 900;
+		robot.y = 400;
+		robot.electricuted = false;
+		robotImage.src = "images/robots.png";
+		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		item.availability = false;
+		speedyItem.availability = false;
+	}else if(currentTileMap == 16){
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
