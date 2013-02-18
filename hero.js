@@ -10,7 +10,7 @@ heroImage.src = "images/hero_sheet.png";
 var heroFrameIndex = 0;
 
 var hero = {
-		speed: 256, //movementin pixels per second
+		speed: 1200, //movementin pixels per second
 		x: 70,
 		y: 70,
 		direction: 0,
@@ -18,10 +18,15 @@ var hero = {
 		name: "hero",
 		char_moved: 1,
 		own_item : false,
-		own_speedyItem : false
+		own_speedyItem : false,
+		hasRocks : true
 		//own_item is temporarly in true. need to start with false
+		
+		
 		};
 
+
+		
 var hero_ready_fun = function(){
 	return heroReady;
 }
@@ -65,5 +70,11 @@ var keyboard_movement = function(modifier){
 			move(hero, modifier, "right");
 		}
 		
+	}
+	if (88 in keysDown){ // holding x
+		if(hero.hasRocks == true){
+			
+			throwRocks(hero.direction);
+		}
 	}
 };

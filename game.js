@@ -3,6 +3,7 @@ var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
+
 var isGameOver = false;
 var insideIntroScreen = true;
 var introScreens = [true, false, false, false, false, false]; //0: first intro, 1: level 1, 2: level 2, 3: level 3 intro 4: game over
@@ -68,6 +69,7 @@ var update = function (modifier){
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper(modifier);	//from robot.js
 	intro(modifier);
+	rockMovement(modifier);
 }; 
 
 
@@ -112,6 +114,11 @@ var render = function(){
 		if(speedyItem.availability == true){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
 		}
+		
+		if(rock.active == true) {
+			ctx.drawImage(rockImage, rock.x, rock.y); 
+		}
+		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 	}
@@ -138,6 +145,10 @@ var render = function(){
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		
+		if(rock.active == true) {
+			ctx.drawImage(rockImage, rock.x, rock.y); 
+		}
 	}
 	else if(currentLevel[2] == true){
 		//draw level3 tiles
@@ -158,6 +169,9 @@ var render = function(){
 		}
 		if(speedyItem.availability == true){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
+		}
+		if(rock.active == true) {
+			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
