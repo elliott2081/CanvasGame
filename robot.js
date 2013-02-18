@@ -32,7 +32,8 @@ var robot = {
 		//if hero get in range chase change to true, false otherwise
 		chase: false,
 		char_moved: 1,
-		electricuted: false
+		electricuted: false,
+		live: true
 		};
 var robot_ready_fun = function(){
 	return robotReady;
@@ -204,14 +205,17 @@ var robot_movement_helper = function(modifier){
 var robotReload = function(){
 	item.timer = 3000;
 	if(currentTileMap == 0){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		
 	}
 	else if(currentTileMap == 1){
+		robot.live = true;
 		robot.x = 800;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -219,6 +223,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 2){
+		robot.live = true;
 		robot.x = 600;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -226,6 +231,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 3){
+		robot.live = true;
 		robot.x = 300;
 		robot.y = 200;
 		robot.electricuted = false;
@@ -233,6 +239,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 4){
+		robot.live = true;
 		if(hero.direction == 1){
 			hero.x = 320;
 			hero.y = 320;
@@ -246,6 +253,7 @@ var robotReload = function(){
 		item.y = 64;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 5){
+		robot.live = true;
 		robot.x = 64;
 		robot.y = 64;
 		robot.electricuted = false;
@@ -253,6 +261,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 6){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 128;
 		robot.electricuted = false;
@@ -260,6 +269,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 7){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -267,6 +277,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 8){
+		robot.live = true;
 		robot.x = 128;
 		robot.y = 512-64;
 		robot.electricuted = false;
@@ -276,6 +287,7 @@ var robotReload = function(){
 		item.y = 300;
 		speedyItem.availability = true;
 	}else if(currentTileMap == 9){
+		robot.live = true;
 		robot.x = 10*64;
 		robot.y = 3*64;
 		robot.electricuted = false;
@@ -283,6 +295,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 10){
+		robot.live = true;
 		robot.x = 128;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -290,6 +303,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 11){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -297,6 +311,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 12){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 375;
 		robot.electricuted = false;
@@ -304,6 +319,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 13){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 128;
 		robot.electricuted = false;
@@ -311,6 +327,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 14){
+		robot.live = true;
 		robot.x = 675;
 		robot.y = 300;
 		robot.electricuted = false;
@@ -319,6 +336,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 15){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -327,6 +345,7 @@ var robotReload = function(){
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 16){
+		robot.live = true;
 		robot.x = 900;
 		robot.y = 400;
 		robot.electricuted = false;

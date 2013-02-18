@@ -10,7 +10,7 @@ heroImage.src = "images/hero_sheet.png";
 var heroFrameIndex = 0;
 
 var hero = {
-		speed: 1200, //movementin pixels per second
+		speed: 256, //movementin pixels per second (original : 256)
 		x: 70,
 		y: 70,
 		direction: 0,
@@ -72,7 +72,7 @@ var keyboard_movement = function(modifier){
 		
 	}
 	if (88 in keysDown){ // holding x
-		if(hero.hasRocks == true){
+		if(hero.hasRocks == true && rock.active == false){
 			
 			throwRocks(hero.direction);
 		}

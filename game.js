@@ -65,11 +65,12 @@ var bgm_ready_fun = function(){
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
 // prepare for what render function will print out. 
 var update = function (modifier){	
+	rockMovement(modifier); //rock.js
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper(modifier);	//from robot.js
 	intro(modifier);
-	rockMovement(modifier);
+	
 }; 
 
 
@@ -116,11 +117,14 @@ var render = function(){
 		}
 		
 		if(rock.active == true) {
+			console.log("drawing rock");
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		if(robot.live == true){
+			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		}
 	}
 	else if(currentLevel[1] == true){
 		//draw level2 tiles
@@ -144,8 +148,9 @@ var render = function(){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
-		
+		if(robot.live == true){
+			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
@@ -174,7 +179,9 @@ var render = function(){
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		if(robot.live == true){
+			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		}
 	}
 };		
  

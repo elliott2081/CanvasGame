@@ -211,6 +211,7 @@ var collisionDetection = function(){
 			&& robot.x <= (hero.x + char_size - collisionEase)
 			&& hero.y <= (robot.y + char_size - collisionEase)
 			&& robot.y <= (hero.y + char_size - collisionEase)
+			&& robot.live == true
 		){
 
 			
