@@ -26,6 +26,19 @@ var throwRocks = function(direction){
 }
 
 var rockMovement = function(modifier){
+
+	if(
+		rock.x <= (robot.x + char_size - collisionEase)
+		&& robot.x <= (rock.x + char_size - collisionEase)
+		&& rock.y <= (robot.y + char_size - collisionEase)
+		&& robot.y <= (rock.y + char_size - collisionEase)
+		
+	){
+		rock.active = false;
+		robotImage.src = "images/deadRobot.png";
+		robot.x = -600;
+		robot.y = -600;
+	}
 	// up = 3 , down = 1, left = 2, right = 0
 	if(rock.direction == 3){
 		rock.y -= rock.speed * modifier;
