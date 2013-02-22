@@ -6,7 +6,7 @@ create an array of robots
 
 
 */
-//robot
+//robot graphic values
 var robotReady = false;
 var robotImage = new Image();
 robotImage.onload = function(){
@@ -14,7 +14,39 @@ robotImage.onload = function(){
 };
 robotImage.src = "images/robots.png"; // original robot
 
-//robotImage.src = "images/robots_electricuted.png"; //electrictued robot pictures
+function robot(){
+	var speed = 228;
+	var speed = 228;
+	var x = 900;
+	var y = 430;
+	//1 = down, 2 = left , 3 = up, 0 = right 
+	var direction = 3;
+	var name = "robot";
+	var robot_number = 0;
+	var ease = 5;
+	//if hero get in range chase change to true, false otherwise
+	var chase = false;
+	var char_moved = 1;
+	var electricuted = false;
+	var live = true;
+	
+	//other robot operating values 
+	//(top 2 values; might not need)
+	var robot_frameIndex = 0; // this also need to be check for necessity
+	//var robot_randomly_moved = 1; // need to check if this var is being used
+	var patrol_distance = 576;
+	var chase_consistency = 0;
+	
+	//tazer related robot variables(might not need)
+	var electricution_delay = 0;
+	var electricuted_robot_direction = 0;
+}
+var robot_ready_fun = function(){
+	return robotReady;
+}
+
+/*
+//robot operating values
 var robot_frameIndex = 0;
 var robot_randomly_moved = 1;
 var patrol_distance = 576;
@@ -35,22 +67,23 @@ var robot = {
 		electricuted: false,
 		live: true
 		};
-var robot_ready_fun = function(){
-	return robotReady;
-}
+
 var electricution_delay = 0;
 var electricuted_robot_direction = 0;
+*/
+
+
 var robot_movement_helper = function(modifier){
 	
 	////// hero in bound //////
 	var x_diff_sq = Math.pow((robot.x - hero.x),2);
 	var y_diff_sq = Math.pow((robot.y - hero.y),2);
 	var distance = Math.sqrt(x_diff_sq + y_diff_sq);
-	if(distance < patrol_distance){
+	if(distance < robot.patrol_distance){
 		robot.chase = true;
 	}else{ 
 		robot.chase = false;
-		chase_consistency = 10;
+		robot.chase_consistency = 10;
 	}
 	
 	
@@ -103,10 +136,10 @@ var robot_movement_helper = function(modifier){
 	}
 	else if(robot.chase == true){
 		//reflex agent to chase hero
-		if(chase_consistency >= 10){
+		if(robot.chase_consistency >= 10){
 			//this part is to make sure robot move to certain direction for sometime before it change its mind
 			chaseMode(modifier);
-			chase_consistency = 0;
+			robot.chase_consistency = 0;
 		}else{
 			if(robot.direction == 1 && check_below_is_legal(robot, modifier))
 				move(robot, modifier, "down");
@@ -117,14 +150,14 @@ var robot_movement_helper = function(modifier){
 			else if(robot.direction == 0 && check_right_is_legal(robot, modifier))
 				move(robot, modifier, "right");
 			else{
-				chase_consistency =0;
+				robot.chase_consistency =0;
 				chaseMode(modifier);
 
 			
 			
 				
 			}
-			chase_consistency += 1;
+			robot.chase_consistency += 1;
 			
 		}
 	}
