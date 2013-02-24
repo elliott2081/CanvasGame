@@ -1,3 +1,4 @@
+
 //create the canvas
 var canvas = document.createElement("canvas");
 var ctx = canvas.getContext("2d");
@@ -68,7 +69,7 @@ var update = function (modifier){
 	rockMovement(modifier); //rock.js
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
-	robot_movement_helper(modifier);	//from robot.js
+	robot_movement_helper(robot, modifier);	//from robot.js
 	intro(modifier);
 	
 }; 
@@ -76,7 +77,6 @@ var update = function (modifier){
 
 //draw everything - gets called every game cycle
 var render = function(){
-
 	if (isGameOver){
 		gameOver();
 	}
@@ -117,13 +117,12 @@ var render = function(){
 		}
 		
 		if(rock.active == true) {
-			console.log("drawing rock");
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		if(robot.live == true){
-			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot.robot.robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot.robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		}
 	}
 	else if(currentLevel[1] == true){
@@ -256,7 +255,9 @@ var animation = function(d, character){
 };
 
 //main game loop
-var main = function() {
+var main = function(robot) {
+
+
 	var now = Date.now();
 	var delta = now - then;
 	item_removal(delta);
@@ -290,9 +291,7 @@ var item_removal = function(delta_var){
 		
 		}
 	}
-	
-	console.log(item.timer);
-	
+		
 	
 
 };
@@ -390,4 +389,6 @@ var intro = function(timeModifier){
 	}
 };
 var then = Date.now();
+var robot = new robot(); //robot object declaration
+
 var simulator = setInterval(main,1);

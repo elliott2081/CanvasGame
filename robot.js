@@ -15,31 +15,32 @@ robotImage.onload = function(){
 robotImage.src = "images/robots.png"; // original robot
 
 function robot(){
-	var speed = 228;
-	var speed = 228;
-	var x = 900;
-	var y = 430;
+
+//this -> public
+//var -> private
+	this.speed = 228;
+	this.x = 900;
+	this.y = 430;
 	//1 = down, 2 = left , 3 = up, 0 = right 
-	var direction = 3;
-	var name = "robot";
-	var robot_number = 0;
-	var ease = 5;
+	this.direction = 3;
+	this.name = "robot";
+	this.robot_number = 0;
+	this.ease = 5;
 	//if hero get in range chase change to true, false otherwise
-	var chase = false;
-	var char_moved = 1;
-	var electricuted = false;
-	var live = true;
+	this.chase = false;
+	this.char_moved = 1;
+	this.electricuted = false;
+	this.live = true;
 	
 	//other robot operating values 
-	//(top 2 values; might not need)
-	var robot_frameIndex = 0; // this also need to be check for necessity
-	//var robot_randomly_moved = 1; // need to check if this var is being used
-	var patrol_distance = 576;
-	var chase_consistency = 0;
+	this.robot_frameIndex = 0; 
+	this.robot_randomly_moved = 1;
+	this.patrol_distance = 576;
+	this.chase_consistency = 0;
 	
 	//tazer related robot variables(might not need)
-	var electricution_delay = 0;
-	var electricuted_robot_direction = 0;
+	this.electricution_delay = 0;
+	this.electricuted_robot_direction = 0;
 }
 var robot_ready_fun = function(){
 	return robotReady;
@@ -73,14 +74,16 @@ var electricuted_robot_direction = 0;
 */
 
 
-var robot_movement_helper = function(modifier){
+var robot_movement_helper = function(robot, modifier){
 	
 	////// hero in bound //////
 	var x_diff_sq = Math.pow((robot.x - hero.x),2);
 	var y_diff_sq = Math.pow((robot.y - hero.y),2);
 	var distance = Math.sqrt(x_diff_sq + y_diff_sq);
+	console.log("robot_movement_helper: distance = " + distance);
 	if(distance < robot.patrol_distance){
 		robot.chase = true;
+		console.log("robot cahse=>"+robot.chase);
 	}else{ 
 		robot.chase = false;
 		robot.chase_consistency = 10;
@@ -90,19 +93,19 @@ var robot_movement_helper = function(modifier){
 	
 	if(robot.electricuted == true){
 		//call move with modifier = 0 thus robot will not move as long as it is electricuted
-		if (electricuted_robot_direction >= 3){
-			electricuted_robot_direction = 0;
+		if (robot.electricuted_robot_direction >= 3){
+			robot.electricuted_robot_direction = 0;
 		}else{
-			if(electricuted_robot_direction == 0){
+			if(robot.electricuted_robot_direction == 0){
 				move(robot, 0, "right");
-			}else if (electricuted_robot_direction == 1){
+			}else if (robot.electricuted_robot_direction == 1){
 				move(robot, 0, "down");
-			}else if (electricuted_robot_direction == 2){
+			}else if (robot.electricuted_robot_direction == 2){
 				move(robot, 0, "left");
 			}else{
 				move(robot, 0, "up");
 			}
-			electricuted_robot_direction ++;
+			robot.electricuted_robot_direction ++;
 			
 			
 		}

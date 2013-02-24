@@ -181,7 +181,6 @@ var onTile = function(charX, charY){
 //var temp_count = 0
 var collisionDetection = function(){
 		// collision detection between item and hero
-		// 
 		if(
 			hero.x <= (item.x + char_size - collisionEase)
 			&& item.x <= (hero.x + char_size - collisionEase)
@@ -192,7 +191,6 @@ var collisionDetection = function(){
 			hero.own_item = true;
 			item.availability = false;
 		}
-		
 		if(
 			hero.x <= (speedyItem.x + char_size - collisionEase)
 			&& speedyItem.x <= (hero.x + char_size - collisionEase)
