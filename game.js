@@ -69,7 +69,7 @@ var update = function (modifier){
 	rockMovement(modifier); //rock.js
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
-	robot_movement_helper(robot, modifier);	//from robot.js
+	robot_movement_helper(modifier);	//from robot.js
 	intro(modifier);
 	
 }; 
@@ -121,6 +121,7 @@ var render = function(){
 		}
 		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+
 		if(robot.live == true){
 			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot.robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
 		}
@@ -389,6 +390,7 @@ var intro = function(timeModifier){
 	}
 };
 var then = Date.now();
-var robot = new robot(); //robot object declaration
 
+var prep = {};
+var robot = new robot();
 var simulator = setInterval(main,1);

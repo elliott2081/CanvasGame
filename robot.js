@@ -74,13 +74,13 @@ var electricuted_robot_direction = 0;
 */
 
 
-var robot_movement_helper = function(robot, modifier){
+var robot_movement_helper = function(modifier){
 	
 	////// hero in bound //////
 	var x_diff_sq = Math.pow((robot.x - hero.x),2);
 	var y_diff_sq = Math.pow((robot.y - hero.y),2);
 	var distance = Math.sqrt(x_diff_sq + y_diff_sq);
-	console.log("robot_movement_helper: distance = " + distance);
+	
 	if(distance < robot.patrol_distance){
 		robot.chase = true;
 		console.log("robot cahse=>"+robot.chase);
