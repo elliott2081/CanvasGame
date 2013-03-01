@@ -1,11 +1,9 @@
 
-/* robot notes
-create an array of robots
+
+//create an array of robots
+var robotArray = new Array();
 
 
-
-
-*/
 //robot graphic values
 var robotReady = false;
 var robotImage = new Image();

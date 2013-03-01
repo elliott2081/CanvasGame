@@ -123,7 +123,7 @@ var render = function(){
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 
 		if(robot.live == true){
-			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot.robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
 		}
 	}
 	else if(currentLevel[1] == true){
@@ -148,8 +148,8 @@ var render = function(){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		if(robot.live == true){
-			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot.robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		if(robotArray[0].live == true){
+			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
 		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
@@ -179,8 +179,8 @@ var render = function(){
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		if(robot.live == true){
-			ctx.drawImage(robotImage, (robot.direction*(char_src_size*4) + robot.robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robot.x, robot.y, char_size, char_size);
+		if(robotArray[0].live == true){
+			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
 		}
 	}
 };		
@@ -247,16 +247,16 @@ var animation = function(d, character){
 		}
 		if(character.char_moved == 15)
 		{
-			if(robot.robot_frameIndex == 3)
-				robot.robot_frameIndex = 0;
+			if(robotArray[0].robot_frameIndex == 3)
+				robotArray[0].robot_frameIndex = 0;
 			else
-				robot.robot_frameIndex += 1;
+				robotArray[0].robot_frameIndex += 1;
 		}
 	}
 };
 
 //main game loop
-var main = function(robot) {
+var main = function() {
 
 
 	var now = Date.now();
@@ -280,12 +280,12 @@ var item_removal = function(delta_var){
 		
 	
 	}
-	if(robot.electricuted == true){
+	if(robotArray[0].electricuted == true){
 		
 		if(item.timer <=0){
 			//hero.own_item = false;
 			item.timer = 3000;
-			robot.electricuted = false;
+			robotArray[0].electricuted = false;
 			robotImage.src = "images/robots.png";
 		}else{
 			item.timer = item.timer - delta_var;
@@ -393,4 +393,5 @@ var then = Date.now();
 
 var prep = {};
 var robot = new robot();
+robotArray[0] = robot;
 var simulator = setInterval(main,1);
