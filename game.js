@@ -122,8 +122,13 @@ var render = function(){
 		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 
-		if(robot.live == true){
+		if(robotArray[0].live == true){
 			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
+		}
+		if(robotArray[1].live == true){
+			robotArray[1].x = 64;
+			robotArray[1].y = 64;
+			ctx.drawImage(robotImage, (robotArray[1].direction*(char_src_size*4) + robotArray[1].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[1].x, robotArray[1].y, char_size, char_size);
 		}
 	}
 	else if(currentLevel[1] == true){
@@ -150,6 +155,8 @@ var render = function(){
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 		if(robotArray[0].live == true){
 			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
+			ctx.drawImage(robotImage, (robotArray[1].direction*(char_src_size*4) + robotArray[1].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[1].x, robotArray[1].y, char_size, char_size);
+
 		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
@@ -392,6 +399,7 @@ var intro = function(timeModifier){
 var then = Date.now();
 
 var prep = {};
-var robot = new robot();
-robotArray[0] = robot;
+//var robot = new robot();
+robotArray[0] = Object.create(robot);
+robotArray[1] = Object.create(robot);
 var simulator = setInterval(main,1);

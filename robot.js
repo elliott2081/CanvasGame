@@ -12,33 +12,33 @@ robotImage.onload = function(){
 };
 robotImage.src = "images/robots.png"; // original robot
 
-function robot(){
+var robot = {
 
 //this -> public
 //var -> private
-	this.speed = 228;
-	this.x = 900;
-	this.y = 430;
+	 speed : 228,
+	 x : 900,
+	 y : 430,
 	//1 = down, 2 = left , 3 = up, 0 = right 
-	this.direction = 3;
-	this.name = "robot";
-	this.robot_number = 0;
-	this.ease = 5;
+	 direction : 3,
+	 name : "robot",
+	 robot_number : 0,
+	 ease : 5,
 	//if hero get in range chase change to true, false otherwise
-	this.chase = false;
-	this.char_moved = 1;
-	this.electricuted = false;
-	this.live = true;
+	 chase : false,
+	 char_moved : 1,
+	 electricuted : false,
+	 live : true,
 	
 	//other robot operating values 
-	this.robot_frameIndex = 0; 
-	this.robot_randomly_moved = 1;
-	this.patrol_distance = 576;
-	this.chase_consistency = 0;
+	 robot_frameIndex : 0, 
+	 robot_randomly_moved : 1,
+	 patrol_distance : 576,
+	 chase_consistency : 0,
 	
 	//tazer related robot variables(might not need)
-	this.electricution_delay = 0;
-	this.electricuted_robot_direction = 0;
+	electricution_delay : 0,
+	 electricuted_robot_direction : 0
 }
 var robot_ready_fun = function(){
 	return robotReady;
@@ -81,7 +81,6 @@ var robot_movement_helper = function(modifier){
 	
 	if(distance < robot.patrol_distance){
 		robot.chase = true;
-		console.log("robot cahse=>"+robot.chase);
 	}else{ 
 		robot.chase = false;
 		robot.chase_consistency = 10;
@@ -242,6 +241,7 @@ var robotReload = function(){
 		robot.live = true;
 		robot.x = 900;
 		robot.y = 400;
+		
 		robot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
@@ -250,6 +250,7 @@ var robotReload = function(){
 	}
 	else if(currentTileMap == 1){
 		robot.live = true;
+
 		robot.x = 800;
 		robot.y = 400;
 		robot.electricuted = false;
@@ -274,10 +275,6 @@ var robotReload = function(){
 		speedyItem.availability = false;
 	}else if(currentTileMap == 4){
 		robot.live = true;
-		if(hero.direction == 1){
-			hero.x = 320;
-			hero.y = 320;
-		}
 		robot.x = 900;
 		robot.y = 446;
 		robot.electricuted = false;
