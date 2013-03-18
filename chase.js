@@ -1,6 +1,6 @@
-var chaseMode = function(modifier){
-	var hr_hor = hero.x - robot.x;
-	var hr_ver = hero.y - robot.y;
+var chaseMode = function(modifier, currentRobot){
+	var hr_hor = hero.x - currentRobot.x;
+	var hr_ver = hero.y - currentRobot.y;
 
 	var moveHorizontally = false;
 	var moveVertically = false;
@@ -15,7 +15,7 @@ var chaseMode = function(modifier){
 		moveVertically = true;
 	}
 
-	if(hero.x > robot.x){
+	if(hero.x > currentRobot.x){
 		rightOrLeft = "right";
 	}
 	else{
@@ -23,7 +23,7 @@ var chaseMode = function(modifier){
 	}
 
 
-	if(hero.y > robot.y){
+	if(hero.y > currentRobot.y){
 		upOrDown = "down";
 	}
 	else{
@@ -33,83 +33,83 @@ var chaseMode = function(modifier){
 	if(moveHorizontally){
 		// RIGHT
 		if(rightOrLeft == "right"){
-			if(check_right_is_legal(robot, modifier)){
-				move(robot, modifier, "right");
+			if(check_right_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "right");
 			}
 			else if(upOrDown == "up"){
-				if(check_above_is_legal(robot, modifier)){
-					move(robot, modifier, "up");
+				if(check_above_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "up");
 				}
 			}
 			else if(upOrDown == "down"){
-				if(check_below_is_legal(robot, modifier)){
-					move(robot, modifier, "down");
+				if(check_below_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "down");
 				}
 			}
 			else{
-				if(check_left_is_legal(robot, modifier)){
-					move(robot, modifier, "left");
+				if(check_left_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "left");
 				}
 			}
 		}
 		// LEFT
 		else{
-			if(check_left_is_legal(robot, modifier)){
-				move(robot, modifier, "left");
+			if(check_left_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "left");
 			}
 			else if(upOrDown == "up"){
-				if(check_above_is_legal(robot, modifier)){
-					move(robot, modifier, "up");
+				if(check_above_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "up");
 				}
 			}
 			else if(upOrDown == "down"){
-				if(check_below_is_legal(robot, modifier)){
-					move(robot, modifier, "down");
+				if(check_below_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "down");
 				}
 			}
 			else{
 
-				move(robot, modifier, "right");
+				move(currentRobot, modifier, "right");
 			}
 		}	
 	}
 	else{
 		// DOWN
 		if(upOrDown == "down"){
-			if(check_below_is_legal(robot, modifier)){
-				move(robot, modifier, "down");
+			if(check_below_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "down");
 			}
 			else if(rightOrLeft == "right"){
-				if(check_right_is_legal(robot, modifier)){
-					move(robot, modifier, "right");
+				if(check_right_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "right");
 				}
 			}
 			else if(rightOrLeft == "left"){
-				if(check_left_is_legal(robot, modifier)){
-					move(robot, modifier, "left");
+				if(check_left_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "left");
 				}
 			}
 			else{
-				move(robot, modifier, "right");
+				move(currentRobot, modifier, "right");
 			}
 		}
 		// UP
 		else{
-			if(check_above_is_legal(robot, modifier)){
-				move(robot, modifier, "up");
+			if(check_above_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "up");
 			}
 			else if(rightOrLeft == "right"){
-				if(check_right_is_legal(robot, modifier)){
-					move(robot, modifier, "right");
+				if(check_right_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "right");
 				}
 			}
 			else if(rightOrLeft == "left"){
-				if(check_left_is_legal(robot, modifier)){
-					move(robot, modifier, "left");
+				if(check_left_is_legal(currentRobot, modifier)){
+					move(currentRobot, modifier, "left");
 				}
 			}
 			else{
-				move(robot, modifier, "down");
+				move(currentRobot, modifier, "down");
 			}
 		}
 	}	

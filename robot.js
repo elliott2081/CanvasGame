@@ -62,44 +62,44 @@ var robot_movement_helper_distributor = function(modifier, passed_robot_array){
 	}
 }
 
-var robot_movement_helper = function(modifier){
+var robot_movement_helper = function(modifier, currentRobot){
 	
 	////// hero in bound //////
-	var x_diff_sq = Math.pow((robot.x - hero.x),2);
-	var y_diff_sq = Math.pow((robot.y - hero.y),2);
+	var x_diff_sq = Math.pow((currentRobot.x - hero.x),2);
+	var y_diff_sq = Math.pow((currentRobot.y - hero.y),2);
 	var distance = Math.sqrt(x_diff_sq + y_diff_sq);
 	
-	if(distance < robot.patrol_distance){
-		robot.chase = true;
+	if(distance < currentRobot.patrol_distance){
+		currentRobot.chase = true;
 	}else{ 
-		robot.chase = false;
-		robot.chase_consistency = 10;
+		currentRobot.chase = false;
+		currentRobot.chase_consistency = 10;
 	}
 	
 	
 	
-	if(robot.electricuted == true){
+	if(currentRobot.electricuted == true){
 		//call move with modifier = 0 thus robot will not move as long as it is electricuted
-		if (robot.electricuted_robot_direction >= 3){
-			robot.electricuted_robot_direction = 0;
+		if (currentRobot.electricuted_robot_direction >= 3){
+			currentRobot.electricuted_robot_direction = 0;
 		}else{
-			if(robot.electricuted_robot_direction == 0){
-				move(robot, 0, "right");
-			}else if (robot.electricuted_robot_direction == 1){
-				move(robot, 0, "down");
-			}else if (robot.electricuted_robot_direction == 2){
-				move(robot, 0, "left");
+			if(currentRobot.electricuted_robot_direction == 0){
+				move(currentRobot, 0, "right");
+			}else if (currentRobot.electricuted_robot_direction == 1){
+				move(currentRobot, 0, "down");
+			}else if (currentRobot.electricuted_robot_direction == 2){
+				move(currentRobot, 0, "left");
 			}else{
-				move(robot, 0, "up");
+				move(currentRobot, 0, "up");
 			}
-			robot.electricuted_robot_direction ++;
+			currentRobot.electricuted_robot_direction ++;
 			
 			
 		}
-		/* ************* need to be used again **************
+		/* ************* why we had this? (march) **************
 		if(electricution_delay >= 70){
 			hero.own_item = false;
-			robot.electricuted = false;
+			currentRobot.electricuted = false;
 			robotImage.src = "images/robots.png";
 		}else{
 			//call move with modifier = 0 thus robot will not move as long as it is electricuted
@@ -107,13 +107,13 @@ var robot_movement_helper = function(modifier){
 				electricuted_robot_direction = 0;
 			}else{
 				if(electricuted_robot_direction == 0){
-					move(robot, 0, "right");
+					move(currentRobot, 0, "right");
 				}else if (electricuted_robot_direction == 1){
-					move(robot, 0, "down");
+					move(currentRobot, 0, "down");
 				}else if (electricuted_robot_direction == 2){
-					move(robot, 0, "left");
+					move(currentRobot, 0, "left");
 				}else{
-					move(robot, 0, "up");
+					move(currentRobot, 0, "up");
 				}
 				electricuted_robot_direction ++;
 				
@@ -124,67 +124,67 @@ var robot_movement_helper = function(modifier){
 		//do nothing. Maybe adjust variable so it can have electric sparks around it.
 		*/
 	}
-	else if(robot.chase == true){
+	else if(currentRobot.chase == true){
 		//reflex agent to chase hero
-		if(robot.chase_consistency >= 10){
+		if(currentRobot.chase_consistency >= 10){
 			//this part is to make sure robot move to certain direction for sometime before it change its mind
-			chaseMode(modifier);
-			robot.chase_consistency = 0;
+			chaseMode(modifier, currentRobot);
+			currentRobot.chase_consistency = 0;
 		}else{
-			if(robot.direction == 1 && check_below_is_legal(robot, modifier))
-				move(robot, modifier, "down");
-			else if(robot.direction == 2 && check_left_is_legal(robot, modifier))
-				move(robot, modifier, "left");
-			else if(robot.direction == 3 && check_above_is_legal(robot, modifier))
-				move(robot, modifier, "up");
-			else if(robot.direction == 0 && check_right_is_legal(robot, modifier))
-				move(robot, modifier, "right");
+			if(currentRobot.direction == 1 && check_below_is_legal(currentRobot, modifier))
+				move(currentRobot, modifier, "down");
+			else if(currentRobot.direction == 2 && check_left_is_legal(currentRobot, modifier))
+				move(currentRobot, modifier, "left");
+			else if(currentRobot.direction == 3 && check_above_is_legal(currentRobot, modifier))
+				move(currentRobot, modifier, "up");
+			else if(currentRobot.direction == 0 && check_right_is_legal(currentRobot, modifier))
+				move(currentRobot, modifier, "right");
 			else{
-				robot.chase_consistency =0;
-				chaseMode(modifier);
+				currentRobot.chase_consistency =0;
+				chaseMode(modifier, currentRobot);
 
 			
 			
 				
 			}
-			robot.chase_consistency += 1;
+			currentRobot.chase_consistency += 1;
 			
 		}
 	}
 	else{
-		//var robotMovement = robot.speed*modifier;
-		if(robot.direction == 3){// robot facing up	
-			if(check_above_is_legal(robot, modifier)){
-				move(robot, modifier, "up");
-			}else if(check_left_is_legal(robot, modifier)){
-				move(robot, modifier, "left");
-			}else if(check_right_is_legal(robot,modifier)){
-				move(robot, modifier, "right");
+		//var robotMovement = currentRobot.speed*modifier;
+		if(currentRobot.direction == 3){// robot facing up	
+			if(check_above_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "up");
+			}else if(check_left_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "left");
+			}else if(check_right_is_legal(currentRobot,modifier)){
+				move(currentRobot, modifier, "right");
 			}
 		}
-		else if(robot.direction == 1){//robot facing down
-			if(check_below_is_legal(robot, modifier)){
-				move(robot, modifier, "down");
-			}else if(check_left_is_legal(robot, modifier)){
-				move(robot, modifier, "left");
-			}else if(check_right_is_legal(robot,modifier)){
-				move(robot, modifier, "right");
+		else if(currentRobot.direction == 1){//robot facing down
+			if(check_below_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "down");
+			}else if(check_left_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "left");
+			}else if(check_right_is_legal(currentRobot,modifier)){
+				move(currentRobot, modifier, "right");
 			}
-		}else if(robot.direction == 2){//robot facing left
-			if(check_left_is_legal(robot, modifier)){
-				move(robot, modifier, "left");
-			}else if(check_above_is_legal(robot, modifier)){
-				move(robot, modifier, "up");
-			}else if(check_below_is_legal(robot, modifier)){
-				move(robot, modifier, "down");
+		}else if(currentRobot.direction == 2){//robot facing left
+			if(check_left_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "left");
+			}else if(check_above_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "up");
+			}else if(check_below_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "down");
 			}
-		}else if(robot.direction == 0){//robot facing left
-			if(check_right_is_legal(robot,modifier)){
-				move(robot, modifier, "right");
-			}else if(check_above_is_legal(robot, modifier)){
-				move(robot, modifier, "up");
-			}else if(check_below_is_legal(robot, modifier)){
-				move(robot, modifier, "down");
+		}else if(currentRobot.direction == 0){//robot facing left
+			if(check_right_is_legal(currentRobot,modifier)){
+				move(currentRobot, modifier, "right");
+			}else if(check_above_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "up");
+			}else if(check_below_is_legal(currentRobot, modifier)){
+				move(currentRobot, modifier, "down");
 			}
 		}
 	}
@@ -226,157 +226,166 @@ var robot_movement_helper = function(modifier){
 
 var robotReloadDistributor = function(passed_robot_array){
 	var i = 0;
-	for(var i = 0; i < passed_robot_array.length; i ++){
-		robotReload(passed_robot_array[i]);
+	for(i = 0; i < passed_robot_array.length; i ++){
+		robotReload(passed_robot_array[i], i);
 	}
 }
 //called in tileMovement and it will renew robot location if it is moved to another tile.
 //03-17-2013 Dave if current map does not need 2nd robot set their live value to false! and remove this comment if you have done
-var robotReload = function(){
+// 
+var robotReload = function(currentRobot, robotNumb){
 	item.timer = 3000;
 	if(currentTileMap == 0){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 400;
-		
-		robot.electricuted = false;
+		if(robotNumb == 0){
+			//this is testing CJ
+			currentRobot.live = true;
+			currentRobot.x = 900;
+			currentRobot.y = 400;
+		}else{
+			currentRobot.live = true;
+			currentRobot.x = 400;
+			currentRobot.y = 400;
+		}
+		currentRobot.electricuted = false;
+		// March
+		//robotImage.src will probably need to be changed
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		
 	}
 	else if(currentTileMap == 1){
-		robot.live = true;
+		currentRobot.live = true;
 
-		robot.x = 800;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.x = 800;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 2){
-		robot.live = true;
-		robot.x = 600;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 600;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 3){
-		robot.live = true;
-		robot.x = 300;
-		robot.y = 200;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 300;
+		currentRobot.y = 200;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 4){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 446;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 446;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = true;
 		item.x = 896;
 		item.y = 64;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 5){
-		robot.live = true;
-		robot.x = 64;
-		robot.y = 64;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 64;
+		currentRobot.y = 64;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 6){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 128;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 128;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 7){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 8){
-		robot.live = true;
-		robot.x = 128;
-		robot.y = 512-64;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 128;
+		currentRobot.y = 512-64;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = true;
 		item.x = 600;
 		item.y = 300;
 		speedyItem.availability = true;
 	}else if(currentTileMap == 9){
-		robot.live = true;
-		robot.x = 10*64;
-		robot.y = 3*64;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 10*64;
+		currentRobot.y = 3*64;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 10){
-		robot.live = true;
-		robot.x = 128;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 128;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 11){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 12){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 375;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 375;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 13){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 128;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 128;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 14){
-		robot.live = true;
-		robot.x = 675;
-		robot.y = 300;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 675;
+		currentRobot.y = 300;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 15){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 16){
-		robot.live = true;
-		robot.x = 900;
-		robot.y = 400;
-		robot.electricuted = false;
+		currentRobot.live = true;
+		currentRobot.x = 900;
+		currentRobot.y = 400;
+		currentRobot.electricuted = false;
 		robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		item.availability = false;

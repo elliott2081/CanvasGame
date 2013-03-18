@@ -69,9 +69,8 @@ var update = function (modifier){
 	rockMovement(modifier); //rock.js
 	collisionDetection();	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
-	robot_movement_helper(modifier);	//from robot.js
+	robot_movement_helper_distributor(modifier, robotArray);	//from robot.js
 	intro(modifier);
-	
 }; 
 
 
@@ -126,8 +125,6 @@ var render = function(){
 			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
 		}
 		if(robotArray[1].live == true){
-			robotArray[1].x = 64;
-			robotArray[1].y = 64;
 			ctx.drawImage(robotImage, (robotArray[1].direction*(char_src_size*4) + robotArray[1].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[1].x, robotArray[1].y, char_size, char_size);
 		}
 	}
@@ -355,7 +352,7 @@ var intro = function(timeModifier){
 				currentLevel[1] = true;
 				insideIntroScreen = false;
 				currentTileMap = 16;
-				robotReload();
+				robotReloadDistributor(robotArray);
 			}else if(introScreens[3] == true){
 				currentLevel[1] = false;
 				//level 3 intro screen data update
