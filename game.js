@@ -398,8 +398,5 @@ var intro = function(timeModifier){
 };
 var then = Date.now();
 
-var prep = {};
-//var robot = new robot();
-robotArray[0] = Object.create(robot);
-robotArray[1] = Object.create(robot);
+create_robots(robotArray);
 var simulator = setInterval(main,1);

@@ -38,39 +38,29 @@ var robot = {
 	
 	//tazer related robot variables(might not need)
 	electricution_delay : 0,
-	 electricuted_robot_direction : 0
+	electricuted_robot_direction : 0
 }
+
 var robot_ready_fun = function(){
 	return robotReady;
 }
+var create_robots = function(passed_robot_array){
+	
+	passed_robot_array[0] = Object.create(robot);
+	passed_robot_array[1] = Object.create(robot);
 
-/*
-//robot operating values
-var robot_frameIndex = 0;
-var robot_randomly_moved = 1;
-var patrol_distance = 576;
-var chase_consistency = 0;
+	//update each robot based on the information in robotReload 
+	robotReloadDistributor(passed_robot_array);
+	
 
-var robot = {
-		speed: 228,
-		x: 900,
-		y: 430,
-		//1 = down, 2 = left , 3 = up, 0 = right 
-		direction: 3,
-		name: "robot",
-		robot_number: 0,
-		ease: 5,
-		//if hero get in range chase change to true, false otherwise
-		chase: false,
-		char_moved: 1,
-		electricuted: false,
-		live: true
-		};
+}
 
-var electricution_delay = 0;
-var electricuted_robot_direction = 0;
-*/
-
+var robot_movement_helper_distributor = function(modifier, passed_robot_array){
+	var i = 0;
+	for(var i = 0; i < passed_robot_array.length; i ++){
+		robot_movement_helper(modifier, passed_robot_array[i]);
+	}
+}
 
 var robot_movement_helper = function(modifier){
 	
@@ -106,7 +96,7 @@ var robot_movement_helper = function(modifier){
 			
 			
 		}
-		/*
+		/* ************* need to be used again **************
 		if(electricution_delay >= 70){
 			hero.own_item = false;
 			robot.electricuted = false;
@@ -234,7 +224,14 @@ var robot_movement_helper = function(modifier){
 */
 };
 
+var robotReloadDistributor = function(passed_robot_array){
+	var i = 0;
+	for(var i = 0; i < passed_robot_array.length; i ++){
+		robotReload(passed_robot_array[i]);
+	}
+}
 //called in tileMovement and it will renew robot location if it is moved to another tile.
+//03-17-2013 Dave if current map does not need 2nd robot set their live value to false! and remove this comment if you have done
 var robotReload = function(){
 	item.timer = 3000;
 	if(currentTileMap == 0){
