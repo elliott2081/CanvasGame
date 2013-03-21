@@ -3,52 +3,67 @@
 //create an array of robots
 var robotArray = new Array();
 
-
-//robot graphic values
-var robotReady = false;
-var robotImage = new Image();
-robotImage.onload = function(){
-		robotReady = true;
-};
-robotImage.src = "images/robots.png"; // original robot
-
 var robot = {
 
 //this -> public
 //var -> private
-	 speed : 228,
-	 x : 900,
-	 y : 430,
+	//image
+	robotImage : new Image(),
+	robotReady : false,
+	speed : 228,
+	x : 900,
+	y : 430,
 	//1 = down, 2 = left , 3 = up, 0 = right 
-	 direction : 3,
-	 name : "robot",
-	 robot_number : 0,
-	 ease : 5,
+	direction : 3,
+	name : "robot",
+	robot_number : 0,
+	ease : 5,
 	//if hero get in range chase change to true, false otherwise
-	 chase : false,
-	 char_moved : 1,
-	 electricuted : false,
-	 live : true,
+	chase : false,
+	char_moved : 1,
+	//essential to active robot (used in game.js and collision detection)
+	live : true,
 	
 	//other robot operating values 
-	 robot_frameIndex : 0, 
-	 robot_randomly_moved : 1,
-	 patrol_distance : 576,
-	 chase_consistency : 0,
+	robot_frameIndex : 0, 
+	robot_randomly_moved : 1,
+	patrol_distance : 576,
+	chase_consistency : 0,
 	
-	//tazer related robot variables(might not need)
+	//tazer related robot variables
 	electricution_delay : 0,
-	electricuted_robot_direction : 0
+	electricuted_robot_direction : 0,
+	electricuted : false,	
+	electricuted_timer : 3000
+}
+var robot_ready_fun = function(passed_robot_array){
+	var return_val = false;
+	for(var i = 0; i < passed_robot_array.length; i ++){
+		if(i == 0){
+			return_val = passed_robot_array[i].robotReady;
+			console.log("1st robot is " + passed_robot_array[i].robotReady);
+		}else{
+			return_val = (passed_robot_array[i].robotReady && return_val);
+			console.log("2nd robot is " + passed_robot_array[i].robotReady);
+		}
+	}
+	return return_val;
 }
 
-var robot_ready_fun = function(){
-	return robotReady;
-}
 var create_robots = function(passed_robot_array){
 	
 	passed_robot_array[0] = Object.create(robot);
 	passed_robot_array[1] = Object.create(robot);
-
+	
+	var change_load_val = function(a_robot){
+		a_robot.robotReady = true;
+	};
+	
+	for(var i= 0; i < passed_robot_array.length; i++){
+		passed_robot_array[i].robotImage.src = "images/robots.png";
+		passed_robot_array[i].robotImage.onload = change_load_val(passed_robot_array[i]);
+	}
+	
 	//update each robot based on the information in robotReload 
 	robotReloadDistributor(passed_robot_array);
 	
@@ -96,33 +111,6 @@ var robot_movement_helper = function(modifier, currentRobot){
 			
 			
 		}
-		/* ************* why we had this? (march) **************
-		if(electricution_delay >= 70){
-			hero.own_item = false;
-			currentRobot.electricuted = false;
-			robotImage.src = "images/robots.png";
-		}else{
-			//call move with modifier = 0 thus robot will not move as long as it is electricuted
-			if (electricuted_robot_direction >= 3){
-				electricuted_robot_direction = 0;
-			}else{
-				if(electricuted_robot_direction == 0){
-					move(currentRobot, 0, "right");
-				}else if (electricuted_robot_direction == 1){
-					move(currentRobot, 0, "down");
-				}else if (electricuted_robot_direction == 2){
-					move(currentRobot, 0, "left");
-				}else{
-					move(currentRobot, 0, "up");
-				}
-				electricuted_robot_direction ++;
-				
-				
-			}
-			electricution_delay ++;
-		}
-		//do nothing. Maybe adjust variable so it can have electric sparks around it.
-		*/
 	}
 	else if(currentRobot.chase == true){
 		//reflex agent to chase hero
@@ -236,20 +224,21 @@ var robotReloadDistributor = function(passed_robot_array){
 var robotReload = function(currentRobot, robotNumb){
 	item.timer = 3000;
 	if(currentTileMap == 0){
+	
 		if(robotNumb == 0){
 			//this is testing CJ
 			currentRobot.live = true;
 			currentRobot.x = 900;
 			currentRobot.y = 400;
 		}else{
-			currentRobot.live = true;
+			currentRobot.live = false;
 			currentRobot.x = 400;
 			currentRobot.y = 400;
 		}
 		currentRobot.electricuted = false;
 		// March
 		//robotImage.src will probably need to be changed
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		
@@ -260,7 +249,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 800;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 2){
@@ -268,7 +257,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 600;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 3){
@@ -276,7 +265,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 300;
 		currentRobot.y = 200;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 4){
@@ -284,7 +273,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 446;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = true;
 		item.x = 896;
 		item.y = 64;
@@ -294,7 +283,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 64;
 		currentRobot.y = 64;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 6){
@@ -302,7 +291,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 128;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 7){
@@ -310,7 +299,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 8){
@@ -318,7 +307,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 128;
 		currentRobot.y = 512-64;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = true;
 		item.x = 600;
 		item.y = 300;
@@ -328,7 +317,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 10*64;
 		currentRobot.y = 3*64;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 10){
@@ -336,7 +325,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 128;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 11){
@@ -344,7 +333,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 12){
@@ -352,7 +341,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 375;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 13){
@@ -360,7 +349,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 128;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 14){
@@ -368,7 +357,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 675;
 		currentRobot.y = 300;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		item.availability = false;
 		speedyItem.availability = false;
@@ -377,7 +366,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		item.availability = false;
 		speedyItem.availability = false;
@@ -386,7 +375,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
-		robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots.png";
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		item.availability = false;
 		speedyItem.availability = false;

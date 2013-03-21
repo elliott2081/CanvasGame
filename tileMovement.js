@@ -179,7 +179,14 @@ var onTile = function(charX, charY){
 	};
 
 //var temp_count = 0
-var collisionDetection = function(){
+
+var collisionDetectionDistributor = function(passedRobotArray){
+	for(var i = 0; i < passedRobotArray.length; i++){
+		collisionDetection(passedRobotArray[i]);
+	}
+}
+
+var collisionDetection = function(currentRobot){
 		// collision detection between item and hero
 		if(
 			hero.x <= (item.x + char_size - collisionEase)
@@ -205,21 +212,21 @@ var collisionDetection = function(){
 		}
 		//collision detection between robot and hero
 		if(
-			hero.x <= (robot.x + char_size - collisionEase)
-			&& robot.x <= (hero.x + char_size - collisionEase)
-			&& hero.y <= (robot.y + char_size - collisionEase)
-			&& robot.y <= (hero.y + char_size - collisionEase)
-			&& robot.live == true
+			hero.x <= (currentRobot.x + char_size - collisionEase)
+			&& currentRobot.x <= (hero.x + char_size - collisionEase)
+			&& hero.y <= (currentRobot.y + char_size - collisionEase)
+			&& currentRobot.y <= (hero.y + char_size - collisionEase)
+			&& currentRobot.live == true
 		){
 
 			
 			if (hero.own_item == true){
 			
-				robot.electricuted = true;
-				robotImage.src = "images/robots_electricuted.png";
+				currentRobot.electricuted = true;
+				currentRobot.robotImage.src = "images/robots_electricuted.png";
 				hero.own_item = false;
 				
-			}else if(robot.electricuted==false  && insideIntroScreen == false){
+			}else if(currentRobot.electricuted==false  && insideIntroScreen == false){
 				//TESTING TURN BACK ON
 				isGameOver = true;
 			}
@@ -235,7 +242,7 @@ var collisionDetection = function(){
 			else{
 				hero.y = canvas.height-char_size;
 				currentTileMap -= tileMapArrayDimension;
-				robotReload();
+				robotReloadDistributor(robotArray);
 			}
 		}
 		
@@ -246,7 +253,7 @@ var collisionDetection = function(){
 			else{
 				hero.y = 0;
 				currentTileMap += tileMapArrayDimension;
-				robotReload();
+				robotReloadDistributor(robotArray);
 			}
 		}
 		if(hero.x < 0){ //left side of screen
@@ -256,7 +263,7 @@ var collisionDetection = function(){
 			else{
 				hero.x = canvas.width-char_size;
 				currentTileMap--;
-				robotReload();
+				robotReloadDistributor(robotArray);
 			}
 		}
 		if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
@@ -266,18 +273,18 @@ var collisionDetection = function(){
 			else{
 				hero.x = 0;
 				currentTileMap++;
-				robotReload();
+				robotReloadDistributor(robotArray);
 			}
 	}
 	
-	if(robot.y < 0)
-		robot.y = 0;
-	if(robot.y > (canvas.height-char_size)) // 480 - 64
-		robot.y = canvas.height-char_size;
-	if(robot.x < 0)
-		robot.x = 0;
-	if(robot.x > (canvas.width-char_size)) //512 -64
-		robot.x = canvas.width-char_size;
+	if(currentRobot.y < 0)
+		currentRobot.y = 0;
+	if(currentRobot.y > (canvas.height-char_size)) // 480 - 64
+		currentRobot.y = canvas.height-char_size;
+	if(currentRobot.x < 0)
+		currentRobot.x = 0;
+	if(currentRobot.x > (canvas.width-char_size)) //512 -64
+		currentRobot.x = canvas.width-char_size;
 };
 //called by hero and robot.js
 //up -> 3 down ->1 left -> 2 right ->0

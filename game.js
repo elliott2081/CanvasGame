@@ -67,7 +67,7 @@ var bgm_ready_fun = function(){
 // prepare for what render function will print out. 
 var update = function (modifier){	
 	rockMovement(modifier); //rock.js
-	collisionDetection();	//from tileMovement.js 
+	collisionDetectionDistributor(robotArray);	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper_distributor(modifier, robotArray);	//from robot.js
 	intro(modifier);
@@ -121,17 +121,15 @@ var render = function(){
 		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
 
-		if(robotArray[0].live == true){
-			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
-		}
-		if(robotArray[1].live == true){
-			ctx.drawImage(robotImage, (robotArray[1].direction*(char_src_size*4) + robotArray[1].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[1].x, robotArray[1].y, char_size, char_size);
+		//print live robots
+		for(var i = 0; i < robotArray.length; i++){
+			if(robotArray[i].live == true){
+				ctx.drawImage(robotArray[i].robotImage, (robotArray[i].direction*(char_src_size*4) + robotArray[i].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[i].x, robotArray[i].y, char_size, char_size);
+			}
 		}
 	}
 	else if(currentLevel[1] == true){
 		//draw level2 tiles
-		console.log("IN LEVEL 2 ELSE IF");
-		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		backgroundMusic2.play();
 
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
@@ -150,10 +148,12 @@ var render = function(){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		if(robotArray[0].live == true){
-			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
-			ctx.drawImage(robotImage, (robotArray[1].direction*(char_src_size*4) + robotArray[1].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[1].x, robotArray[1].y, char_size, char_size);
 
+		//print live robots
+		for(var i = 0; i < robotArray.length; i++){
+			if(robotArray[i].live == true){
+				ctx.drawImage(robotArray[i].robotImage, (robotArray[i].direction*(char_src_size*4) + robotArray[i].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[i].x, robotArray[i].y, char_size, char_size);
+			}
 		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
@@ -183,9 +183,13 @@ var render = function(){
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-		if(robotArray[0].live == true){
-			ctx.drawImage(robotImage, (robotArray[0].direction*(char_src_size*4) + robotArray[0].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[0].x, robotArray[0].y, char_size, char_size);
+		//print live robots
+		for(var i = 0; i < robotArray.length; i++){
+			if(robotArray[i].live == true){
+				ctx.drawImage(robotArray[i].robotImage, (robotArray[i].direction*(char_src_size*4) + robotArray[i].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[i].x, robotArray[i].y, char_size, char_size);
+			}
 		}
+		
 	}
 };		
  
@@ -284,19 +288,22 @@ var item_removal = function(delta_var){
 		
 	
 	}
-	if(robotArray[0].electricuted == true){
-		
-		if(item.timer <=0){
-			//hero.own_item = false;
-			item.timer = 3000;
-			robotArray[0].electricuted = false;
-			robotImage.src = "images/robots.png";
-		}else{
-			item.timer = item.timer - delta_var;
-		
+	//unlike speedy item this one governs duration of robot electricution
+	//hero's tazer item is already removed from hero when collision occured
+	for(var i = 0; i < robotArray.length ; i++){
+	
+		if(robotArray[i].electricuted == true){
+			
+			if(robotArray[i].electricuted_timer <=0){
+				//hero.own_item = false;
+				robotArray[i].electricuted_timer = item.timer;
+				robotArray[i].electricuted = false;
+				robotArray[i].robotImage.src = "images/robots.png";
+			}else{
+				robotArray[i].electricuted_timer = item.timer - delta_var;		
+			}
 		}
 	}
-		
 	
 
 };
@@ -331,7 +338,7 @@ var intro = function(timeModifier){
 		//console.log("INSIDE INTRO introScreens = " + inScreensString );
 		//console.log(" KEYS DOWN = " + keysDownString);
 		
-		if(bgm_ready_fun && robot_ready_fun() && hero_ready_fun()){
+		if(bgm_ready_fun && robot_ready_fun(robotArray) && hero_ready_fun()){
 			if(introScreens[0] == true && introTimeOut < 0){
 				introScreens[0] = false;
 				introScreens[1] = true;
