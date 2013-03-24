@@ -1,17 +1,39 @@
 
 //create the canvas
 var canvas = document.createElement("canvas");
+div = document.getElementById("test");
 var ctx = canvas.getContext("2d");
 canvas.width = 1024;
 canvas.height = 576;
+div.appendChild(canvas);
 
+//div.style.height = window.innerHeight;
+//div.style.width = window.innerWidth;
+
+canvas.style.marginRight = (Math.abs(window.innerWidth-2 - canvas.width) / 2) +"px";
+canvas.style.marginLeft = (Math.abs(window.innerWidth-2 - canvas.width) / 2) +"px";
+
+//(div.style.height - canvas.height);
+//var window_width = window.innerWidth;
+//var window_height = window.innerHeight;
+
+//div.style.top = (window_height - canvas.height) / 2 ;
+//div.style.left = (window_width - canvas.width) / 2 ;
+//document.getElementsByTagName("canvas").className = "center";
+/*
+div.style.margin = "0px auto";
+canvas.style.margin = "0px auto";*/
+//canvas.style.marginLeft = "50px";
 var isGameOver = false;
 var insideIntroScreen = true;
 var introScreens = [true, false, false, false, false, false]; //0: first intro, 1: level 1, 2: level 2, 3: level 3 intro 4: game over
 var currentLevel = [false, false, false];
 var intro_var = true;
 //put canvas into document(html)
-document.body.appendChild(canvas);
+//document.body.appendChild(canvas);
+
+
+
 var StartScreen = new Image();
 StartScreen.src = "images/IntroScreen.png";
 var IntroLevel1 = new Image();
