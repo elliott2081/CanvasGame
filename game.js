@@ -21,11 +21,6 @@ IntroLevel2.src = "images/level2IntroScreen.png";
 var IntroLevel3 = new Image();
 IntroLevel3.src = "images/level3IntroScreen.png";
 
-var itemImage = new Image();
-itemImage.src = "images/tazer.png";
-var speedyItemImage = new Image();
-speedyItemImage.src = "images/energy_drink.png";
-
 var gameOverScreen = new Image();
 gameOverScreen.src = "images/gameOver.png";
 
@@ -47,7 +42,7 @@ backgroundMusic.onload = function(){
 	bgmReady = true;
 };
 
-var frame_change_rate = 10;
+var frame_change_rate = 35;
 
 
 //Handle keyboard controls
@@ -66,7 +61,7 @@ var bgm_ready_fun = function(){
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
 // prepare for what render function will print out. 
 var update = function (modifier){	
-	rockMovement(modifier); //rock.js
+	rockMovement(modifier,robotArray); //rock.js
 	collisionDetectionDistributor(robotArray);	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper_distributor(modifier, robotArray);	//from robot.js
@@ -114,7 +109,9 @@ var render = function(){
 		if(speedyItem.availability == true){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
 		}
-		
+		if(gunOnTheGround.availability == true){
+			ctx.drawImage(gunImage, gunOnTheGround.x, gunOnTheGround.y);
+		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
@@ -155,6 +152,9 @@ var render = function(){
 				ctx.drawImage(robotArray[i].robotImage, (robotArray[i].direction*(char_src_size*4) + robotArray[i].robot_frameIndex*char_src_size), 0, char_src_size, char_src_size, robotArray[i].x, robotArray[i].y, char_size, char_size);
 			}
 		}
+		if(gunOnTheGround.availability == true){
+			ctx.drawImage(gunImage, gunOnTheGround.x, gunOnTheGround.y);
+		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
@@ -178,6 +178,9 @@ var render = function(){
 		}
 		if(speedyItem.availability == true){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
+		}
+		if(gunOnTheGround.availability == true){
+			ctx.drawImage(gunImage, gunOnTheGround.x, gunOnTheGround.y);
 		}
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
@@ -343,18 +346,17 @@ var intro = function(timeModifier){
 				introScreens[0] = false;
 				introScreens[1] = true;
 				introTimeOut = 250;
-				console.log("start screen");
 				
 			}else if(introScreens[1] == true && introTimeOut < 0){
 				// level 1 intro screen data update
 				introScreens[1] = false; 
 				currentLevel[0] = true;
 				insideIntroScreen = false;
-				console.log("level 1 intro screen");
+				
 			}else if(introScreens[2] == true){
 				currentLevel[0] = false;
 				// level 2 intro screen data update
-				console.log("level 2 intro screen");
+				
 				introScreens[2] = false;
 				currentLevel[1] = true;
 				insideIntroScreen = false;

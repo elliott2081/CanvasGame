@@ -1,13 +1,15 @@
-//var heroRocks = [];
-//var heroReady = false;
-var rockImage = new Image();
-//heroImage.onload = function(){
-//		heroReady = true;
-//};
-//heroImage.src = "images/arrows.png";
 
+var rockImage = new Image();
 rockImage.src = "images/rock.png";
 
+var gunImage = new Image();
+gunImage.src = "images/rock.png";
+
+var gunOnTheGround = {
+	x: 0,
+	y: 0,
+	availability: false
+}
 
 
 var rock  = {
@@ -15,7 +17,9 @@ var rock  = {
 	y : 0,
 	speed : 500,
 	direction : 0,
-	active : false
+
+	active : false //true means rock is thrown and it is on air
+	
 }
 
 var throwRocks = function(direction){
@@ -28,7 +32,7 @@ var throwRocks = function(direction){
 		
 }
 
-var rockMovement = function(modifier){
+var rockMovement = function(modifier,passed_robots){
 	
 	//collision detection between rock and illegal tiles
 	if(rock.y < 0){ //top of the screen
@@ -63,20 +67,12 @@ var rockMovement = function(modifier){
 	*/
 	
 	// collision detection between robot and rock 
-	if(
-		rock.x <= (robot.x + char_size - collisionEase)
-		&& robot.x <= (rock.x + char_size - collisionEase)
-		&& rock.y <= (robot.y + char_size - collisionEase)
-		&& robot.y <= (rock.y + char_size - collisionEase)
-		&& robot.live == true
-		
-	){
-		robot.live = false; // this allow robot to disappear. if we want to just change picture to dead robot then this variable in robot need some adjustment
-		rock.active = false;
-		//robotImage.src = "images/deadRobot.png";
-		//robot.x = -600;
-		//robot.y = -600;
+	var i = 0;
+	while((rock.active == true) && (i < passed_robots.length)){
+		rock_robot_collision_detection(passed_robots[i]);
+		i++;
 	}
+	
 	// up = 3 , down = 1, left = 2, right = 0
 	if(rock.direction == 3){
 		rock.y -= rock.speed * modifier;
@@ -89,5 +85,19 @@ var rockMovement = function(modifier){
 	}
 	else if(rock.direction == 0){
 		rock.x += rock.speed * modifier;
+	}
+}
+var rock_robot_collision_detection = function(a_robot){
+	if(
+		rock.x <= (a_robot.x + char_size - collisionEase)
+		&& a_robot.x <= (rock.x + char_size - collisionEase)
+		&& rock.y <= (a_robot.y + char_size - collisionEase)
+		&& a_robot.y <= (rock.y + char_size - collisionEase)
+		&& a_robot.live == true
+		
+	){
+		a_robot.live = false; // this allow robot to disappear. if we want to just change picture to dead robot then this variable in robot need some adjustment
+		rock.active = false;
+		//robotImage.src = "images/deadRobot.png";
 	}
 }

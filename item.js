@@ -1,3 +1,8 @@
+var itemImage = new Image();
+itemImage.src = "images/tazer.png";
+var speedyItemImage = new Image();
+speedyItemImage.src = "images/energy_drink.png";
+
 var item = {
 		x: 896,
 		y: 64,

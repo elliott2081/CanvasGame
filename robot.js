@@ -2,7 +2,7 @@
 
 //create an array of robots
 var robotArray = new Array();
-
+/*
 var robot = {
 
 //this -> public
@@ -35,25 +35,56 @@ var robot = {
 	electricuted_robot_direction : 0,
 	electricuted : false,	
 	electricuted_timer : 3000
-}
+}*/
 var robot_ready_fun = function(passed_robot_array){
 	var return_val = false;
 	for(var i = 0; i < passed_robot_array.length; i ++){
 		if(i == 0){
 			return_val = passed_robot_array[i].robotReady;
-			console.log("1st robot is " + passed_robot_array[i].robotReady);
 		}else{
-			return_val = (passed_robot_array[i].robotReady && return_val);
-			console.log("2nd robot is " + passed_robot_array[i].robotReady);
+			return_val = (passed_robot_array[i].robotReady && return_val);			
 		}
 	}
 	return return_val;
 }
 
 var create_robots = function(passed_robot_array){
-	
-	passed_robot_array[0] = Object.create(robot);
-	passed_robot_array[1] = Object.create(robot);
+	for (var j =0; j < 2; j ++){
+		passed_robot_array[j] = Object.create({
+
+			//this -> public
+			//var -> private
+			//image
+			robotImage : new Image(),
+			robotReady : false,
+			speed : 228,
+			x : 900,
+			y : 430,
+			//1 = down, 2 = left , 3 = up, 0 = right 
+			direction : 3,
+			name : "robot",
+			robot_number : 0,
+			ease : 5,
+			//if hero get in range chase change to true, false otherwise
+			chase : false,
+			char_moved : 1,
+			//essential to active robot (used in game.js and collision detection)
+			live : true,
+			
+			//other robot operating values 
+			robot_frameIndex : 0, 
+			robot_randomly_moved : 1,
+			patrol_distance : 576,
+			chase_consistency : 0,
+			
+			//tazer related robot variables
+			electricution_delay : 0,
+			electricuted_robot_direction : 0,
+			electricuted : false,	
+			electricuted_timer : 3000
+		});
+	}
+
 	
 	var change_load_val = function(a_robot){
 		a_robot.robotReady = true;
@@ -224,9 +255,9 @@ var robotReloadDistributor = function(passed_robot_array){
 var robotReload = function(currentRobot, robotNumb){
 	item.timer = 3000;
 	if(currentTileMap == 0){
-	
+		//think this should be the standard way to update robot(using robotNumb to update different value on robot)
 		if(robotNumb == 0){
-			//this is testing CJ
+			
 			currentRobot.live = true;
 			currentRobot.x = 900;
 			currentRobot.y = 400;
@@ -241,17 +272,19 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 		
 	}
 	else if(currentTileMap == 1){
 		currentRobot.live = true;
-
 		currentRobot.x = 800;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+		
 	}else if(currentTileMap == 2){
 		currentRobot.live = true;
 		currentRobot.x = 600;
@@ -260,6 +293,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 3){
 		currentRobot.live = true;
 		currentRobot.x = 300;
@@ -268,6 +302,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 4){
 		currentRobot.live = true;
 		currentRobot.x = 900;
@@ -277,6 +312,9 @@ var robotReload = function(currentRobot, robotNumb){
 		item.availability = true;
 		item.x = 896;
 		item.y = 64;
+		gunOnTheGround.availability = true;
+		gunOnTheGround.x = 800;
+		gunOnTheGround.y = 64;
 		speedyItem.availability = false;
 	}else if(currentTileMap == 5){
 		currentRobot.live = true;
@@ -286,6 +324,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 6){
 		currentRobot.live = true;
 		currentRobot.x = 900;
@@ -294,6 +333,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 7){
 		currentRobot.live = true;
 		currentRobot.x = 900;
@@ -302,6 +342,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 8){
 		currentRobot.live = true;
 		currentRobot.x = 128;
@@ -312,6 +353,7 @@ var robotReload = function(currentRobot, robotNumb){
 		item.x = 600;
 		item.y = 300;
 		speedyItem.availability = true;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 9){
 		currentRobot.live = true;
 		currentRobot.x = 10*64;
@@ -320,6 +362,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 10){
 		currentRobot.live = true;
 		currentRobot.x = 128;
@@ -328,6 +371,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 11){
 		currentRobot.live = true;
 		currentRobot.x = 900;
@@ -336,6 +380,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 12){
 		currentRobot.live = true;
 		currentRobot.x = 900;
@@ -344,6 +389,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 13){
 		currentRobot.live = true;
 		currentRobot.x = 900;
@@ -352,33 +398,37 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 14){
 		currentRobot.live = true;
 		currentRobot.x = 675;
 		currentRobot.y = 300;
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
-		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 15){
 		currentRobot.live = true;
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
-		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 16){
 		currentRobot.live = true;
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
-		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+	
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}
 };
 	

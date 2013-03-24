@@ -19,7 +19,7 @@ var hero = {
 		char_moved: 1,
 		own_item : false,
 		own_speedyItem : false,
-		hasRocks : true
+		hasRocks : false
 		//own_item is temporarly in true. need to start with false
 		
 		
