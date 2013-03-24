@@ -292,6 +292,14 @@ var item_removal = function(delta_var){
 		
 	
 	}
+	//hero's gun image change
+	if(rock.active && hero.electric_gun_timer > 0){
+		hero.electric_gun_timer -= delta_var;
+	}else{
+		//change heroImage.src = ??
+		hero.electric_gun_timer = 500;
+	}
+	
 	//unlike speedy item this one governs duration of robot electricution
 	//hero's tazer item is already removed from hero when collision occured
 	for(var i = 0; i < robotArray.length ; i++){

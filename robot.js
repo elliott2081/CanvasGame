@@ -257,14 +257,11 @@ var robotReload = function(currentRobot, robotNumb){
 	if(currentTileMap == 0){
 		//think this should be the standard way to update robot(using robotNumb to update different value on robot)
 		if(robotNumb == 0){
-			
 			currentRobot.live = true;
-			currentRobot.x = 900;
-			currentRobot.y = 400;
+			currentRobot.x = 256;
+			currentRobot.y = 65;
 		}else{
 			currentRobot.live = false;
-			currentRobot.x = 400;
-			currentRobot.y = 400;
 		}
 		currentRobot.electricuted = false;
 		// March
@@ -276,9 +273,15 @@ var robotReload = function(currentRobot, robotNumb){
 		
 	}
 	else if(currentTileMap == 1){
-		currentRobot.live = true;
-		currentRobot.x = 800;
-		currentRobot.y = 400;
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 150;
+			currentRobot.y = 150;
+		}else{
+			currentRobot.live = false;
+		}
+		
+		
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
@@ -286,18 +289,21 @@ var robotReload = function(currentRobot, robotNumb){
 		gunOnTheGround.availability = false;
 		
 	}else if(currentTileMap == 2){
-		currentRobot.live = true;
-		currentRobot.x = 600;
-		currentRobot.y = 400;
+		currentRobot.live = false;
+		
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 3){
-		currentRobot.live = true;
-		currentRobot.x = 300;
-		currentRobot.y = 200;
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 896;
+			currentRobot.y = 64;
+		}else{
+			currentRobot.live = false;
+		}
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;

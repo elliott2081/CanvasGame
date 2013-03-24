@@ -11,15 +11,17 @@ var heroFrameIndex = 0;
 
 var hero = {
 		speed: 256, //movementin pixels per second (original : 256)
-		x: 70,
-		y: 70,
+		x: 900, //original: 192
+		y: 200, //original: 64
 		direction: 0,
 		ease: 10,
 		name: "hero",
 		char_moved: 1,
+		energy_gun_timer: 500,
 		own_item : false,
 		own_speedyItem : false,
 		hasRocks : false
+		
 		//own_item is temporarly in true. need to start with false
 		
 		
@@ -73,6 +75,8 @@ var keyboard_movement = function(modifier){
 	}
 	if (88 in keysDown){ // holding x
 		if(hero.hasRocks == true && rock.active == false){
+			//change heroImage.src = ??
+			hero.energy_gun_timer = 500;
 			throwRocks();
 		}
 	}
