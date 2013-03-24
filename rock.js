@@ -33,19 +33,15 @@ var rockMovement = function(modifier,passed_robots){
 	//collision detection between rock and illegal tiles
 	if(rock.y < 0){ //top of the screen
 		rock.active = false;
-		heroImage.src = "images/hero_sheet.png";
 	}
 	else if(rock.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
 		rock.active = false;
-		heroImage.src = "images/hero_sheet.png";
 	}
 	else if(rock.x < 0){ //left side of screen
 		rock.active = false;
-		heroImage.src = "images/hero_sheet.png";
 	}
 	else if(rock.x > (canvas.width-char_size)){ //right side of screen //512 -64
 		rock.active = false;
-		heroImage.src = "images/hero_sheet.png";
 	}
 	/* this for somereason didn't work (illegal tile check is keep on failing)
 	if((rock.y < 0) && ( (currentTileMap-tileMapArrayDimension) < 0)){ //top of the screen
