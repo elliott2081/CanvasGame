@@ -73,7 +73,6 @@ var keyboard_movement = function(modifier){
 	}
 	if (88 in keysDown){ // holding x
 		if(hero.hasRocks == true && rock.active == false){
-			
 			throwRocks(hero.direction);
 		}
 	}

@@ -61,6 +61,7 @@ var bgm_ready_fun = function(){
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
 // prepare for what render function will print out. 
 var update = function (modifier){	
+	item_removal(modifier*1000);
 	rockMovement(modifier,robotArray); //rock.js
 	collisionDetectionDistributor(robotArray);	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
@@ -272,7 +273,7 @@ var main = function() {
 
 	var now = Date.now();
 	var delta = now - then;
-	item_removal(delta);
+	
 	update(delta / 1000);
 	render();
 	then = now;	
@@ -284,7 +285,7 @@ var item_removal = function(delta_var){
 			hero.own_speedyItem = false;
 			speedyItem.timer = 30000;
 			hero.speed = 256;
-			frame_change_rate = 15;
+			frame_change_rate = 35;
 		}else{
 			speedyItem.timer = speedyItem.timer - delta_var;
 		}
@@ -303,7 +304,7 @@ var item_removal = function(delta_var){
 				robotArray[i].electricuted = false;
 				robotArray[i].robotImage.src = "images/robots.png";
 			}else{
-				robotArray[i].electricuted_timer = item.timer - delta_var;		
+				robotArray[i].electricuted_timer = robotArray[i].electricuted_timer - delta_var;		
 			}
 		}
 	}

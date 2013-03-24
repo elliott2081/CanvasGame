@@ -187,7 +187,7 @@ var collisionDetectionDistributor = function(passedRobotArray){
 }
 
 var collisionDetection = function(currentRobot){
-		// collision detection between item and hero
+		// collision detection between item(tazor) and hero
 		if(
 			hero.x <= (item.x + char_size - collisionEase)
 			&& item.x <= (hero.x + char_size - collisionEase)
@@ -198,6 +198,7 @@ var collisionDetection = function(currentRobot){
 			hero.own_item = true;
 			item.availability = false;
 		}
+		//energy drink collision detection
 		if(
 			hero.x <= (speedyItem.x + char_size - collisionEase)
 			&& speedyItem.x <= (hero.x + char_size - collisionEase)
@@ -210,6 +211,19 @@ var collisionDetection = function(currentRobot){
 			frame_change_rate = 13;
 			speedyItem.availability = false;
 		}
+		//energy gun collision detection
+		if(
+			hero.x <= (gunOnTheGround.x + char_size - collisionEase)
+			&& gunOnTheGround.x <= (hero.x + char_size - collisionEase)
+			&& hero.y <= (gunOnTheGround.y + char_size - collisionEase)
+			&& gunOnTheGround.y <= (hero.y + char_size - collisionEase)
+			&& gunOnTheGround.availability == true
+		){
+			hero.hasRocks = true;
+			gunOnTheGround.availability = false;
+		}
+		
+		
 		//collision detection between robot and hero
 		if(
 			hero.x <= (currentRobot.x + char_size - collisionEase)

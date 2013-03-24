@@ -1,9 +1,9 @@
 
 var rockImage = new Image();
-rockImage.src = "images/rock.png";
+rockImage.src = "images/projectile.png";
 
 var gunImage = new Image();
-gunImage.src = "images/rock.png";
+gunImage.src = "images/gun.png";
 
 var gunOnTheGround = {
 	x: 0,
@@ -17,7 +17,6 @@ var rock  = {
 	y : 0,
 	speed : 500,
 	direction : 0,
-
 	active : false //true means rock is thrown and it is on air
 	
 }
@@ -25,11 +24,8 @@ var rock  = {
 var throwRocks = function(direction){
 	rock.active = true;
 	rock.direction = hero.direction;
-	rock.x = hero.x + 32;
-	rock.y = hero.y + 32;
-	
-		
-		
+	rock.x = hero.x;
+	rock.y = hero.y;
 }
 
 var rockMovement = function(modifier,passed_robots){
