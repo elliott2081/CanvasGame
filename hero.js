@@ -20,7 +20,7 @@ var hero = {
 		energy_gun_timer: 500,
 		own_item : false,
 		own_speedyItem : false,
-		hasRocks : false
+		hasRocks : true
 		
 		//own_item is temporarly in true. need to start with false
 		
@@ -75,7 +75,7 @@ var keyboard_movement = function(modifier){
 	}
 	if (88 in keysDown){ // holding x
 		if(hero.hasRocks == true && rock.active == false){
-			//change heroImage.src = ??
+			heroImage.src = "images/hero_shoot.png";
 			hero.energy_gun_timer = 500;
 			throwRocks();
 		}

@@ -15,7 +15,7 @@ var gunOnTheGround = {
 var rock  = {
 	x : 0,
 	y : 0,
-	speed : 500,
+	speed : 550,
 	direction : 0,
 	active : false //true means rock is thrown and it is on air
 	

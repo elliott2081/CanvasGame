@@ -296,7 +296,7 @@ var item_removal = function(delta_var){
 	if(rock.active && hero.electric_gun_timer > 0){
 		hero.electric_gun_timer -= delta_var;
 	}else{
-		//change heroImage.src = ??
+		heroImage.src = "images/hero_sheet.png"
 		hero.electric_gun_timer = 500;
 	}
 	
