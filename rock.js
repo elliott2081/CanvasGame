@@ -21,7 +21,7 @@ var rock  = {
 	
 }
 
-var throwRocks = function(direction){
+var throwRocks = function(){
 	rock.active = true;
 	rock.direction = hero.direction;
 	rock.x = hero.x;
