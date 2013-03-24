@@ -61,7 +61,7 @@ var bgm_ready_fun = function(){
 //update game objects -- update runs every game loop and is responsible for charachter movement (hero and robots), and collision detection
 // prepare for what render function will print out. 
 var update = function (modifier){	
-	item_removal(modifier*1000);
+	item_removal(modifier*1000); //game.js
 	rockMovement(modifier,robotArray); //rock.js
 	collisionDetectionDistributor(robotArray);	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
@@ -116,9 +116,10 @@ var render = function(){
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
-		
+		//up -> 3 down ->1 left -> 2 right ->0
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-
+		
+		
 		//print live robots
 		for(var i = 0; i < robotArray.length; i++){
 			if(robotArray[i].live == true){
@@ -145,8 +146,9 @@ var render = function(){
 		if(speedyItem.availability == true){
 			ctx.drawImage(speedyItemImage, speedyItem.x, speedyItem.y);
 		}
+		
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
-
+		
 		//print live robots
 		for(var i = 0; i < robotArray.length; i++){
 			if(robotArray[i].live == true){
@@ -186,7 +188,9 @@ var render = function(){
 		if(rock.active == true) {
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
+
 		ctx.drawImage(heroImage, (hero.direction*(char_src_size*4) + heroFrameIndex*char_src_size), 0, char_src_size,char_src_size ,hero.x, hero.y, char_size,char_size);
+		
 		//print live robots
 		for(var i = 0; i < robotArray.length; i++){
 			if(robotArray[i].live == true){
@@ -273,13 +277,13 @@ var main = function() {
 
 	var now = Date.now();
 	var delta = now - then;
-	
 	update(delta / 1000);
 	render();
 	then = now;	
 };
 
 var item_removal = function(delta_var){
+	//energy drink item removal(remove effect of the item on hero)
 	if(hero.own_speedyItem == true){
 		if(speedyItem.timer <= 0){
 			hero.own_speedyItem = false;
@@ -289,9 +293,13 @@ var item_removal = function(delta_var){
 		}else{
 			speedyItem.timer = speedyItem.timer - delta_var;
 		}
-		
-	
 	}
+	/*hero's energy gun graphic change
+	if(!rock.active){
+	
+	}*/
+	
+	
 	//unlike speedy item this one governs duration of robot electricution
 	//hero's tazer item is already removed from hero when collision occured
 	for(var i = 0; i < robotArray.length ; i++){

@@ -296,8 +296,8 @@ var robotReload = function(currentRobot, robotNumb){
 		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 3){
 		currentRobot.live = true;
-		currentRobot.x = 300;
-		currentRobot.y = 200;
+		currentRobot.x = 900;
+		currentRobot.y = 400;
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
 		item.availability = false;
