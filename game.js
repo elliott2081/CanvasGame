@@ -4,14 +4,15 @@ var canvas = document.createElement("canvas");
 div = document.getElementById("test");
 var ctx = canvas.getContext("2d");
 canvas.width = 1024;
+div.style.width = canvas.width + "px";
 canvas.height = 576;
 div.appendChild(canvas);
 
 //div.style.height = window.innerHeight;
 //div.style.width = window.innerWidth;
 
-canvas.style.marginRight = (Math.abs(window.innerWidth-2 - canvas.width) / 2) +"px";
-canvas.style.marginLeft = (Math.abs(window.innerWidth-2 - canvas.width) / 2) +"px";
+//canvas.style.marginRight = (Math.abs(window.innerWidth-2 - canvas.width) / 2) +"px";
+//canvas.style.marginLeft = (Math.abs(window.innerWidth-2 - canvas.width) / 2) +"px";
 
 //(div.style.height - canvas.height);
 //var window_width = window.innerWidth;
