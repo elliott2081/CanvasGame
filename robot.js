@@ -253,6 +253,7 @@ var robotReloadDistributor = function(passed_robot_array){
 //03-17-2013 Dave if current map does not need 2nd robot set their live value to false! and remove this comment if you have done
 // 
 var robotReload = function(currentRobot, robotNumb){
+	rock.active = false;
 	item.timer = 3000;
 	if(currentTileMap == 0){
 		//think this should be the standard way to update robot(using robotNumb to update different value on robot)
