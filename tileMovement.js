@@ -28,7 +28,7 @@ var tile_src_size = 64;
 //ranges for what tiles the hero and robot can move on
 var end_walkable = 50;
 var end_robot_walkable = 100;
-var end_non_walkable = 150;
+var end_non_walkable = 170;
 
 ////////////////////////////////////////////////
 //FUNCTIONS FOR CALCULATING TILE POSITION AND MOVEMENT
