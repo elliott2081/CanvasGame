@@ -74,7 +74,7 @@ var create_robots = function(passed_robot_array){
 			//other robot operating values 
 			robot_frameIndex : 0, 
 			robot_randomly_moved : 1,
-			patrol_distance : 576,
+			patrol_distance : 320, //previous value : 576
 			chase_consistency : 0,
 			
 			//tazer related robot variables
