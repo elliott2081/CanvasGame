@@ -427,9 +427,32 @@ var robotReload = function(currentRobot, robotNumb){
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
 	}else if(currentTileMap == 16){
-		currentRobot.live = true;
-		currentRobot.x = 900;
-		currentRobot.y = 400;
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 895;
+			currentRobot.y = 256;
+			
+		}else{
+			currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}else if(currentTileMap == 17){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 448;
+			currentRobot.y = 448;
+			
+		}else{
+			currentRobot.live = true;
+			currentRobot.x = 448;
+			currentRobot.y = 320;
+		}
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots.png";
 	

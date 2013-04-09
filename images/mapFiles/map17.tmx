@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="9" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="backgroundTiles" tilewidth="64" tileheight="64">
-  <image source="../backgroundTiles.png" width="10880" height="64"/>
+  <image source="../backgroundTiles.png" width="11840" height="64"/>
  </tileset>
  <layer name="Tile Layer 1" width="16" height="9">
-  <data encoding="base64" compression="zlib">
-   eJybzsDAMINMPBuIFwIxG5l4KQ30z8GiDpsYMfbj0kdL99Nb/zIgXkEmXgXEAK40IPs=
-  </data>
+  <data encoding="csv">
+151,152,152,152,152,152,152,152,152,152,152,152,152,153,183,183,
+158,6,6,6,6,6,6,53,6,6,6,6,6,161,183,183,
+158,6,170,173,174,173,179,53,181,173,174,179,6,161,183,183,
+158,6,6,6,168,6,176,53,176,6,169,178,6,161,183,183,
+158,6,181,173,178,6,6,53,6,6,176,168,6,161,183,183,
+158,6,168,170,171,174,185,53,170,174,173,178,6,161,183,183,
+154,6,168,163,163,168,6,53,6,168,163,176,6,157,152,152,
+6,6,168,163,170,171,179,53,181,180,163,163,6,6,6,6,
+160,160,177,160,160,160,177,160,177,160,160,160,160,160,160,160
+</data>
  </layer>
 </map>

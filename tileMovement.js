@@ -7,7 +7,7 @@
 var collisionEase = 30;
 
 // TESTING - CHANGE THIS VARIABLE TO TEST LATER SCREENS
-var currentTileMap = 3;
+var currentTileMap = 16;
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
 var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19]; // represented as a 1 dimensional array but thought of as 2
 
@@ -28,7 +28,7 @@ var tile_src_size = 64;
 //ranges for what tiles the hero and robot can move on
 var end_walkable = 50;
 var end_robot_walkable = 100;
-var end_non_walkable = 170;
+var end_non_walkable = 185;
 
 ////////////////////////////////////////////////
 //FUNCTIONS FOR CALCULATING TILE POSITION AND MOVEMENT
