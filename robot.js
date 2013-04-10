@@ -459,6 +459,38 @@ var robotReload = function(currentRobot, robotNumb){
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
+	}else if(currentTileMap == 18){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 192;
+			currentRobot.y = 192;
+			
+		}else{
+			currentRobot.live = true;
+			currentRobot.x = 640;
+			currentRobot.y = 192;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}else if(currentTileMap == 19){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 576;
+			currentRobot.y = 128;
+			
+		}else{
+			currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
 	}
 };
 	
