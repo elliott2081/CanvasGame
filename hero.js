@@ -14,7 +14,7 @@ var hero = {
 		x: 0, //original: 192
 		y: 65, //original: 64
 		direction: 0,
-		ease: 10,
+		ease: 17, //old ease for level 1: 10
 		name: "hero",
 		char_moved: 1,
 		energy_gun_timer: 500,
