@@ -17,6 +17,7 @@ var rock  = {
 	y : 0,
 	speed : 550,
 	direction : 0,
+	ease: 17,
 	active : false //true means rock is thrown and it is on air
 	
 }
@@ -43,24 +44,23 @@ var rockMovement = function(modifier,passed_robots){
 	else if(rock.x > (canvas.width-char_size)){ //right side of screen //512 -64
 		rock.active = false;
 	}
-	/* this for somereason didn't work (illegal tile check is keep on failing)
-	if((rock.y < 0) && ( (currentTileMap-tileMapArrayDimension) < 0)){ //top of the screen
-		rock.active = false;
-		console.log("is it going throu?");
-	}
-	else if( (rock.y > (canvas.height-char_size)) && ( (currentTileMap+tileMapArrayDimension) >= tileMapArray.length) ){//bottom of the screen // 480 - 64
-		rock.active = false;
-		console.log("is it going throu?");
-	}
-	else if(rock.x < 0 && ( (currentTileMap % tileMapArrayDimension) == 0)){ //left side of screen
-		rock.active = false;
-		console.log("is it going throu?");
-	}
-	else if( (rock.x > (canvas.width-char_size)) && (((currentTileMap+1) % tileMapArrayDimension) == 0)){ //right side of screen //512 -64
-		rock.active = false;
-		console.log("is it going throu?");
-	}
+	
+	/*collision detection between none walkable walls
+		I used same concept as legal check.  object's four corners were represented as 
+		1  2 
+		3  4
+		get tile num and check if they are above 100(end_robot_walkable)
 	*/
+	var ColandRow1 = onTile((rock.x + rock.ease), (rock.y + rock.ease) );
+	var ColandRow2 = onTile((rock.x+char_size-rock.ease), (rock.y +rock.ease));
+	var ColandRow3 = onTile((rock.x + rock.ease) , (rock.y + char_size - rock.ease));
+	var ColandRow4 = onTile((rock.x + char_size -rock.ease), (rock.y + char_size - rock.ease));
+	
+	if(getTileNum(ColandRow1) > end_robot_walkable){ rock.active = false;}
+	else if(getTileNum(ColandRow2) > end_robot_walkable){ rock.active = false;}
+	else if(getTileNum(ColandRow3) > end_robot_walkable){ rock.active = false;}
+	else if(getTileNum(ColandRow4) > end_robot_walkable){ rock.active = false;}
+	
 	
 	// collision detection between robot and rock 
 	var i = 0;
