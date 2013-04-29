@@ -375,6 +375,7 @@ var intro = function(timeModifier){
 		
 		if(bgm_ready_fun && robot_ready_fun(robotArray) && hero_ready_fun()){
 			if(introScreens[0] == true && introTimeOut < 0){
+				//this is very first screen with game title written on it.
 				introScreens[0] = false;
 				introScreens[1] = true;
 				introTimeOut = 250;
@@ -393,6 +394,7 @@ var intro = function(timeModifier){
 				currentLevel[1] = true;
 				insideIntroScreen = false;
 				currentTileMap = 16;
+				//update hero location for tile 16.
 				robotReloadDistributor(robotArray);
 			}else if(introScreens[3] == true){
 				currentLevel[1] = false;
@@ -407,6 +409,10 @@ var intro = function(timeModifier){
 			//or reload the page."
 		}
 	}
+	/* I think these parts should be moved to collision detection and it will reduce 
+	   delay before moving on to intro screens. Also appropriate to be in collision detection
+	   due to the function definition.
+	*/
 	// hero reached end of level 1
 	else if(getTileNum(heroCurrentTile) == 26)
 	{
@@ -426,7 +432,8 @@ var intro = function(timeModifier){
 		introScreens[3] = true;
 		insideIntroScreen = true;
 	}
-	else if(getTileNum(heroCurrentTile) == 66){
+	// hero reached end of level 3
+ 	else if(getTileNum(heroCurrentTile) == 66){
 		for(var i = 0; i < introScreens.length; i++){
 			introScreens[i] = false;
 		}

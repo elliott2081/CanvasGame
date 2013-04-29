@@ -9,7 +9,7 @@ var collisionEase = 30;
 // TESTING - CHANGE THIS VARIABLE TO TEST LATER SCREENS
 var currentTileMap = 16;
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
-var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19]; // represented as a 1 dimensional array but thought of as 2
+var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19, tileMap20]; // represented as a 1 dimensional array but thought of as 2
 
 
 //Load tile sheet
@@ -250,45 +250,47 @@ var collisionDetection = function(currentRobot){
 	var old_hero_x = hero.x;
 	//touching border for hero
 		if(hero.y < 0){ //top of the screen
+			/*
+			 //don't need these conditions since we have nonwalkable tiles covering each map.
 			if(currentTileMap-tileMapArrayDimension < 0){
 				hero.y = old_hero_y;
 			}
-			else{
+			else{*/
 				hero.y = canvas.height-char_size;
 				currentTileMap -= tileMapArrayDimension;
 				robotReloadDistributor(robotArray);
-			}
+			//}
 		}
 		
 		if(hero.y > (canvas.height-char_size)){//bottom of the screen // 480 - 64
-			if(currentTileMap+tileMapArrayDimension >= tileMapArray.length ){
+			/*if(currentTileMap+tileMapArrayDimension >= tileMapArray.length ){
 				hero.y = old_hero_y;
 			}
-			else{
+			else{*/
 				hero.y = 0;
 				currentTileMap += tileMapArrayDimension;
 				robotReloadDistributor(robotArray);
-			}
+			//}
 		}
 		if(hero.x < 0){ //left side of screen
-			if(currentTileMap % tileMapArrayDimension == 0){
+			/*if(currentTileMap % tileMapArrayDimension == 0){
 				hero.x = old_hero_x;
 			}
-			else{
+			else{*/
 				hero.x = canvas.width-char_size;
 				currentTileMap--;
 				robotReloadDistributor(robotArray);
-			}
+			//}
 		}
 		if(hero.x > (canvas.width-char_size)){ //right side of screen //512 -64
-			if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
+			/*if((((currentTileMap+1) % tileMapArrayDimension)) == 0){
 				hero.x = old_hero_x;
 			}
-			else{
+			else{*/
 				hero.x = 0;
 				currentTileMap++;
 				robotReloadDistributor(robotArray);
-			}
+			//}
 	}
 	
 	if(currentRobot.y < 0)
