@@ -10,9 +10,9 @@ heroImage.src = "images/hero_sheet.png";
 var heroFrameIndex = 0;
 
 var hero = {
-		speed: 256, //movementin pixels per second (original : 256)
-		x: 192,//0, //original: 192
-		y: 64,//65, //original: 64
+		speed: 512, //movementin pixels per second (original : 256)
+		x: 800,//0, //original: 192
+		y: 300,//65, //original: 64
 		direction: 0,
 		ease: 17, //old ease for level 1: 10
 		name: "hero",
