@@ -13,7 +13,7 @@ var robot = {
 	speed : 228,
 	x : 900,
 	y : 430,
-	//1 = down, 2 = left , 3 = up, 0 = right 
+	//1 = d, 2 = left , 3 = up, 0 = right 
 	direction : 3,
 	name : "robot",
 	robot_number : 0,
@@ -91,7 +91,7 @@ var create_robots = function(passed_robot_array){
 	};
 	
 	for(var i= 0; i < passed_robot_array.length; i++){
-		passed_robot_array[i].robotImage.src = "images/robots.png";
+		passed_robot_array[i].robotImage.src = "images/robots_lights.png";
 		passed_robot_array[i].robotImage.onload = change_load_val(passed_robot_array[i]);
 	}
 	
@@ -275,7 +275,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.electricuted = false;
 		// March
 		//robotImage.src will probably need to be changed
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -300,7 +300,7 @@ var robotReload = function(currentRobot, robotNumb){
 		
 		
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -318,7 +318,7 @@ var robotReload = function(currentRobot, robotNumb){
 		currentRobot.live = false;
 		
 		//currentRobot.electricuted = false;
-		//currentRobot.robotImage.src = "images/robots.png";
+		//currentRobot.robotImage.src = "images/robots_lights.png";
 		//item.availability = false;
 		//speedyItem.availability = false;
 		//gunOnTheGround.availability = false;
@@ -338,7 +338,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -357,13 +357,11 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 			currentRobot.electricuted = false;
-			currentRobot.robotImage.src = "images/robots.png";
+			currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = true;
 		item.x = 896;
 		item.y = 64;
-		gunOnTheGround.availability = true;
-		gunOnTheGround.x = 800;
-		gunOnTheGround.y = 64;
+		gunOnTheGround.availability = false;
 		speedyItem.availability = false;
 	}
 
@@ -383,7 +381,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -405,7 +403,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -426,7 +424,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -448,7 +446,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = true;
 		item.x = 600;
 		item.y = 300;
@@ -473,7 +471,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -496,7 +494,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -517,7 +515,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -544,7 +542,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -571,7 +569,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		item.availability = false;
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
@@ -598,7 +596,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		
 		item.availability = false;
 		speedyItem.availability = false;
@@ -628,7 +626,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 		
 		item.availability = false;
 		speedyItem.availability = false;
@@ -651,7 +649,7 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 		currentRobot.electricuted = false;
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 	
 		item.availability = false;
 		speedyItem.availability = false;
@@ -659,16 +657,16 @@ var robotReload = function(currentRobot, robotNumb){
 	}else if(currentTileMap == 17){
 		if(robotNumb == 0){
 			currentRobot.live = true;
-			currentRobot.x = 448;
-			currentRobot.y = 448;
+			currentRobot.x = 632;
+			currentRobot.y = 270;
 			
 		}else{
 			currentRobot.live = true;
-			currentRobot.x = 448;
-			currentRobot.y = 320;
+			currentRobot.x = 330;
+			currentRobot.y = 190;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 	
 		item.availability = false;
 		speedyItem.availability = false;
@@ -685,7 +683,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.y = 192;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 	
 		item.availability = false;
 		speedyItem.availability = false;
@@ -700,7 +698,7 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = false;
 		}
 		currentRobot.electricuted = false;
-		currentRobot.robotImage.src = "images/robots.png";
+		currentRobot.robotImage.src = "images/robots_lights.png";
 	
 		item.availability = false;
 		speedyItem.availability = false;

@@ -333,7 +333,7 @@ var item_removal = function(delta_var){
 				//hero.own_item = false;
 				robotArray[i].electricuted_timer = item.timer;
 				robotArray[i].electricuted = false;
-				robotArray[i].robotImage.src = "images/robots.png";
+				robotArray[i].robotImage.src = "images/robots_lights.png";
 			}else{
 				robotArray[i].electricuted_timer = robotArray[i].electricuted_timer - delta_var;		
 			}
