@@ -1,4 +1,4 @@
-
+//
 //create the canvas
 var canvas = document.createElement("canvas");
 div = document.getElementById("test");
