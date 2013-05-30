@@ -74,7 +74,7 @@ var create_robots = function(passed_robot_array){
 			//other robot operating values 
 			robot_frameIndex : 0, 
 			robot_randomly_moved : 1,
-			patrol_distance : 320, //previous value : 576
+			patrol_distance : 600, //previous value : 576
 			chase_consistency : 0,
 			
 			//tazer related robot variables
@@ -674,8 +674,8 @@ var robotReload = function(currentRobot, robotNumb){
 	}else if(currentTileMap == 18){
 		if(robotNumb == 0){
 			currentRobot.live = true;
-			currentRobot.x = 192;
-			currentRobot.y = 192;
+			currentRobot.x = 800;
+			currentRobot.y = 125;
 			
 		}else{
 			currentRobot.live = true;
@@ -691,7 +691,7 @@ var robotReload = function(currentRobot, robotNumb){
 	}else if(currentTileMap == 19){
 		if(robotNumb == 0){
 			currentRobot.live = true;
-			currentRobot.x = 576;
+			currentRobot.x = 486;
 			currentRobot.y = 128;
 			
 		}else{
@@ -704,6 +704,122 @@ var robotReload = function(currentRobot, robotNumb){
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
 	}
+	else if(currentTileMap == 20){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 725;
+			currentRobot.y = 448;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 308;
+			currentRobot.y = 228;
+			
+		}else{
+			currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 21){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 725;
+			currentRobot.y = 448;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+			currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 22){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 225;
+			currentRobot.y = 448;
+			
+		}
+			
+		else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 23){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 225;
+			currentRobot.y = 448;
+			
+		}
+			
+		else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 25){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 400;
+			currentRobot.y = 400;
+			
+		}
+			
+		else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 24){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 100;
+			currentRobot.y = 400;
+			
+		}
+			
+		else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
 };
+
+
 	
 	

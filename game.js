@@ -54,7 +54,7 @@ var backgroundMusic = document.createElement('audio');
 var backgroundMusic2 = document.createElement('audio');
 var backgroundMusic3 = document.createElement('audio');
 
-backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
+backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 backgroundMusic2.setAttribute('src', 'sounds/wings.mp3');
 backgroundMusic3.setAttribute('src', 'sounds/wings.mp3');
 
