@@ -782,7 +782,7 @@ var robotReload = function(currentRobot, robotNumb){
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
 	}
-	else if(currentTileMap == 25){
+	else if(currentTileMap == 24){
 		if(robotNumb == 0){
 			currentRobot.live = true;
 			currentRobot.x = 400;
@@ -800,10 +800,28 @@ var robotReload = function(currentRobot, robotNumb){
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
 	}
-	else if(currentTileMap == 24){
+	else if(currentTileMap == 25){
 		if(robotNumb == 0){
 			currentRobot.live = true;
 			currentRobot.x = 100;
+			currentRobot.y = 400;
+			
+		}
+			
+		else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 26){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
 			currentRobot.y = 400;
 			
 		}

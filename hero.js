@@ -18,7 +18,7 @@ var hero = {
 		name: "hero",
 		char_moved: 1,
 		energy_gun_timer: 500,
-		own_item : false,
+		own_item : true,
 		own_speedyItem : false,
 		hasRocks : true
 		
