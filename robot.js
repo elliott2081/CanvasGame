@@ -64,23 +64,24 @@ var create_robots = function(passed_robot_array){
 			direction : 3,
 			name : "robot",
 			robot_number : 0,
-			ease : 5,
+			ease : 30, // previously 5
 			//if hero get in range chase change to true, false otherwise
 			chase : false,
 			char_moved : 1,
 			//essential to active robot (used in game.js and collision detection)
 			live : true,
-			
+			boss : false,
 			//other robot operating values 
 			robot_frameIndex : 0, 
-			robot_randomly_moved : 1,
+			robot_randomly_moved : 20,    // orevuisky 1
 			patrol_distance : 600, //previous value : 576
-			chase_consistency : 0,
-			
+			chase_consistency : 0, // prev 0
+			chase_consistency_upper_limit : 50,
 			//tazer related robot variables
 			electricution_delay : 0,
 			electricuted_robot_direction : 0,
 			electricuted : false,	
+			shot: 9,
 			electricuted_timer : 3000
 		});
 	}
@@ -145,7 +146,7 @@ var robot_movement_helper = function(modifier, currentRobot){
 	}
 	else if(currentRobot.chase == true){
 		//reflex agent to chase hero
-		if(currentRobot.chase_consistency >= 10){
+		if(currentRobot.chase_consistency >= currentRobot.chase_consistency_upper_limit){
 			//this part is to make sure robot move to certain direction for sometime before it change its mind
 			chaseMode(modifier, currentRobot);
 			currentRobot.chase_consistency = 0;
@@ -253,6 +254,8 @@ var robotReloadDistributor = function(passed_robot_array){
 //03-17-2013 Dave if current map does not need 2nd robot set their live value to false! and remove this comment if you have done
 // 
 var robotReload = function(currentRobot, robotNumb){
+	console.log(" CURRENT TILE MAP ROOM IS -> " + currentTileMap );
+	
 	rock.active = false;
 	item.timer = 3000;
 
@@ -647,6 +650,8 @@ var robotReload = function(currentRobot, robotNumb){
 		}else{
 			currentRobot.live = false;
 		}
+		hero.x = 100;
+		hero.y = 100;
 		currentRobot.electricuted = false;
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots_lights.png";
@@ -855,6 +860,27 @@ var robotReload = function(currentRobot, robotNumb){
 	
 		item.availability = false;
 		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 43){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 450;
+			
+		}
+		else{
+		currentRobot.live = false;
+		}
+		currentRobot.shot = 100;
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_boss.png";
+		currentRobot.boss = true;
+		currentRobot.patrol_distance = 600;
+		robot_randomly_moved = 5;
+		item.availability = true;
+		speedyItem.availability = true;
+		
 		gunOnTheGround.availability = false;
 	}
 };

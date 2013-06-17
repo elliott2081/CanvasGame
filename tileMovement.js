@@ -7,9 +7,27 @@
 var collisionEase = 30;
 
 // TESTING - CHANGE THIS VARIABLE TO TEST LATER SCREENS
-var currentTileMap = 17;
+var currentTileMapPW = prompt("password? put level1 if you don't have one","level1");
+console.log(currentTileMapPW);
+if(currentTileMapPW == "level1"){
+	currentTileMap = 3;
+	}
+	else if(currentTileMapPW == "secretcaves"){
+	currentTileMap = 16;
+	}
+	else if(currentTileMapPW == "finalcaves"){
+		currentTileMap = 34;
+	}
+	else{
+	var currentTileMap = 43;
+	//location.reload(true);
+	}
+	
+	
+	
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
-var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19, tileMap20,tileMap21,tileMap22,tileMap23,tileMap24,tileMap25,tileMap26,tileMap27,tileMap28,tileMap29,tileMap30,tileMap31]; // represented as a 1 dimensional array but thought of as 2
+var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19, tileMap20,tileMap21,tileMap22,tileMap23,tileMap24,tileMap25,tileMap26,tileMap27,tileMap28,tileMap29,tileMap30,tileMap31,tileMap32, tileMap33, tileMap34, tileMap35, tileMap36,tileMap37,tileMap38,tileMap39,tileMap40,tileMap41,tileMap42,tileMap43]; 
+// represented as a 1 dimensional array but thought of as 2
 
 
 //Load tile sheet
@@ -196,6 +214,8 @@ var collisionDetection = function(currentRobot){
 			&& item.availability == true
 		){
 			hero.own_item = true;
+			var itemsnd = new Audio("sounds/powerup.wav"); // buffers automatically when created
+			itemsnd.play();
 			item.availability = false;
 		}
 		//energy drink collision detection
@@ -207,7 +227,9 @@ var collisionDetection = function(currentRobot){
 			&& speedyItem.availability == true
 		){
 			hero.own_speedyItem = true;
-			hero.speed = 380;
+			hero.speed = speedyItem.speed;
+			//var itemsnd = new Audio("sounds/powerup.wav"); // buffers automatically when created
+			//itemsnd.play();
 			frame_change_rate = 13;
 			speedyItem.availability = false;
 		}
@@ -220,6 +242,8 @@ var collisionDetection = function(currentRobot){
 			&& gunOnTheGround.availability == true
 		){
 			hero.hasRocks = true;
+			//var itemsnd = new Audio("sounds/powerup.wav"); // buffers automatically when created
+			//itemsnd.play();
 			gunOnTheGround.availability = false;
 		}
 		
@@ -237,7 +261,14 @@ var collisionDetection = function(currentRobot){
 			if (hero.own_item == true){
 			
 				currentRobot.electricuted = true;
-				currentRobot.robotImage.src = "images/robots_electricuted.png";
+				var elecsnd = new Audio("sounds/shock.wav"); // buffers automatically when created
+				elecsnd.play();
+				if(currentRobot.boss){
+					currentRobot.robotImage.src = "images/boss_robots_electricuted.png";
+				}
+				else{
+					currentRobot.robotImage.src = "images/robots_electricuted.png";
+				}
 				hero.own_item = false;
 				
 			}else if(currentRobot.electricuted==false  && insideIntroScreen == false){

@@ -85,7 +85,8 @@ var bgm_ready_fun = function(){
 // prepare for what render function will print out. 
 var update = function (modifier){	
 	item_removal(modifier*1000);
-	rockMovement(modifier,robotArray); //rock.js
+	rockMovement(modifier,robotArray,introScreens); //rock.js
+	
 	collisionDetectionDistributor(robotArray);	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper_distributor(modifier, robotArray);	//from robot.js
@@ -96,6 +97,7 @@ var update = function (modifier){
 //draw everything - gets called every game cycle
 var render = function(){
 	if (isGameOver){
+
 		gameOver();
 	}
 	else if(introScreens[4] == true)
@@ -151,8 +153,8 @@ var render = function(){
 	}
 	else if(currentLevel[1] == true){
 		//draw level2 tiles
+		backgroundMusic.pause();
 		backgroundMusic2.play();
-
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 			for (var colCtr=0;colCtr<mapCols;colCtr++){
 				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
@@ -186,8 +188,8 @@ var render = function(){
 	else if(currentLevel[2] == true){
 		//draw level3 tiles
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
-		backgroundMusic2.pause();
-		backgroundMusic3.play();
+		backgroundMusic.pause();
+		backgroundMusic2.play();
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 			for (var colCtr=0;colCtr<mapCols;colCtr++){
 				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
@@ -221,13 +223,19 @@ var render = function(){
 };		
  
 
-var gameOver = function(){
+gameOver = function(){
+	
+	
 	ctx.drawImage(gameOverScreen,0,0);
 	//give option to restart the game. 
 	//later on I need to link this to database to update with previous play information for specific people. 	
-   	if(32 in keysDown){
+   	
+
+	
+	if(32 in keysDown){
 		restart_game();
 	}
+	
 };
 
 var restart_game = function(){
@@ -243,13 +251,7 @@ var youWin = function(){
 		restart_game();
 	}
 };
-var gameOver_text_style = function(){
-	ctx.fillStyle = "black";
-	ctx.font = "24px Helvetica";
-	ctx.textAlign = "center";
-	ctx.textBaseline = "top";
-	
-}
+
 //d is direction pressed or direction robot is moving
 var animation = function(d, character){
 	if(character.name == "hero"){//for hero
@@ -333,7 +335,12 @@ var item_removal = function(delta_var){
 				//hero.own_item = false;
 				robotArray[i].electricuted_timer = item.timer;
 				robotArray[i].electricuted = false;
-				robotArray[i].robotImage.src = "images/robots_lights.png";
+				if(robotArray[i].boss){
+					robotArray[i].robotImage.src = "images/robots_boss.png";
+				}
+				else{
+					robotArray[i].robotImage.src = "images/robots_lights.png";
+				}
 			}else{
 				robotArray[i].electricuted_timer = robotArray[i].electricuted_timer - delta_var;		
 			}

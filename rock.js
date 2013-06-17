@@ -20,6 +20,7 @@ var rock  = {
 	ease: 17,
 	active : false //true means rock is thrown and it is on air
 	
+	
 }
 
 var throwRocks = function(){
@@ -27,9 +28,11 @@ var throwRocks = function(){
 	rock.direction = hero.direction;
 	rock.x = hero.x;
 	rock.y = hero.y;
-}
+	var snd = new Audio("sounds/lazer.wav"); // buffers automatically when created
+	snd.play();
+	}
 
-var rockMovement = function(modifier,passed_robots){
+var rockMovement = function(modifier,passed_robots,introScreens){
 	
 	//collision detection between rock and illegal tiles
 	if(rock.y < 0){ //top of the screen
@@ -65,7 +68,7 @@ var rockMovement = function(modifier,passed_robots){
 	// collision detection between robot and rock 
 	var i = 0;
 	while((rock.active == true) && (i < passed_robots.length)){
-		rock_robot_collision_detection(passed_robots[i]);
+		rock_robot_collision_detection(passed_robots[i], introScreens);
 		i++;
 	}
 	
@@ -84,7 +87,42 @@ var rockMovement = function(modifier,passed_robots){
 	}
 }
 var rock_robot_collision_detection = function(a_robot){
-	if(
+	
+	////
+	//
+	//  ROBOT BOSS
+	//
+	////
+	
+	if(a_robot.boss == true &&
+		rock.x <= (a_robot.x + char_size - collisionEase)
+		&& a_robot.x <= (rock.x + char_size - collisionEase)
+		&& rock.y <= (a_robot.y + char_size - collisionEase)
+		&& a_robot.y <= (rock.y + char_size - collisionEase)
+		&& a_robot.live == true
+		
+	){
+		console.log('inside robot boss if statement');
+		if(a_robot.shot == 0){
+			a_robot.live = false; // this allow robot to disappear. if we want to just change picture dead robot then this variable in robot need some adjustment
+			rock.active = false;
+			introScreens[4] = true;
+			
+		}
+		else{
+			rock.active = false;
+			a_robot.shot -= 1;
+		}
+	}
+	
+	////
+	//
+	//   REG ROBOT
+	//
+	////
+	
+	
+	else if(
 		rock.x <= (a_robot.x + char_size - collisionEase)
 		&& a_robot.x <= (rock.x + char_size - collisionEase)
 		&& rock.y <= (a_robot.y + char_size - collisionEase)

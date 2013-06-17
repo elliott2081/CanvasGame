@@ -1,0 +1,22 @@
+tonight I added jc s tiles
+I also did some editing of the vaiorus ease and speed vairalbales
+I also added some new variables for the robot
+such as:
+chase_consistency_upper_limit - this controls where in the code it said 
+chase_consistency <= 10 // new var replaces 10, this allows for better adjusting
+
+same with speedyItem, where in the code it used to just assign hero.speed = 380, 
+I changed it to hero.speed = speedyItem.speed , 
+I also added a "shot" var that keeps track of how many times the boss gets shot,
+also have a boolean that is used in a few places for loading the boss graphic. 
+
+NEXT STEPS:
+
+LEVEL 1 - screen 0 appears to be missing a tile, not sure what happened there.
+ADJUST ITEMS AND ROBOTS IN LEVEL 1,2,3 
+shanes last screen drops the player to screen 34, so JC's old 16 and 17 should get
+moved or something. I think we should add just one or two more screens (possibly none)
+to level 3, and place the boss at the final screen, make sure player has speedyItem 
+and taser.
+
+
