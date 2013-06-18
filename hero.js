@@ -10,7 +10,7 @@ heroImage.src = "images/hero_sheet.png";
 var heroFrameIndex = 0;
 
 var hero = {
-		speed: 700, //movementin pixels per second (original : 256)
+		speed: 500, //movementin pixels per second (original : 256)
 		x: 192,//0, //original: 192
 		y: 64,//65, //original: 64
 		direction: 0,

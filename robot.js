@@ -325,7 +325,11 @@ var robotReload = function(currentRobot, robotNumb){
 		//item.availability = false;
 		//speedyItem.availability = false;
 		//gunOnTheGround.availability = false;
-	}
+			speedyItem.availability = true;
+			speedyItem.x = 200;
+			speedyItem.y = 400;
+
+		}
 
 
 
@@ -862,6 +866,322 @@ var robotReload = function(currentRobot, robotNumb){
 		speedyItem.availability = false;
 		gunOnTheGround.availability = false;
 	}
+	else if(currentTileMap == 28){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 29){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 30){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 31){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 32){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 33){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 34){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 35){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 36){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 37){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 38){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 39){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 40){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 41){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+	else if(currentTileMap == 42){
+		if(robotNumb == 0){
+			currentRobot.live = true;
+			currentRobot.x = 280;
+			currentRobot.y = 400;
+			
+		}else if(robotNumb == 1){
+			currentRobot.live = true;
+			currentRobot.x = 378;
+			currentRobot.y = 228;
+			
+		}else{
+		currentRobot.live = false;
+		}
+		currentRobot.electricuted = false;
+		currentRobot.robotImage.src = "images/robots_lights.png";
+	
+		item.availability = false;
+		speedyItem.availability = false;
+		gunOnTheGround.availability = false;
+	}
+
 	else if(currentTileMap == 43){
 		if(robotNumb == 0){
 			currentRobot.live = true;

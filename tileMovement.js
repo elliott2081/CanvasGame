@@ -19,7 +19,7 @@ if(currentTileMapPW == "level1"){
 		currentTileMap = 34;
 	}
 	else{
-	var currentTileMap = 43;
+	var currentTileMap = 14;
 	//location.reload(true);
 	}
 	
