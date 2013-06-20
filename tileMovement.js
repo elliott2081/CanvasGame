@@ -7,23 +7,9 @@
 var collisionEase = 30;
 
 // TESTING - CHANGE THIS VARIABLE TO TEST LATER SCREENS
-var currentTileMapPW = prompt("password? put level1 if you don't have one","level1");
-console.log(currentTileMapPW);
-if(currentTileMapPW == "level1"){
-	currentTileMap = 3;
-	}
-	else if(currentTileMapPW == "secretcaves"){
-	currentTileMap = 16;
-	}
-	else if(currentTileMapPW == "finalcaves"){
-		currentTileMap = 34;
-	}
-	else{
-	var currentTileMap = 14;
-	//location.reload(true);
-	}
-	
-	
+var currentTileMap = 7;
+
+
 	
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
 var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19, tileMap20,tileMap21,tileMap22,tileMap23,tileMap24,tileMap25,tileMap26,tileMap27,tileMap28,tileMap29,tileMap30,tileMap31,tileMap32, tileMap33, tileMap34, tileMap35, tileMap36,tileMap37,tileMap38,tileMap39,tileMap40,tileMap41,tileMap42,tileMap43]; 
@@ -230,7 +216,7 @@ var collisionDetection = function(currentRobot){
 			hero.speed = speedyItem.speed;
 			//var itemsnd = new Audio("sounds/powerup.wav"); // buffers automatically when created
 			//itemsnd.play();
-			frame_change_rate = 13;
+			//frame_change_rate = 13;
 			speedyItem.availability = false;
 		}
 		//energy gun collision detection

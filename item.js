@@ -16,6 +16,7 @@ var speedyItem = {
 		y: 128,
 		screen: 2,
 		availability : false,
+		start_timer: 4000,
 		timer: 4000,
-		speed: 350
+		speed: 400
 };

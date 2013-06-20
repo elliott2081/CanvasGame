@@ -29,10 +29,16 @@ var isGameOver = false;
 var insideIntroScreen = true;
 var introScreens = [true, false, false, false, false, false]; //0: first intro, 1: level 1, 2: level 2, 3: level 3 intro 4: game over
 var currentLevel = [false, false, false];
+
+if(document.URL == "file:///C:/Users/delliott/Documents/Aptana%20Studio%203%20Workspace/CanvasGame/index.html#secretcaves"){
+	console.log("hi");
+	introScreens = [false, false, true, false, false, false];
+	
+}
 var intro_var = true;
 //put canvas into document(html)
 //document.body.appendChild(canvas);
-
+var used_password = false;
 
 
 var StartScreen = new Image();
@@ -96,6 +102,7 @@ var update = function (modifier){
 
 //draw everything - gets called every game cycle
 var render = function(){
+
 	if (isGameOver){
 
 		gameOver();
@@ -107,6 +114,7 @@ var render = function(){
 	else if(introScreens[0] == true)
 	{
 		ctx.drawImage(StartScreen,0,0);
+		
 	}else if(introScreens[1] == true)
 	{
 		ctx.drawImage(IntroLevel1, 0,0);
@@ -118,6 +126,8 @@ var render = function(){
 		ctx.drawImage(IntroLevel3, 0,0);
 	}else if(currentLevel[0] == true)
 	{
+		
+
 		//draw level1 tiles
 		backgroundMusic.play();
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
@@ -308,7 +318,7 @@ var item_removal = function(delta_var){
 	if(hero.own_speedyItem == true){
 		if(speedyItem.timer <= 0){
 			hero.own_speedyItem = false;
-			speedyItem.timer = 30000;
+			speedyItem.timer = speedyItem.start_timer;
 			hero.speed = 256;
 			frame_change_rate = 35;
 		}else{
@@ -421,7 +431,7 @@ var intro = function(timeModifier){
 	   due to the function definition.
 	*/
 	// hero reached end of level 1
-	else if(getTileNum(heroCurrentTile) == 26)
+	 if(getTileNum(heroCurrentTile) == 26) // got rid of an else to make this work, kinda hacky
 	{
 		for(var i = 0; i < introScreens.length; i++){
 			introScreens[i] = false;

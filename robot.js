@@ -64,7 +64,7 @@ var create_robots = function(passed_robot_array){
 			direction : 3,
 			name : "robot",
 			robot_number : 0,
-			ease : 30, // previously 5
+			ease : 25, // previously 5
 			//if hero get in range chase change to true, false otherwise
 			chase : false,
 			char_moved : 1,
@@ -422,7 +422,7 @@ var robotReload = function(currentRobot, robotNumb){
 	else if(currentTileMap == 7){
 		if(robotNumb == 0){
 
-		currentRobot.live = true;
+		currentRobot.live = false;
 		currentRobot.x = 900;
 		currentRobot.y = 400;
 		}
@@ -432,9 +432,15 @@ var robotReload = function(currentRobot, robotNumb){
 		}
 		currentRobot.electricuted = false;
 		currentRobot.robotImage.src = "images/robots_lights.png";
-		item.availability = false;
-		speedyItem.availability = false;
-		gunOnTheGround.availability = false;
+		item.availability = true;
+		item.x = 820;
+		item.y = 140;
+		speedyItem.availability = true;
+		speedyItem.x = 810;
+		speedyItem.y = 240;
+		gunOnTheGround.availability = true;
+		gunOnTheGround.x = 800;
+		gunOnTheGround.y = 200;
 	}
 
 
