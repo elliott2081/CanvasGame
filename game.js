@@ -1,4 +1,4 @@
-//
+
 //create the canvas
 var canvas = document.createElement("canvas");
 div = document.getElementById("test");
@@ -30,16 +30,13 @@ var insideIntroScreen = true;
 var introScreens = [true, false, false, false, false, false]; //0: first intro, 1: level 1, 2: level 2, 3: level 3 intro 4: game over
 var currentLevel = [false, false, false];
 
+// THIS IS WHERE THE PASSWORD URLS WILL BE DEFINED. 
 if(document.URL == "file:///C:/Users/delliott/Documents/Aptana%20Studio%203%20Workspace/CanvasGame/index.html#secretcaves"){
-	console.log("hi");
-	introScreens = [false, false, true, false, false, false];
-	
-}
-var intro_var = true;
-//put canvas into document(html)
-//document.body.appendChild(canvas);
-var used_password = false;
 
+	introScreens = [false, false, true, false, false, false];
+}
+
+var intro_var = true;
 
 var StartScreen = new Image();
 StartScreen.src = "images/IntroScreen.png";
@@ -124,7 +121,10 @@ var render = function(){
 	}else if(introScreens[3] == true)
 	{
 		ctx.drawImage(IntroLevel3, 0,0);
-	}else if(currentLevel[0] == true)
+	}
+
+	// SETTING UP LEVEL 1
+	else if(currentLevel[0] == true)
 	{
 		
 
@@ -161,6 +161,8 @@ var render = function(){
 			}
 		}
 	}
+
+	// SETTING UP LEVEL 2
 	else if(currentLevel[1] == true){
 		//draw level2 tiles
 		backgroundMusic.pause();
@@ -195,6 +197,7 @@ var render = function(){
 			ctx.drawImage(rockImage, rock.x, rock.y); 
 		}
 	}
+	// SETTING UP LEVEL 3
 	else if(currentLevel[2] == true){
 		//draw level3 tiles
 		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
@@ -253,8 +256,6 @@ var restart_game = function(){
 };
 
 var youWin = function(){
-	//backgroundMusic.pause();
-	//backgroundMusic2.pause();
 	backgroundMusic3.pause();
 	ctx.drawImage(youWinScreen,0,0);
    	if(32 in keysDown){

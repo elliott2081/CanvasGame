@@ -12,15 +12,15 @@ var heroFrameIndex = 0;
 var hero = {
 		speed: 256, //movementin pixels per second (original : 256)
 		x: 192,//0, //original: 192
-		y: 164,//65, //original: 64
+		y: 80,//65, //original: 64
 		direction: 0,
-		ease: 17, //old ease for level 1: 10
+		ease: 31, // prev 17
 		name: "hero",
 		char_moved: 1,
 		energy_gun_timer: 500,
 		own_item : false,
 		own_speedyItem : false,
-		hasRocks : true
+		hasRocks : false
 		
 		//own_item is temporarly in true. need to start with false
 		
@@ -79,5 +79,10 @@ var keyboard_movement = function(modifier){
 			hero.energy_gun_timer = 500;
 			throwRocks();
 		}
+	}
+	
+	// TURBO MODE
+	if (84 in keysDown){ // holding x
+		hero.speed = 1000;
 	}
 };

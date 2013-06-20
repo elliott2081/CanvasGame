@@ -2,19 +2,16 @@
 //   GLOBAL VARIABLES FOR TILES AND MOVING AROUND THE SCREEN WITH TILES
 //////////////////////////////////
 
-//World Map
 //collision ease is the amount of pixels inward of the characthers box when captured
-var collisionEase = 30;
+// ideally this variable should be wrapped up in the hero object. 
+var collisionEase = 30;   //prev 30
 
 // TESTING - CHANGE THIS VARIABLE TO TEST LATER SCREENS
-var currentTileMap = 7;
+var currentTileMap = 31;
 
-
-	
 var tileMapArrayDimension = 4; // height and width of theorhetical 2 dimensional tileMapArray
 var tileMapArray = [tileMap0, tileMap1, tileMap2, tileMap3, tileMap4, tileMap5, tileMap6 ,tileMap7, tileMap8 ,tileMap9, tileMap10, tileMap11, tileMap12, tileMap13, tileMap14, tileMap15, tileMap16, tileMap17, tileMap18, tileMap19, tileMap20,tileMap21,tileMap22,tileMap23,tileMap24,tileMap25,tileMap26,tileMap27,tileMap28,tileMap29,tileMap30,tileMap31,tileMap32, tileMap33, tileMap34, tileMap35, tileMap36,tileMap37,tileMap38,tileMap39,tileMap40,tileMap41,tileMap42,tileMap43]; 
 // represented as a 1 dimensional array but thought of as 2
-
 
 //Load tile sheet
 var tileSheet = new Image();
@@ -258,8 +255,8 @@ var collisionDetection = function(currentRobot){
 				hero.own_item = false;
 				
 			}else if(currentRobot.electricuted==false  && insideIntroScreen == false){
-				//TESTING TURN BACK ON
-				isGameOver = true;
+				//TESTING TURN BACK ON make hero invinsible
+				//isGameOver = true;
 			}
 		}
 		
