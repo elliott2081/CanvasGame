@@ -57,7 +57,7 @@ var backgroundMusic = document.createElement('audio');
 var backgroundMusic2 = document.createElement('audio');
 var backgroundMusic3 = document.createElement('audio');
 
-backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
 backgroundMusic2.setAttribute('src', 'sounds/wings.mp3');
 backgroundMusic3.setAttribute('src', 'sounds/wings.mp3');
 
@@ -200,7 +200,7 @@ var render = function(){
 	// SETTING UP LEVEL 3
 	else if(currentLevel[2] == true){
 		//draw level3 tiles
-		//backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
+		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
 		backgroundMusic.pause();
 		backgroundMusic2.play();
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
