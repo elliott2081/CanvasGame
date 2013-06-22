@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="16" height="9" tilewidth="64" tileheight="64">
  <tileset firstgid="1" name="backgroundTiles" tilewidth="64" tileheight="64">
-  <image source="../backgroundTiles.png" width="11840" height="64"/>
+  <image source="../backgroundTiles.png" width="12480" height="64"/>
  </tileset>
  <layer name="Tile Layer 1" width="16" height="9">
   <data encoding="csv">
 152,152,152,152,152,166,152,152,152,152,152,152,152,152,152,153,
 6,6,6,6,6,176,53,53,53,53,6,6,6,6,6,161,
-155,6,6,6,6,6,6,6,175,53,53,53,53,6,6,161,
-158,6,6,170,174,173,173,173,172,173,173,173,185,6,6,157,
+6,6,6,6,6,6,6,6,175,53,53,53,53,6,6,161,
+155,6,6,170,174,173,173,173,172,173,173,173,185,6,6,157,
 158,6,6,6,176,6,6,6,176,6,6,6,6,6,6,6,
 158,6,6,6,6,6,6,6,6,6,6,6,6,6,6,156,
 158,6,6,6,6,6,6,6,6,6,6,6,6,6,6,161,
