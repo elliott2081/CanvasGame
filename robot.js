@@ -38,7 +38,7 @@ var create_robots = function(passed_robot_array){
 			boss : false,
 			//other robot operating values 
 			robot_frameIndex : 0, 
-			robot_randomly_moved : 20,    // orevuisky 1
+			robot_randomly_moved : 10,    // orevuisky 1
 			patrol_distance : 600, //previous value : 576
 			chase_consistency : 0, // prev 0
 			chase_consistency_upper_limit : 50,
@@ -325,7 +325,7 @@ var robotReload = function(currentRobot, robotNumb){
 		if(robotNumb == 0){
 			currentRobot.live = true;
 			currentRobot.x = 650;
-			currentRobot.y = 500;
+			currentRobot.y = 250;
 		}else{
 			currentRobot.live = true;
 			currentRobot.x = 330;
@@ -403,8 +403,8 @@ var robotReload = function(currentRobot, robotNumb){
 	else if(currentTileMap == 24){
 		if(robotNumb == 0){
 			currentRobot.live = true;
-			currentRobot.x = 400;
-			currentRobot.y = 400;
+			currentRobot.x = 680;
+			currentRobot.y = 175;
 		}
  
 	}
@@ -439,8 +439,8 @@ var robotReload = function(currentRobot, robotNumb){
 			
 		}else if(robotNumb == 1){
 			currentRobot.live = true;
-			currentRobot.x = 378;
-			currentRobot.y = 228;
+			currentRobot.x = 700;
+			currentRobot.y = 150;
 			
 		}else{
 		currentRobot.live = false;
@@ -451,15 +451,17 @@ var robotReload = function(currentRobot, robotNumb){
 			currentRobot.live = true;
 			currentRobot.x = 280;
 			currentRobot.y = 400;
-			
-		}else if(robotNumb == 1){
-			currentRobot.live = true;
-			currentRobot.x = 378;
-			currentRobot.y = 228;
-			
+
 		}else{
 		currentRobot.live = false;
 		}
+
+		gunOnTheGround.availability = true;
+		gunOnTheGround.x = 110;
+		gunOnTheGround.y = 450;
+		item.availability = true;
+		item.x = 160;
+		item.y = 450;
 	}
 	else if(currentTileMap == 29){
 		if(robotNumb == 0){
@@ -494,16 +496,20 @@ var robotReload = function(currentRobot, robotNumb){
 	else if(currentTileMap == 31){
 		if(robotNumb == 0){
 			currentRobot.live = true;
-			currentRobot.x = 280;
-			currentRobot.y = 400;
+			currentRobot.x = 400;
+			currentRobot.y = 250;
 			
-		}else if(robotNumb == 1){
-			currentRobot.live = true;
-			currentRobot.x = 378;
-			currentRobot.y = 228;
 		}else{
+
 		currentRobot.live = false;
 		}
+
+		gunOnTheGround.availability = true;
+		gunOnTheGround.x = 60;
+		gunOnTheGround.y = 450;
+		item.availability = true;
+		item.x = 110;
+		item.y = 450;
 	}
 	else if(currentTileMap == 32){
 		if(robotNumb == 0){
