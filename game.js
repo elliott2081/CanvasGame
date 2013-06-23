@@ -31,10 +31,15 @@ var introScreens = [true, false, false, false, false, false]; //0: first intro, 
 var currentLevel = [false, false, false];
 
 // THIS IS WHERE THE PASSWORD URLS WILL BE DEFINED. 
-if(document.URL == "file:///C:/Users/delliott/Documents/Aptana%20Studio%203%20Workspace/CanvasGame/index.html#secretcaves"){
+if(document.URL == "http://www.welliottsworth.com/robotpolice.html#secretcaves"){
 
 	introScreens = [false, false, true, false, false, false];
 }
+else if(document.URL == "http://www.welliottsworth.com/robotpolice.html#finalcaves"){
+
+	introScreens = [false, false, true, false, false, false];
+}
+
 
 var intro_var = true;
 
@@ -59,7 +64,7 @@ var backgroundMusic3 = document.createElement('audio');
 
 backgroundMusic.setAttribute('src', 'sounds/robot.mp3');
 backgroundMusic2.setAttribute('src', 'sounds/wings.mp3');
-backgroundMusic3.setAttribute('src', 'sounds/wings.mp3');
+backgroundMusic3.setAttribute('src', 'sounds/space.mp3');
 
 var char_size = 64;
 var char_src_size = 64;
@@ -90,7 +95,7 @@ var update = function (modifier){
 	item_removal(modifier*1000);
 	rockMovement(modifier,robotArray,introScreens); //rock.js
 	
-	collisionDetectionDistributor(robotArray);	//from tileMovement.js 
+	collisionDetectionDistributor(robotArray, ctx);	//from tileMovement.js 
 	keyboard_movement(modifier); //from hero.js
 	robot_movement_helper_distributor(modifier, robotArray);	//from robot.js
 	intro(modifier);
@@ -200,9 +205,9 @@ var render = function(){
 	// SETTING UP LEVEL 3
 	else if(currentLevel[2] == true){
 		//draw level3 tiles
-		backgroundMusic.setAttribute('src', 'sounds/wings.mp3');
-		backgroundMusic.pause();
-		backgroundMusic2.play();
+		
+		backgroundMusic2.pause();
+		backgroundMusic3.play();
 		for (var rowCtr=0;rowCtr<mapRows;rowCtr++) {
 			for (var colCtr=0;colCtr<mapCols;colCtr++){
 				var tileId = tileMapArray[currentTileMap][rowCtr][colCtr]+mapIndexOffset;
@@ -299,7 +304,27 @@ var animation = function(d, character){
 				robotArray[0].robot_frameIndex = 0;
 			else
 				robotArray[0].robot_frameIndex += 1;
-		}
+				
+			if(robotArray[1].robot_frameIndex == 3)
+				robotArray[1].robot_frameIndex = 0;
+			else
+				robotArray[1].robot_frameIndex += 1;
+				
+			if(robotArray[2].robot_frameIndex == 3)
+				robotArray[2].robot_frameIndex = 0;
+			else
+				robotArray[2].robot_frameIndex += 1;
+				
+			if(robotArray[3].robot_frameIndex == 3)
+				robotArray[3].robot_frameIndex = 0;
+			else
+				robotArray[3].robot_frameIndex += 1;
+				
+			if(robotArray[4].robot_frameIndex == 3)
+				robotArray[4].robot_frameIndex = 0;
+			else
+				robotArray[4].robot_frameIndex += 1;
+			}
 	}
 };
 
@@ -411,7 +436,7 @@ var intro = function(timeModifier){
 				introScreens[2] = false;
 				currentLevel[1] = true;
 				insideIntroScreen = false;
-				currentTileMap = 16;
+				currentTileMap = 31;
 				//update hero location for tile 16.
 				robotReloadDistributor(robotArray);
 			}else if(introScreens[3] == true){

@@ -15,7 +15,7 @@ var gunOnTheGround = {
 var rock  = {
 	x : 0,
 	y : 0,
-	speed : 550,
+	speed : 2000,
 	direction : 0,
 	ease: 17,
 	active : false //true means rock is thrown and it is on air
@@ -54,15 +54,27 @@ var rockMovement = function(modifier,passed_robots,introScreens){
 		3  4
 		get tile num and check if they are above 100(end_robot_walkable)
 	*/
-	var ColandRow1 = onTile((rock.x + rock.ease), (rock.y + rock.ease) );
-	var ColandRow2 = onTile((rock.x+char_size-rock.ease), (rock.y +rock.ease));
-	var ColandRow3 = onTile((rock.x + rock.ease) , (rock.y + char_size - rock.ease));
-	var ColandRow4 = onTile((rock.x + char_size -rock.ease), (rock.y + char_size - rock.ease));
+	var ColandRow1 = onTile((rock.x + 33), (rock.y+33) );
+	var ColandRow2 = onTile((rock.x +33), (rock.y +33));
+	var ColandRow3 = onTile((rock.x +33) , (rock.y+33));
+	var ColandRow4 = onTile((rock.x +33), (rock.y+33));
 	
-	if(getTileNum(ColandRow1) > end_robot_walkable){ rock.active = false;}
-	else if(getTileNum(ColandRow2) > end_robot_walkable){ rock.active = false;}
-	else if(getTileNum(ColandRow3) > end_robot_walkable){ rock.active = false;}
-	else if(getTileNum(ColandRow4) > end_robot_walkable){ rock.active = false;}
+	if(getTileNum(ColandRow1) > end_robot_walkable){ 
+		rock.active = false;
+		//console.log("inside ColandRow1 and CR1.col = " + ColandRow1.col + " and CR1.row = " + ColandRow1.row);
+	}
+	else if(getTileNum(ColandRow2) > end_robot_walkable){ 
+		rock.active = false;
+		//console.log("inside ColandRow2 and CR2.col = " + ColandRow2.col + " and CR2.row = " + ColandRow2.row);
+	}
+	else if(getTileNum(ColandRow3) > end_robot_walkable){ 
+		rock.active = false;
+		//console.log("inside ColandRow3 and CR3.col = " + ColandRow3.col + " and CR3.row = " + ColandRow3.row);
+	}
+	else if(getTileNum(ColandRow4) > end_robot_walkable){ 
+		rock.active = false;
+		//console.log("inside ColandRow4 and CR4.col = " + ColandRow4.col + " and CR4.row = " + ColandRow4.row);
+	}
 	
 	
 	// collision detection between robot and rock 
@@ -102,7 +114,7 @@ var rock_robot_collision_detection = function(a_robot){
 		&& a_robot.live == true
 		
 	){
-		console.log('inside robot boss if statement');
+		//console.log('inside robot boss if statement');
 		if(a_robot.shot == 0){
 			a_robot.live = false; // this allow robot to disappear. if we want to just change picture dead robot then this variable in robot need some adjustment
 			rock.active = false;
@@ -112,6 +124,12 @@ var rock_robot_collision_detection = function(a_robot){
 		else{
 			rock.active = false;
 			a_robot.shot -= 1;
+			if(a_robot.shot <= 170){
+				ctx.font = "bold 12px sans-serif";
+				ctx.fillText("x", 248, 43);
+				ctx.fillText("y", 58, 165);
+				a_robot.speed = 260;
+			}
 		}
 	}
 	
